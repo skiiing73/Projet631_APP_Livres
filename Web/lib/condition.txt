@@ -1,0 +1,7 @@
+créer un fichier bd_app.php dans le dossier public_html
+
+<?PHP
+$mysqlUsername = "votre id";
+$mysqlPassword  = "Votre mdp";
+$mysqlDatabase = "votre id";
+$mysqlHost = "tp-epua:3308";

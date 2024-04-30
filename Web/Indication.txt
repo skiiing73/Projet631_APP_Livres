@@ -1,0 +1,7 @@
+Pour tester les pages, 
+
+1- tu vas dans la page https://tp-epua.univ-smb.fr/~trallalala/Projet631_APP_Livres/Web/
+2- cliquez routes.php
+
+(J'ai mis car on va créer un fichier .php qui fait appel à routes.php dans le dossier Projet631_APP_Livres)
+(Pour l'instant, on ne mélange pas avec Java)

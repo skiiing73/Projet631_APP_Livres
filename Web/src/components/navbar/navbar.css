@@ -1,0 +1,36 @@
+/* navbar */
+.nav {
+    height: 80px;
+    width: 100%;
+    background-color: rgba(0, 0, 0);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 30px;
+    align-items: center;
+    color: white;
+    margin-left : -9px;
+    margin-top : -9px;
+  }
+
+  /* étoiles du logo */
+.nav .stars {
+    color: #f2cd5c;
+    filter: drop-shadow(0 0 2.5px rgb(242, 205, 92));
+  }
+
+/* texte du logo */
+.nav .logo {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    font-weight: 900;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  /* redirection (survol) */
+.nav .nav-link:hover {
+    color: #f2cd5c;
+  }
+
