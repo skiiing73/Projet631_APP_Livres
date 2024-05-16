@@ -1,0 +1,62 @@
+.container{
+    height:auto;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-titre{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    font-weight: 250;
+    font-size: 1rem;
+    text-align: center;
+    align-items: center;
+}
+  /* étoiles du logo */
+.stars {
+    color: #f2cd5c;
+    filter: drop-shadow(0 0 2.5px rgb(242, 205, 92));
+    margin-right: 9px;
+    margin-left: 9px;
+  }
+.advanced_search{
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .pack_advanced_search {
+    display: flex;
+    flex-direction: row;
+}
+.list_books{
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info {
+    margin: 10px 10px 10px 10px;
+    padding:5px;
+    background-color: gainsboro;
+}
+
+.info h2 {
+    margin-top: 0;
+    color: #333;
+
+}
+
+.info p {
+    margin-bottom: 0;
+    color: #666;
+}
+

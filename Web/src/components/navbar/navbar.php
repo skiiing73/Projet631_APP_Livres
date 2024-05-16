@@ -7,7 +7,7 @@
 
     <div class="links">
         <a href="./livres.php?pages=welcome" class="nav-link">Accueil</a>
-        <a href="./livres.php?pages=welcome" class="nav-link">Nos livres</a>
+        <a href="./livres.php?pages=books" class="nav-link">Nos livres</a>
         <a href="./livres.php?pages=welcome" class="nav-link">Contact</a>
     </div>
 

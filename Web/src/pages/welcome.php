@@ -16,7 +16,7 @@ require_once("./src/requests/table_welcome.php");
     <link rel="stylesheet" type="text/css" href="./src/styles/welcome.css">
     <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
     <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
-    <title>Distributeur des livres</title>
+    <title>SuperLivres - Accueil </title>
 </head>
 
 <body>
