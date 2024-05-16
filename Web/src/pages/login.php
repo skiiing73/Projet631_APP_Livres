@@ -3,7 +3,7 @@
 
 <?php
 // Session 
-$_SESSION['page'] = "welcome";
+$_SESSION['page'] = "login";
 // Les fonctions importés : 
 require_once("./src/requests/table_welcome.php");
 ?>
