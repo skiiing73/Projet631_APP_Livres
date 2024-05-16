@@ -39,15 +39,7 @@ INSERT INTO Auteur (nom_auteur, prenom_auteur, date_de_naissance, date_de_mort) 
 ('Hemingway', 'Ernest', '1899-07-21', '1961-07-02'),
 ('Fitzgerald', 'F. Scott', '1896-09-24', '1940-12-21'),
 ('Orwell', 'George', '1903-06-25', '1950-01-21'),
-('Tolkien', 'J.R.R.', '1892-01-03', '1973-09-02'),
-('Austen', 'Jane', '1775-12-16', '1817-07-18'),
-('Rowling', 'J.K.', '1965-07-31', NULL),
-('Brown', 'Dan', '1964-06-22', NULL),
-('Collins', 'Suzanne', '1962-08-10', NULL),
-('Gaiman', 'Neil', '1960-11-10', NULL),
-('King', 'Stephen', '1947-09-21', NULL),
-('Marcelo', 'Mosca', NULL, NULL),
-('Sienkiewicz', 'Henryk', '1846-05-05', '1916-11-15');
+('Tolkien', 'J.R.R.', '1892-01-03', '1973-09-02');
 
 
 -- Insertions des editeurs dans la base de données --
