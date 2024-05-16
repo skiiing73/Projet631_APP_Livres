@@ -1,11 +1,8 @@
 <?php
 require_once("./lib/database.php");
 
-var_dump($conn);
-
-
 // Fonction pour vérifier les informations de connexion
-function login($username, $password) {
+function login($conn, $username, $password) {
     $sql = "SELECT id_utilisateur, mot_de_passe FROM Utilisateur WHERE nom_utilisateur = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
@@ -21,7 +18,7 @@ function login($username, $password) {
 };
 
 // Fonction pour ajouter un nouvel utilisateur
-function addUser($nom, $prenom, $email, $password, $date_inscription) {
+function addUser($conn, $nom, $prenom, $email, $password, $date_inscription) {
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     $sql = "INSERT INTO Utilisateur (nom_utilisateur, prenom_utilisateur, email, mot_de_passe, date_inscription) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
