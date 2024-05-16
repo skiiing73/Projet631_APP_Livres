@@ -5,7 +5,7 @@
 // Session 
 $_SESSION['page'] = "login";
 // Les fonctions importés : 
-require_once("./src/requests/table_welcome.php");
+require_once("./src/requests/table_login.php");
 ?>
 
 <head>
@@ -16,7 +16,7 @@ require_once("./src/requests/table_welcome.php");
     <link rel="stylesheet" type="text/css" href="./src/styles/welcome.css">
     <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
     <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
-    <title>Distributeur des livres ?</title>
+    <title>Page de connexion</title>
 </head>
 
 <body>
@@ -25,9 +25,7 @@ require_once("./src/requests/table_welcome.php");
     echo "<h5> Coucou </h5>";
     var_dump($conn); // Connection SQL $conn à utiliser pour des fonctions
 
-
-
-
+    
 
     require_once("./src/components/footer/footer.php");
     ?>
