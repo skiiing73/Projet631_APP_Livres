@@ -1,3 +1,20 @@
+
+--  .----------------.  .----------------.  .----------------.  .----------------. 
+-- | .--------------. || .--------------. || .--------------. || .--------------. |
+-- | |  ________    | || |      __      | || |  _________   | || |      __      | |
+-- | | |_   ___ `.  | || |     /  \     | || | |  _   _  |  | || |     /  \     | |
+-- | |   | |   `. \ | || |    / /\ \    | || | |_/ | | \_|  | || |    / /\ \    | |
+-- | |   | |    | | | || |   / ____ \   | || |     | |      | || |   / ____ \   | |
+-- | |  _| |___.' / | || | _/ /    \ \_ | || |    _| |_     | || | _/ /    \ \_ | |
+-- | | |________.'  | || ||____|  |____|| || |   |_____|    | || ||____|  |____|| |
+-- | |              | || |              | || |              | || |              | |
+-- | '--------------' || '--------------' || '--------------' || '--------------' |
+--  '----------------'  '----------------'  '----------------'  '----------------' 
+
+-- Script by SOLDAN Maxens and RENAND Baptiste
+
+-- Insertions des auteurs dans la base de données --
+
 INSERT INTO Auteur (nom_auteur, prenom_auteur, date_de_naissance, date_de_mort) VALUES
 ('Herbert', 'Frank', '1920-10-08', '1986-02-11'),
 ('Hugo', 'Victor', '1802-02-26', '1885-05-22'),
@@ -33,8 +50,8 @@ INSERT INTO Auteur (nom_auteur, prenom_auteur, date_de_naissance, date_de_mort) 
 ('Sienkiewicz', 'Henryk', '1846-05-05', '1916-11-15');
 
 
+-- Insertions des editeurs dans la base de données --
 
--- Insertions dans la table Editeur
 INSERT INTO Editeur (nom_editeur) VALUES
 ('Chilton Books'),
 ('Gallimard'),
@@ -95,6 +112,7 @@ INSERT INTO Editeur (nom_editeur) VALUES
 ('Henry Holt and Company');
 
 
+-- Insertions des livres dans la base de données --
 
 INSERT INTO Livre (nom_livre, date_de_publication, genre, id_editeur) VALUES
 ('Dune', '1965-06-01', 'Science-fiction', 1),
@@ -205,6 +223,7 @@ INSERT INTO Livre (nom_livre, date_de_publication, genre, id_editeur) VALUES
 ('Lumière d\'août', '1932-10-06', 'Roman', 50);
 
 
+-- Insertions des ecrits dans la base de données --
 
 INSERT INTO ecrit (id_auteur, id_livre) VALUES
 (1, 1),
