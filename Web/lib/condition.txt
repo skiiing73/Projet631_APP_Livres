@@ -5,3 +5,4 @@ $mysqlUsername = "votre id";
 $mysqlPassword  = "Votre mdp";
 $mysqlDatabase = "votre id";
 $mysqlHost = "tp-epua:3308";
+?>

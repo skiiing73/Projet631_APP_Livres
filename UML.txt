@@ -7,7 +7,6 @@
 | mot_de_passe : string                 |
 | date_inscription : date               |
 -----------------------------------------
-| ajouterLivre()                        |
 | supprimerLivre()                      |
 | modifierLivre()                       |
 | listerLivres()                        |
