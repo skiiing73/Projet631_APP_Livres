@@ -1,6 +1,7 @@
 <div class="nav">
     <div class="logo">
-        <span class="name">Livres</span>
+        <span class="stars">★</span>
+        <span class="name">SuperLivres</span>
         <span class="stars">★</span>
     </div>
 

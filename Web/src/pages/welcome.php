@@ -15,6 +15,7 @@ require_once("./src/requests/table_welcome.php");
     <link rel="stylesheet" type="text/css" href="./src/styles/global.css">
     <link rel="stylesheet" type="text/css" href="./src/styles/welcome.css">
     <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
+    <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
     <title>Distributeur des livres ?</title>
 </head>
 
@@ -25,6 +26,10 @@ require_once("./src/requests/table_welcome.php");
     var_dump($conn); // Connection SQL $conn à utiliser pour des fonctions
 
 
+
+
+
+    require_once("./src/components/footer/footer.php");
     ?>
 
 </body>
