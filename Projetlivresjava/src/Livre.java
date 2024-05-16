@@ -8,18 +8,22 @@ public class Livre {
     private int idLivre;
     private String titre;
     private String auteur;
+    private int id_auteur;
     private String genre;
     private String date_de_publication;
     private int id_editeur;
     private List<Avis> avis;
 
-    public Livre(int idLivre, String titre, String genre, String date_de_publication, int id_editeur) {
-        this.idLivre = idLivre;
+    public Livre(String titre, String genre, String date_de_publication, int id_editeur) {
         this.titre = titre;
         this.genre = genre;
         this.date_de_publication = date_de_publication;
         this.id_editeur = id_editeur;
         avis = new ArrayList<>();
+    }
+
+    public void setId_auteur(int id_auteur) {
+        this.id_auteur = id_auteur;
     }
 
     public int getIdLivre() {
@@ -52,11 +56,13 @@ public class Livre {
         Class.forName("com.mysql.cj.log.Slf4JLogger");
 
         Statement stmt = con.createStatement();
-        ResultSet res = stmt.executeQuery("SELECT nom_auteur FROM auteur");
+        ResultSet res = stmt.executeQuery("SELECT id_auteur, nom_auteur FROM auteur");
         while (res.next()) {
-            String nom_auteur_BDD = res.getString(1);
+            String nom_auteur_BDD = res.getString(2);
+            int id_auteur_BDD = res.getInt(1);
             if (nom_auteur_BDD.equals(nom_auteur)) {
                 this.auteur = nom_auteur;
+                this.id_auteur = id_auteur_BDD;
                 return true;
             }
         }
@@ -80,8 +86,28 @@ public class Livre {
         this.date_de_publication = date_de_publication;
     }
 
-    public void ajouter_livre_BDD() {
-        // méthode qd la bdd marchera
+    public void ajouter_livre_BDD() throws Exception {
+        Class.forName("com.mysql.cj.log.Slf4JLogger");
+        Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password);
+
+        Statement stmt = con.createStatement();
+        int res = stmt.executeUpdate(
+                "Insert into livre (nom_livre,date_de_publication,genre,id_editeur) VALUES('"
+                        + titre + "','" + date_de_publication + "','" + genre + "'," + id_editeur + ");");
+        ResultSet rq_id_livre = stmt.executeQuery(
+                "SELECT id_livre FROM livre WHERE nom_livre ='" + this.titre + "'AND date_de_publication='"
+                        + this.date_de_publication + "';");
+
+        int id_livre;
+        if (rq_id_livre.next()) {
+            id_livre = rq_id_livre.getInt(1);
+        } else {
+            throw new SQLException("Aucun ID de livre n'a été trouvé pour les données spécifiées.");
+        }
+
+        int res2 = stmt.executeUpdate(
+                "Insert into ecrit (id_auteur,id_livre) VALUES("
+                        + id_auteur + "," + id_livre + ");");
     }
 
     public void supprimer_livre_BDD() throws Exception {

@@ -205,7 +205,7 @@ public class Interface_Appli extends JFrame {
         JTextField creationauteurTextField = new JTextField(20);
         panelCreation.add(creationauteurTextField);
 
-        JLabel creationediteurLabel = new JLabel("Editeur (parmi la liste):");
+        JLabel creationediteurLabel = new JLabel("ID Editeur (parmi la liste):");
         panelCreation.add(creationediteurLabel);
         JTextField creationediteurTextField = new JTextField(20);
         panelCreation.add(creationediteurTextField);
@@ -215,30 +215,27 @@ public class Interface_Appli extends JFrame {
         creationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (Livre livre : bibliotheque.getlivres()) {// on cherche a quel livre de la bibliotheque ca
-                                                              // correspond
+                Livre livre = new Livre(creationtitreTextField.getText(), creationgenreTextField.getText(),
+                        creationdateTextField.getText(), Integer.parseInt(creationediteurTextField.getText()));
+                try {// obligatoire car sinon bug a cause de la bdd
+                    String nom_auteur = creationauteurTextField.getText();
 
-                    try {// obligatoire car sinon bug a cause de la bdd
-                        String nom_auteur = creationauteurTextField.getText();
+                    if (livre.setAuteur(nom_auteur)) {// on assigne l'auteur au livre
+                        livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
+                        JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
 
-                        if (livre.setAuteur(nom_auteur)) {// on assigne l'auteur au livre
-                            livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
-                            JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
+                    } else {// si l'auteur na pas été affecté il faut le créer dans la BDD
 
-                        } else {// si l'auteur na pas été affecté il faut le créer dans la BDD
-                            nom_auteur = creer_auteur(nom_auteur);
-                            JOptionPane.showMessageDialog(null, "Livre pas ajouté dans la BDD");
-                            livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
-                            JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
+                        nom_auteur = creer_auteur(nom_auteur, livre);
+                        JOptionPane.showMessageDialog(null, "Livre pas ajouté dans la BDD");
 
-                        }
-
-                    } catch (Exception e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
                     }
 
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
                 }
+
             }
 
         });
@@ -258,11 +255,11 @@ public class Interface_Appli extends JFrame {
         JList<String> livreList = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(livreList);
         liste_editeur.add(scrollPane, BorderLayout.CENTER);
+        pagejouterlivre.add(scrollPane);
 
     }
 
-
-    public String creer_auteur(String nom_auteur) {
+    public String creer_auteur(String nom_auteur, Livre livre) throws Exception {
         JFrame pagejouterauteur = new JFrame();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pagejouterauteur.setLayout(new GridLayout(3, 0)); // Utilisation d'un BorderLayout pour mieux organiser les
@@ -314,10 +311,14 @@ public class Interface_Appli extends JFrame {
                     String datemort = creationdatemortTextField.getText();
 
                     Statement stmt = con.createStatement();
-                    ResultSet res = stmt.executeQuery(
-                            "Insert into auteur (nom_auteur,prenom_auteur,date_de_naissance,date_de_mort) auteur VALUES("
-                                    + nom_auteur + "," + prenom_auteur + "," + datenaissance + "," + datemort + ");");
-                    pagejouterauteur.setVisible(true);
+                    int res = stmt.executeUpdate(
+                            "Insert into auteur (nom_auteur,prenom_auteur,date_de_naissance,date_de_mort) VALUES('"
+                                    + nom_auteur + "','" + prenom_auteur + "','" + datenaissance + "','" + datemort
+                                    + "');");
+                    pagejouterauteur.setVisible(false);
+                    livre.setAuteur(nom_auteur);
+                    livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
+                    JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
                 } catch (Exception e2) {
                     // TODO Auto-generated catch block
                     e2.printStackTrace();
