@@ -6,8 +6,12 @@
     </div>
 
     <div class="links">
-        <a href="" class="nav-link ">Accueil</a>
-        <a href="" class="nav-link ">Nos livres</a>
-        <a href="" class="nav-link ">Accès - Contact</a>
+        <a href="welcome.php" class="nav-link">Accueil</a>
+        <a href="" class="nav-link">Nos livres</a>
+        <a href="" class="nav-link">Accès - Contact</a>
+    </div>
+
+    <div id="login_signin">
+        <a href="Web/src/pages/login.php" class="nav-link">Log in / Sign in</a>
     </div>
 </div>
