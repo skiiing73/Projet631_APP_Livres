@@ -291,3 +291,28 @@ INSERT INTO Utilisateur (nom_utilisateur, prenom_utilisateur, email, mot_de_pass
 ('Breton', 'Gabriel', 'gabriel.breton@outlook.com', 'password48', '2023-02-17'),
 ('Delacroix', 'Charlotte', 'charlotte.delacroix@gmail.com', 'password49', '2023-02-18'),
 ('Barbier', 'Herve', 'herve.barbier@hotmail.com', 'password50', '2023-02-19');
+
+
+-- Insertions des avis dans la base de données --
+
+INSERT INTO Avis (note, commentaire, date_avis, id_livre, id_utilisateur) VALUES
+(5, 'Un chef-d'œuvre de la littérature, impossible de le lâcher une fois commencé !', '2023-01-01', 1, 1),
+(4, 'Une lecture très plaisante, mais quelques longueurs par moments.', '2023-01-02', 2, 2),
+(5, 'Dune est un classique de la science-fiction, à lire absolument.', '2023-01-03', 3, 3),
+(3, 'Le Messie de Dune est une suite honorable, mais moins captivante que le premier tome.', '2023-01-04', 4, 4),
+(5, 'Les Enfants de Dune sont une lecture captivante du début à la fin.', '2023-01-05', 5, 5),
+(2, 'J\'ai eu du mal à accrocher avec ce livre, trop de personnages et d\'intrigues à suivre.', '2023-01-06', 6, 6),
+(5, 'Un monument de la littérature française, à dévorer sans modération !', '2023-01-07', 7, 7),
+(4, 'Un roman historique passionnant, mais parfois un peu dense.', '2023-01-08', 8, 8),
+(5, 'Les Trois Mousquetaires est un classique de l\'aventure, à lire et à relire !', '2023-01-09', 9, 9),
+(3, 'Un roman réaliste qui décrit avec justesse la condition ouvrière, mais un peu trop sombre à mon goût.', '2023-01-10', 10, 10),
+(5, 'Madame Bovary est un chef-d\'œuvre incontournable de la littérature française.', '2023-01-11', 11, 11),
+(4, 'Une aventure palpitante au cœur de la Terre, un vrai régal !', '2023-01-12', 12, 12),
+(5, 'À la recherche du temps perdu est une œuvre magistrale, à savourer lentement.', '2023-01-13', 13, 13),
+(4, 'Une satire sociale brillamment écrite, mais parfois un peu lente.', '2023-01-14', 14, 14),
+(5, 'Les Fleurs du mal sont un recueil de poésie d\'une beauté sombre et envoûtante.', '2023-01-15', 15, 15),
+(3, 'Un texte engagé et percutant, mais difficile d\'accès pour les non-initiés.', '2023-01-16', 16, 16),
+(5, 'Candide est une œuvre philosophique majeure, à lire et à relire !', '2023-01-17', 17, 17),
+(4, 'Une encyclopédie qui a marqué son époque, malgré quelques lacunes.', '2023-01-18', 18, 18),
+(5, 'Du contrat social est un ouvrage fondateur de la philosophie politique moderne.', '2023-01-19', 19, 19),
+(3, 'Une comédie classique qui reste toujours aussi drôle et pertinente.', '2023-01-20', 20, 20);
