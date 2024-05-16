@@ -10,13 +10,15 @@ public class Livre {
     private String auteur;
     private String genre;
     private String date_de_publication;
+    private int id_editeur;
     private List<Avis> avis;
 
-    public Livre(int idLivre, String titre, String genre, String date_de_publication) {
+    public Livre(int idLivre, String titre, String genre, String date_de_publication, int id_editeur) {
         this.idLivre = idLivre;
         this.titre = titre;
         this.genre = genre;
         this.date_de_publication = date_de_publication;
+        this.id_editeur = id_editeur;
         avis = new ArrayList<>();
     }
 
@@ -40,8 +42,26 @@ public class Livre {
         return auteur;
     }
 
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
+    // cette fonction permet de définir un auteur.
+    // si l'auteur existe deja on assigne juste sa valeur au livre sinon on assigne
+    // sa valeur et on le crééer dans la BDD
+    public boolean setAuteur(String nom_auteur) throws Exception {
+        // connexion a la BDD voir si l'auteur existe
+        Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password);
+
+        Class.forName("com.mysql.cj.log.Slf4JLogger");
+
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery("SELECT nom_auteur FROM auteur");
+        while (res.next()) {
+            String nom_auteur_BDD = res.getString(1);
+            if (nom_auteur_BDD.equals(nom_auteur)) {
+                this.auteur = nom_auteur;
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public String getGenre() {
