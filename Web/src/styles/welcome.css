@@ -1,1 +1,105 @@
 /* tous les styles de la page welcome */
+.slider {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    z-index: -5;
+  }
+  .livre_fond{
+    margin: 0;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+    content: "";
+    width: 100%;
+    height: 85vh;
+    position: relative;
+    z-index: -1;
+    top: 10px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    mix-blend-mode: multiply;
+    margin-left: -9px;
+    margin-top: -9px;
+  }
+
+  .slider img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    opacity: 0;
+    margin-left: -9px;
+    margin-top: -9px;
+    /* transition: all 0.5s ease-in-out; */
+  }
+  .slider img:first-child {
+    z-index: 1;
+  }
+  .slider img:nth-child(2) {
+    z-index: 0;
+  }
+  .slider img:nth-child(3) {
+    z-index: 0;
+  }
+
+  
+  .navigation-button {
+    text-align: center;
+    width: fit-content;
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    margin: 0 2px;
+    background-color: white;
+    border-radius: 5px;
+    display: inline-block;
+    transition: all 0.4s ease;
+
+  }
+
+  .dot.active,
+  .dot:hover {
+    width: 50px;
+    background-color: blanchedalmond;
+    box-shadow: 0 0 2.5px rgb(242, 205, 92);
+  }
+
+  .progress_bar {
+    height: 5px;
+    border-radius: 0 5px 5px 0;
+    background: purple;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 10px rgb(242, 205, 92);
+    transition:  0.1s ease;
+  }  
+
+@media (max-width: 1000px)
+{
+  .relax_fond .name, .relax_fond .stars{
+    font-size: 6rem;
+    color: white;
+    font-weight: 900;
+  }
+}
+  
+
+
+

@@ -22,14 +22,30 @@ require_once("./src/requests/table_welcome.php");
 <body>
     <?php
     require_once("./src/components/navbar/navbar.php");
-    echo "<h5> Coucou </h5>";
-    var_dump($conn); // Connection SQL $conn à utiliser pour des fonctions
+    ?>
+    <div class="livre_fond">
+    </div>
+    <div class="progress_bar"></div>
 
+    <div class="slider">
+        <img id="img-1" src="./pictures/polytech.jpeg" alt="Image 1" />
+        <img id="img-2" src="./pictures/bd.jpg" alt="Image 2" />
+        <img id="img-3" src="./pictures/livre2.jpg" alt="Image 3" />
+        <img id="img-4" src="./pictures/manga3.jpg" alt="Image 4" />
+        <img id="img-5" src="./pictures/manga2.jpg" alt="Image 5" />
+    </div>
+    <div class="navigation-button">
+        <span class="dot active" onclick="changeSlide(0)"></span>
+        <span class="dot" onclick="changeSlide(1)"></span>
+        <span class="dot" onclick="changeSlide(2)"></span>
+        <span class="dot" onclick="changeSlide(3)"></span>
+        <span class="dot" onclick="changeSlide(4)"></span>
+    </div>
 
-
-
-
+    <?php
     require_once("./src/components/footer/footer.php");
     ?>
 
 </body>
+
+<script src="./src/scripts/welcome.js"></script>
