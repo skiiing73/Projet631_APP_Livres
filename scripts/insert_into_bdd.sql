@@ -293,10 +293,42 @@ INSERT INTO Utilisateur (nom_utilisateur, prenom_utilisateur, email, mot_de_pass
 ('Barbier', 'Herve', 'herve.barbier@hotmail.com', 'password50', '2023-02-19');
 
 
+
+-- Insertions des amis dans la base de données --
+INSERT INTO ami (id_utilisateur1, id_utilisateur2) VALUES
+(18, 2),
+(1, 5),
+(3, 23),
+(6, 2),
+(1, 8),
+(9, 10),
+(11, 12),
+(13, 14),
+(15, 16),
+(17, 18),
+(1, 20),
+(21, 22),
+(36, 28),
+(25, 26),
+(27, 50),
+(29, 30),
+(31, 22),
+(33, 3),
+(35, 36),
+(17, 39),
+(39, 40),
+(41, 42),
+(4, 44),
+(45, 46),
+(7, 40),
+(49, 5);
+
+
+
 -- Insertions des avis dans la base de données --
 
 INSERT INTO Avis (note, commentaire, date_avis, id_livre, id_utilisateur) VALUES
-(5, 'Un chef-d\'œuvre de la littérature, impossible de le lâcher une fois commencé !', '2023-01-01', 1, 1),
+(5, 'Un chef-d''œuvre de la littérature, impossible de le lâcher une fois commencé !', '2023-01-01', 1, 1),
 (4, 'Une lecture très plaisante, mais quelques longueurs par moments.', '2023-01-02', 2, 2),
 (5, 'Dune est un classique de la science-fiction, à lire absolument.', '2023-01-03', 3, 3),
 (3, 'Le Messie de Dune est une suite honorable, mais moins captivante que le premier tome.', '2023-01-04', 4, 4),
