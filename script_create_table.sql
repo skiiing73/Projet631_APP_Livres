@@ -16,11 +16,7 @@ CREATE TABLE Auteur (
 
 CREATE TABLE Editeur (
     id_editeur INT AUTO_INCREMENT PRIMARY KEY,
-    nom_editeur VARCHAR(255) NOT NULL,
-    prenom_editeur VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    mot_de_passe VARCHAR(255) NOT NULL,
-    date_inscription DATE NOT NULL
+    nom_editeur VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Livre (
