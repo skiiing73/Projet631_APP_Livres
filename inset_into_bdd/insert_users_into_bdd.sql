@@ -1,6 +1,6 @@
 USE livres_app;
 
--- Insertion de 50 utilisateurs
+-- Insertion des utilisateurs
 INSERT INTO Utilisateur (nom_utilisateur, prenom_utilisateur, email, mot_de_passe, date_inscription) VALUES
 ('Dupont', 'Jean', 'jean.dupont@example.com', 'password1', '2023-01-01'),
 ('Martin', 'Marie', 'marie.martin@example.com', 'password2', '2023-01-02'),
