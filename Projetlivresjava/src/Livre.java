@@ -91,9 +91,20 @@ public class Livre {
 
         // étape 3: créer l'objet statement
         Statement stmt = con.createStatement();
-        ResultSet res = stmt.executeQuery(
-                "DELETE FROM livre\r\n" + "WHERE titre =" + this.titre + "AND date_de_publication="
-                        + this.date_de_publication + ";");
+        ResultSet rq_id_livre = stmt.executeQuery(
+                "SELECT id_livre FROM livre WHERE nom_livre ='" + this.titre + "'AND date_de_publication='"
+                        + this.date_de_publication + "';");
+
+        int id_livre;
+        if (rq_id_livre.next()) {
+            id_livre = rq_id_livre.getInt(1);
+        } else {
+            throw new SQLException("Aucun ID de livre n'a été trouvé pour les données spécifiées.");
+        }
+
+        int res = stmt.executeUpdate("DELETE FROM avis WHERE id_livre =" + id_livre);
+        res = stmt.executeUpdate("DELETE FROM ecrit WHERE id_livre =" + id_livre);
+        res = stmt.executeUpdate(" DELETE FROM livre WHERE nom_livre ='" + this.titre + "'AND date_de_publication='"+ this.date_de_publication+"'");
 
     }
 

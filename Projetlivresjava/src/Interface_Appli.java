@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +13,7 @@ import java.util.List;
 
 public class Interface_Appli extends JFrame {
     private Bibliotheque bibliotheque;
+    private Livre selectedBook;
 
     public Interface_Appli(Bibliotheque bibliotheque) {
         super("Gestion Livres");
@@ -104,6 +107,21 @@ public class Interface_Appli extends JFrame {
         gbc.gridy = 3;
         panel_bouton.add(remplissage_bas, gbc);
 
+
+        // Ajouter un écouteur de sélection à la liste de livres
+        livreList.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting()) {
+                     // Obtenir l'indice de l'élément sélectionné
+                    int selectedIndex = livreList.getSelectedIndex();
+                    if (selectedIndex != -1) { // Vérifier si un élément est sélectionné
+                        // Obtenir le Livre sélectionné
+                        selectedBook = bibliotheque.getlivres().get(selectedIndex);
+                    }
+                }
+            }
+        });
+
         // Ajout des écouteurs d'événements aux boutons
         button1.addActionListener(new ActionListener() {
             @Override
@@ -115,8 +133,14 @@ public class Interface_Appli extends JFrame {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Traitement pour le bouton 2
-                JOptionPane.showMessageDialog(null, "Vous avez cliqué sur le Bouton 2");
+                try {
+                    selectedBook.supprimer_livre_BDD();
+                    JOptionPane.showMessageDialog(null, "Livre supprimé avec succès");
+                    bibliotheque.maj_bliblitotheque();
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, "Veuillez selectioner un livre");
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -237,6 +261,7 @@ public class Interface_Appli extends JFrame {
 
     }
 
+
     public String creer_auteur(String nom_auteur) {
         JFrame pagejouterauteur = new JFrame();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -307,6 +332,7 @@ public class Interface_Appli extends JFrame {
         return nom_auteur;
 
     }
+
 
     public static void main(String[] args) throws Exception {
         Bibliotheque bibliotheque = new Bibliotheque();
