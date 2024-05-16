@@ -6,9 +6,9 @@
     </div>
 
     <div class="links">
-        <a href="./livres.php?pages=welcome" class="nav-link">Accueil</a>
+        <a href=\"?page=welcome\" class="nav-link">Accueil</a>
         <a href="./livres.php?pages=welcome" class="nav-link">Nos livres</a>
-        <a href="./livres.php?pages=welcome" class="nav-link">Contact</a>
+        <a href=\"?page=login\" class="nav-link">Contact</a>
     </div>
 
     <div id="login_signin">

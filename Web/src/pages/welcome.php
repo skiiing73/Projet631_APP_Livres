@@ -5,7 +5,9 @@
 // Session 
 $_SESSION['page'] = "welcome";
 // Les fonctions importés : 
-require_once("./src/requests/table_welcome.php");
+$chemin = "./src/requests/table_welcome.php";
+echo $chemin;
+require_once($chemin);
 ?>
 
 <head>

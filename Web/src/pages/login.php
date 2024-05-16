@@ -10,7 +10,8 @@ require_once("./src/requests/table_login.php");
 
 <head>
     <meta charset="UTF-8">
-    <?php  //css a ajouter apres 
+    <?php
+
     ?>
     <link rel="stylesheet" type="text/css" href="./src/styles/global.css">
     <link rel="stylesheet" type="text/css" href="./src/styles/welcome.css">
@@ -22,8 +23,9 @@ require_once("./src/requests/table_login.php");
 <body>
     <?php
     require_once("./src/components/navbar/navbar.php");
-    echo "<h5> Coucou </h5>";
-    var_dump($conn); // Connection SQL $conn à utiliser pour des fonctions
+    var_dump($conn);
+
+    
 
 
 
