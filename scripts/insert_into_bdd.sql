@@ -295,22 +295,258 @@ INSERT INTO Utilisateur (nom_utilisateur, prenom_utilisateur, email, mot_de_pass
 
 -- Insertions des avis dans la base de données --
 
+-- Avis pour le livre "Dune" (ID = 1) --
 INSERT INTO Avis (note, commentaire, date_avis, id_livre, id_utilisateur) VALUES
-(5, 'Un chef-d\'œuvre de la littérature, impossible de le lâcher une fois commencé !', '2023-01-01', 1, 1),
-(4, 'Une lecture très plaisante, mais quelques longueurs par moments.', '2023-01-02', 2, 2),
-(5, 'Dune est un classique de la science-fiction, à lire absolument.', '2023-01-03', 3, 3),
-(3, 'Le Messie de Dune est une suite honorable, mais moins captivante que le premier tome.', '2023-01-04', 4, 4),
-(5, 'Les Enfants de Dune sont une lecture captivante du début à la fin.', '2023-01-05', 5, 5),
-(2, 'J\'ai eu du mal à accrocher avec ce livre, trop de personnages et d\'intrigues à suivre.', '2023-01-06', 6, 6),
-(5, 'Un monument de la littérature française, à dévorer sans modération !', '2023-01-07', 7, 7),
-(4, 'Un roman historique passionnant, mais parfois un peu dense.', '2023-01-08', 8, 8),
-(5, 'Les Trois Mousquetaires est un classique de l\'aventure, à lire et à relire !', '2023-01-09', 9, 9),
-(3, 'Un roman réaliste qui décrit avec justesse la condition ouvrière, mais un peu trop sombre à mon goût.', '2023-01-10', 10, 10),
-(5, 'Madame Bovary est un chef-d\'œuvre incontournable de la littérature française.', '2023-01-11', 11, 11),
-(4, 'Une aventure palpitante au cœur de la Terre, un vrai régal !', '2023-01-12', 12, 12),
-(5, 'À la recherche du temps perdu est une œuvre magistrale, à savourer lentement.', '2023-01-13', 13, 13),
-(4, 'Une satire sociale brillamment écrite, mais parfois un peu lente.', '2023-01-14', 14, 14),
-(5, 'Les Fleurs du mal sont un recueil de poésie d\'une beauté sombre et envoûtante.', '2023-01-15', 16, 16),
-(3, 'Un texte engagé et percutant, mais difficile d\'accès pour les non-initiés.', '2023-01-16', 17, 17),
-(5, 'Candide est une œuvre philosophique majeure, à lire et à relire !', '2023-01-17', 19, 19),
-(4, 'Une encyclopédie qui a marqué son époque, malgré quelques lacunes.', '2023-01-18', 20, 20);
+(5, 'Un chef-d''œuvre de la littérature, impossible de le lâcher une fois commencé !', '2023-01-01', 1, 1),
+(4, 'Une lecture très plaisante, mais quelques longueurs par moments.', '2023-01-02', 1, 2),
+(5, 'Dune est un classique de la science-fiction, à lire absolument.', '2023-01-03', 1, 3);
+
+-- Avis pour le livre "Le Messie de Dune" (ID = 2) --
+(4, 'Une suite honorable, mais moins captivante que le premier tome.', '2023-01-04', 2, 4),
+(5, 'Les Enfants de Dune sont une lecture captivante du début à la fin.', '2023-01-05', 2, 5),
+(2, 'J''ai eu du mal à accrocher avec ce livre, trop de personnages et d''intrigues à suivre.', '2023-01-06', 2, 6);
+
+-- Avis pour le livre "Les Enfants de Dune" (ID = 3) --
+(5, 'Un monument de la littérature française, à dévorer sans modération !', '2023-01-07', 3, 7),
+(4, 'Un roman historique passionnant, mais parfois un peu dense.', '2023-01-08', 3, 8),
+(5, 'Les Trois Mousquetaires est un classique de l''aventure, à lire et à relire !', '2023-01-09', 3, 9);
+
+-- Avis pour le livre "L'Empereur-Dieu de Dune" (ID = 4) --
+(3, 'Un roman réaliste qui décrit avec justesse la condition ouvrière, mais un peu trop sombre à mon goût.', '2023-01-10', 4, 10),
+(5, 'Madame Bovary est un chef-d''œuvre incontournable de la littérature française.', '2023-01-11', 4, 11),
+(4, 'Une aventure palpitante au cœur de la Terre, un vrai régal !', '2023-01-12', 4, 12);
+
+-- Avis pour le livre "Les Hérétiques de Dune" (ID = 5) --
+(5, 'À la recherche du temps perdu est une œuvre magistrale, à savourer lentement.', '2023-01-13', 5, 13),
+(4, 'Une satire sociale brillamment écrite, mais parfois un peu lente.', '2023-01-14', 5, 14),
+(5, 'Les Fleurs du mal sont un recueil de poésie d''une beauté sombre et envoûtante.', '2023-01-15', 5, 15);
+
+-- Avis pour le livre "La Maison des mères" (ID = 6) --
+(3, 'Un texte engagé et percutant, mais difficile d''accès pour les non-initiés.', '2023-01-16', 6, 16),
+(5, 'Candide est une œuvre philosophique majeure, à lire et à relire !', '2023-01-17', 6, 17),
+(4, 'Une encyclopédie qui a marqué son époque, malgré quelques lacunes.', '2023-01-18', 6, 18);
+
+-- Avis pour le livre "Les Misérables" (ID = 7) --
+(5, 'Un chef-d''œuvre absolu, une fresque humaine inoubliable !', '2023-01-19', 7, 19),
+(4, 'Les Misérables est un roman dense mais incroyablement gratifiant.', '2023-01-20', 7, 20),
+(5, 'Une lecture inoubliable, un monument de la littérature !', '2023-01-21', 7, 21);
+
+-- Avis pour le livre "Notre-Dame de Paris" (ID = 8) --
+(4, 'Un classique de la littérature française, à découvrir ou redécouvrir !', '2023-01-22', 8, 22),
+(3, 'Notre-Dame de Paris est un roman intéressant mais parfois un peu daté.', '2023-01-23', 8, 23),
+(5, 'Une histoire captivante dans un Paris médiéval magnifiquement décrit.', '2023-01-24', 8, 24);
+
+-- Avis pour le livre "Les Trois Mousquetaires" (ID = 9) --
+(5, 'Un roman d''aventure palpitant, plein de rebondissements et d''humour !', '2023-01-25', 9, 25),
+(4, 'Les Trois Mousquetaires est un classique indémodable, à lire sans hésitation.', '2023-01-26', 9, 26),
+(5, 'Une épopée épique et enlevante, un plaisir de lecture à chaque page !', '2023-01-27', 9, 27);
+
+-- Avis pour le livre "Germinal" (ID = 10) --
+(4, 'Un roman réaliste poignant, une plongée brutale dans le monde ouvrier.', '2023-01-28', 10, 28),
+(3, 'Germinal est un livre important mais parfois difficile à lire en raison de sa noirceur.', '2023-01-29', 10, 29),
+(5, 'Une œuvre magistrale qui dépeint avec réalisme la condition des mineurs.', '2023-01-30', 10, 30);
+
+-- Avis pour le livre "Madame Bovary" (ID = 11) --
+(5, 'Un roman réalistement tragique, une plongée au cœur des passions humaines.', '2023-01-31', 11, 31),
+(4, 'Madame Bovary est un classique incontournable de la littérature française.', '2023-02-01', 11, 32),
+(5, 'Une lecture envoûtante, une héroïne inoubliable.', '2023-02-02', 11, 33);
+
+-- Avis pour le livre "Voyage au centre de la Terre" (ID = 12) --
+(4, 'Un voyage fantastique au cœur de la Terre, une aventure inoubliable !', '2023-02-03', 12, 34),
+(3, 'Voyage au centre de la Terre est un classique de la littérature, mais parfois un peu dépassé.', '2023-02-04', 12, 35),
+(5, 'Une aventure captivante qui stimule l''imagination, à lire en famille !', '2023-02-05', 12, 36);
+
+-- Avis pour le livre "À la recherche du temps perdu" (ID = 13) --
+(5, 'Une œuvre magistrale, une exploration profonde de la mémoire et du temps.', '2023-02-06', 13, 37),
+(4, 'À la recherche du temps perdu est une expérience de lecture unique et enrichissante.', '2023-02-07', 13, 38),
+(5, 'Une immersion totale dans un monde de souvenirs et de réflexions.', '2023-02-08', 13, 39);
+
+-- Avis pour le livre "Bel-Ami" (ID = 14) --
+(4, 'Un portrait saisissant de la société parisienne de la Belle Époque.', '2023-02-09', 14, 40),
+(3, 'Bel-Ami est un roman intéressant mais parfois difficile d''accès.', '2023-02-10', 14, 41),
+(5, 'Une ascension sociale haletante, un personnage ambigu et fascinant.', '2023-02-11', 14, 42);
+
+-- Avis pour le livre "Une saison en enfer" (ID = 15) --
+(3, 'Une œuvre poétique puissante mais parfois hermétique.', '2023-02-12', 15, 43),
+(4, 'Une descente aux enfers poétique et saisissante.', '2023-02-13', 15, 44),
+(2, 'J''ai eu du mal à comprendre cette œuvre, elle m''a semblé confuse et décousue.', '2023-02-14', 15, 45);
+
+-- Avis pour le livre "Les Fleurs du mal" (ID = 16) --
+(5, 'Une œuvre poétique d''une beauté troublante, à lire et à relire.', '2023-02-17', 16, 48),
+(4, 'Baudelaire nous entraîne dans un tourbillon d''émotions avec Les Fleurs du mal.', '2023-02-18', 16, 49),
+(5, 'Un chef-d''œuvre intemporel, une source d''inspiration pour les générations futures.', '2023-02-19', 16, 50);
+
+-- Avis pour le livre "Les Mains sales" (ID = 17) --
+(4, 'Une pièce de théâtre captivante qui interroge sur la responsabilité politique.', '2023-02-20', 17, 19),
+(3, 'Les Mains sales est une pièce intéressante mais parfois un peu verbeuse.', '2023-02-21', 17, 15),
+(5, 'Un drame politique intense, une réflexion profonde sur l''engagement.', '2023-02-22', 17, 5);
+
+-- Avis pour le livre "L'Étranger" (ID = 18) --
+(5, 'Un roman existentialiste puissant, une méditation sur l''absurdité de l''existence.', '2023-02-23', 18, 5),
+(4, 'L''Étranger est un classique de la littérature française, à la fois troublant et fascinant.', '2023-02-24', 18, 5),
+(5, 'Une exploration profonde de l''aliénation et de la solitude.', '2023-02-25', 18, 5);
+
+-- Avis pour le livre "Candide" (ID = 19) --
+(5, 'Un conte philosophique plein d''humour et d''ironie, une satire brillante de la société.', '2023-02-26', 19, 57),
+(4, 'Candide est une lecture divertissante et instructive, à ne pas manquer !', '2023-02-27', 19, 8),
+(5, 'Une leçon d''optimisme à travers les aventures rocambolesques de Candide.', '2023-02-28', 19, 50);
+
+-- Avis pour le livre "Encyclopédie ou Dictionnaire raisonné des sciences, des arts et des métiers" (ID = 20) --
+(4, 'Une œuvre monumentale qui a marqué l''histoire de la pensée et du savoir.', '2023-03-01', 20, 6),
+(5, 'L''Encyclopédie est une source inépuisable de connaissances et de réflexions.', '2023-03-02', 20, 4),
+(4, 'Un ouvrage indispensable pour quiconque s''intéresse à l''histoire des idées.', '2023-03-03', 20, 42);
+
+-- Avis pour le livre "Du contrat social" (ID = 21) --
+(5, 'Un traité politique majeur, une référence incontournable pour comprendre la démocratie.', '2023-03-04', 21, 33),
+(4, 'Du contrat social est une œuvre essentielle pour penser les fondements de la société.', '2023-03-05', 21, 34),
+(5, 'Une analyse brillante des rapports entre l''individu et la société.', '2023-03-06', 21, 35);
+
+-- Avis pour le livre "Tartuffe" (ID = 22) --
+(4, 'Une comédie satirique classique, une critique acerbe de l''hypocrisie religieuse.', '2023-03-07', 22, 6),
+(3, 'Tartuffe est une pièce intéressante mais parfois un peu moralisatrice.', '2023-03-08', 22, 37),
+(5, 'Un chef-d''œuvre de Molière qui conserve toute sa pertinence aujourd''hui.', '2023-03-09', 22, 38);
+
+-- Avis pour le livre "Phèdre" (ID = 23) --
+(5, 'Une tragédie classique d''une intensité dramatique rare, un chef-d''œuvre absolu !', '2023-03-10', 23, 19),
+(4, 'Phèdre est une œuvre puissante et poignante, à lire et à relire.', '2023-03-11', 23, 7),
+(5, 'Une exploration profonde des passions humaines et de la fatalité.', '2023-03-12', 23, 1);
+
+-- Avis pour le livre "Le Cid" (ID = 24) --
+(4, 'Un classique du théâtre français, une tragédie passionnée et grandiose.', '2023-03-13', 24, 32),
+(3, 'Le Cid est une pièce intéressante mais parfois un peu rigide dans sa structure.', '2023-03-14', 24, 23),
+(5, 'Une histoire d''amour et d''honneur d''une grande beauté, un incontournable de Corneille.', '2023-03-15', 24, 44);
+
+-- Avis pour le livre "Les Fables" (ID = 25) --
+(5, 'Des fables intemporelles, des leçons de vie universelles, un pur délice de lecture !', '2023-03-16', 25, 5),
+(4, 'Les Fables de La Fontaine restent une source inépuisable de sagesse et d''enseignement.', '2023-03-17', 25, 46),
+(5, 'Des histoires simples et profondes à la fois, à savourer à tout âge.', '2023-03-18', 25, 37);
+
+-- Avis pour le livre "Le Rouge et le Noir" (ID = 26) --
+(5, 'Un roman psychologique brillant, une analyse fine des ambitions humaines.', '2023-03-19', 26, 18),
+(4, 'Le Rouge et le Noir est un classique de la littérature française, à lire absolument.', '2023-03-20', 26, 19),
+(5, 'Une exploration passionnante des désirs et des frustrations de la jeunesse.', '2023-03-21', 26, 18);
+
+-- Avis pour le livre "Le Vieil Homme et la Mer" (ID = 27) --
+(4, 'Une parabole sur le courage et la résilience, une ode à la persévérance.', '2023-03-22', 27, 11),
+(3, 'Le Vieil Homme et la Mer est une lecture enrichissante mais parfois un peu lente.', '2023-03-23', 27, 12),
+(5, 'Une histoire émouvante et universelle, portée par la force de l''écriture d''Hemingway.', '2023-03-24', 27, 13);
+
+-- Avis pour le livre "Gatsby le Magnifique" (ID = 28) --
+(5, 'Un portrait saisissant de l''Amérique des années folles, un roman inoubliable !', '2023-03-25', 28, 24),
+(4, 'Gatsby le Magnifique est un chef-d''œuvre de la littérature américaine.', '2023-03-26', 28, 25),
+(5, 'Une plongée fascinante dans l''illusion du rêve américain, à la fois sombre et captivante.', '2023-03-27', 28, 26);
+
+-- Avis pour le livre "1984" (ID = 29) --
+(5, 'Un roman visionnaire et terrifiant, une critique acerbe des totalitarismes.', '2023-03-28', 29, 47),
+(4, '1984 est un livre essentiel qui résonne encore aujourd''hui avec une pertinence troublante.', '2023-03-29', 29, 48),
+(5, 'Une lecture indispensable pour comprendre les enjeux de notre époque.', '2023-03-30', 29, 49);
+
+-- Avis pour le livre "Le Hobbit" (ID = 30) --
+(5, 'Une aventure épique et merveilleuse, un classique de la littérature fantasy !', '2023-03-31', 30, 12),
+(4, 'Le Hobbit est une lecture captivante, pleine de magie et d''aventure.', '2023-04-01', 30, 1),
+(5, 'Une histoire intemporelle qui nous emporte loin de notre quotidien.', '2023-04-02', 30, 2);
+
+-- Avis pour le livre "Orgueil et Préjugés" (ID = 31) --
+(5, 'Un chef-d''œuvre de la littérature romantique, une histoire d''amour inoubliable !', '2023-04-03', 31, 3),
+(4, 'Orgueil et Préjugés est un roman captivant, plein de rebondissements et d''émotions.', '2023-04-04', 31, 9),
+(5, 'Une satire sociale subtile et une romance délicieusement passionnée.', '2023-04-05', 31, 5);
+
+-- Avis pour le livre "Harry Potter à l'école des sorciers" (ID = 32) --
+(5, 'Une entrée magique dans l''univers envoûtant de Harry Potter, un récit captivant !', '2023-04-06', 32, 6),
+(4, 'Harry Potter à l''école des sorciers est un livre qui ravira les petits comme les grands.', '2023-04-07', 32, 7),
+(5, 'Une saga épique et merveilleuse, un incontournable de la littérature jeunesse.', '2023-04-08', 32, 8);
+
+-- Avis pour le livre "Da Vinci Code" (ID = 33) --
+(4, 'Un thriller palpitant, une intrigue complexe et captivante !', '2023-04-09', 33, 9),
+(3, 'Le Da Vinci Code est un roman divertissant mais parfois un peu tiré par les cheveux.', '2023-04-10', 33, 1),
+(5, 'Un voyage haletant à travers l''histoire de l''art et les mystères du Vatican.', '2023-04-11', 33, 11);
+
+-- Avis pour le livre "Anges et Démons" (ID = 34) --
+(5, 'Un thriller palpitant, une course contre la montre haletante et captivante !', '2023-04-12', 34, 12),
+(4, 'Anges et Démons est un roman riche en rebondissements et en suspense.', '2023-04-13', 34, 10),
+(5, 'Une intrigue captivante qui nous plonge dans les arcanes du Vatican et de la science, un page-turner captivant !', '2023-04-14', 34, 1);
+
+-- Avis pour le livre "Le Symbole perdu" (ID = 35) --
+(4, 'Une chasse au trésor passionnante, une intrigue pleine de mystères ésotériques !', '2023-04-15', 35, 15),
+(3, 'Le Symbole perdu est un thriller divertissant mais parfois un peu trop complexe.', '2023-04-16', 35, 16),
+(5, 'Une plongée fascinante dans les mystères de la franc-maçonnerie et de Washington D.C.', '2023-04-17', 35, 10);
+
+-- Avis pour le livre "Hunger Games" (ID = 36) --
+(5, 'Un récit dystopique intense, une critique percutante de la société et des médias !', '2023-04-18', 36, 8),
+(4, 'Hunger Games est un roman haletant, porté par une héroïne courageuse et déterminée.', '2023-04-19', 36, 19),
+(5, 'Une saga captivante qui nous confronte aux pires travers de l''humanité.', '2023-04-20', 36, 10);
+
+-- Avis pour le livre "Twilight" (ID = 37) --
+(4, 'Une romance surnaturelle envoûtante, une histoire d\'amour interdite captivante !', '2023-04-21', 37, 11),
+(3, 'Twilight est un roman divertissant mais parfois un peu trop centré sur la romance.', '2023-04-22', 37, 12),
+(5, 'Une saga envoûtante qui mêle romance, suspense et créatures surnaturelles.', '2023-04-23', 37, 13);
+
+-- Avis pour le livre "American Gods" (ID = 38) --
+(5, 'Un voyage épique au cœur des mythes américains, une lecture envoûtante !', '2023-04-24', 38, 14),
+(4, 'American Gods est un roman original et captivant qui mêle mythologie et modernité.', '2023-04-25', 38, 15),
+(5, 'Une exploration fascinante des croyances et des légendes qui façonnent l''Amérique.', '2023-04-26', 38, 16);
+
+-- Avis pour le livre "Neverwhere" (ID = 39) --
+(4, 'Un voyage onirique et sombre dans les méandres de Londres souterraine.', '2023-04-27', 39, 17),
+(3, 'Neverwhere est un roman original mais parfois un peu confus dans son récit.', '2023-04-28', 39, 18),
+(5, 'Une plongée envoûtante dans un monde fantastique et urbain, plein de mystères et de dangers.', '2023-04-29', 39, 19);
+
+-- Avis pour le livre "Good Omens" (ID = 40) --
+(5, 'Une comédie divine, une collaboration hilarante entre Gaiman et Pratchett !', '2023-04-30', 40, 20),
+(4, 'Good Omens est un roman drôle et intelligent, qui offre une vision décalée de l''Apocalypse.', '2023-05-01', 40, 21),
+(5, 'Un délice d''humour et d''imagination, à savourer sans modération !', '2023-05-02', 40, 22);
+
+-- Avis pour le livre "Le Client" (ID = 41) --
+(4, 'Un thriller juridique captivant, une histoire de suspense et de conspiration !', '2023-05-03', 41, 23),
+(3, 'Le Client est un roman divertissant mais parfois un peu prévisible dans ses rebondissements.', '2023-05-04', 41, 24),
+(5, 'Un page-turner palpitant, qui nous plonge au cœur des machinations du pouvoir.', '2023-05-05', 41, 25);
+
+-- Avis pour le livre "La Firme" (ID = 42) --
+(5, 'Un thriller implacable, une plongée vertigineuse dans les arcanes du pouvoir et de la corruption !', '2023-05-06', 42, 26),
+(4, 'La Firme est un roman haletant qui nous tient en haleine jusqu''à la dernière page.', '2023-05-07', 42, 27),
+(5, 'Une intrigue captivante, des rebondissements à couper le souffle, un régal de lecture !', '2023-05-08', 42, 28);
+
+-- Avis pour le livre "Le Testament" (ID = 43) --
+(4, 'Un thriller juridique palpitant, une course contre la montre haletante !', '2023-05-09', 43, 29),
+(3, 'Le Testament est un roman divertissant mais parfois un peu trop prévisible.', '2023-05-10', 43, 30),
+(5, 'Une intrigue bien ficelée, des personnages complexes, un excellent moment de lecture !', '2023-05-11', 43, 31);
+
+-- Avis pour le livre "Misery" (ID = 44) --
+(5, 'Un thriller psychologique glaçant, une plongée terrifiante dans a folie d\'une fan obsessionnelle !', '2023-05-12', 44, 32),
+(4, 'Misery est un roman captivant qui maintient le suspense jusqu\'à la dernière page.', '2023-05-13', 44, 33),
+(5, 'Une tension insoutenable, un huis clos oppressant, un chef-d\'œuvre du genre !', '2023-05-14', 44, 34);
+
+-- Avis pour le livre "Carrie" (ID = 45) --
+(4, 'Un roman d''horreur emblématique, une plongée dans les ténèbres de l''adolescence !', '2023-05-15', 45, 35),
+(3, 'Carrie est un livre qui a marqué le genre mais parfois un peu daté dans son traitement.', '2023-05-16', 45, 36),
+(5, 'Une histoire poignante et terrifiante, une exploration des pouvoirs psychiques et de l''isolement.', '2023-05-17', 45, 37);
+
+-- Avis pour le livre "Shining" (ID = 46) --
+(5, 'Un classique de l''horreur, une plongée angoissante dans les méandres de l''esprit humain !', '2023-05-18', 46, 38),
+(4, 'Shining est un roman glaçant qui hante durablement l''esprit du lecteur.', '2023-05-19', 46, 39),
+(5, 'Une tension permanente, une atmosphère oppressante, un incontournable du genre !', '2023-05-20', 46, 40);
+
+-- Avis pour le livre "Ca" (ID = 47) --
+(5, 'Un chef-d''œuvre de l''horreur, une fresque terrifiante qui explore les peurs enfantines !', '2023-05-21', 47, 11),
+(4, 'Ca est un roman captivant qui mêle horreur, suspense et émotion avec brio.', '2023-05-22', 47, 12),
+(5, 'Une plongée dans les ténèbres de l''enfance, une histoire inoubliable et bouleversante !', '2023-05-23', 47, 13);
+
+-- Avis pour le livre "Simetierre" (ID = 48) --
+(4, 'Un thriller horrifique saisissant, une exploration des tabous et des peurs les plus profondes !', '2023-05-24', 48, 14),
+(3, 'Simetierre est un roman troublant mais parfois un peu exagéré dans son traitement.', '2023-05-25', 48, 12),
+(5, 'Une atmosphère oppressante, des frissons garantis, un incontournable du genre !', '2023-05-26', 48, 16);
+
+-- Avis pour le livre "Misery" (ID = 49) --
+(5, 'Un thriller psychologique glaçant, une plongée terrifiante dans la folie d''une fan obsessionnelle !', '2023-05-27', 49, 17),
+(4, 'Misery est un roman captivant qui maintient le suspense jusqu''à la dernière page.', '2023-05-28', 49, 14),
+(5, 'Une tension insoutenable, un huis clos oppressant, un chef-d''œuvre du genre !', '2023-05-29', 49, 19);
+
+-- Avis pour le livre "Carrie" (ID = 50) --
+(4, 'Un roman d''horreur emblématique, une plongée dans les ténèbres de l''adolescence !', '2023-05-30', 50, 10),
+(3, 'Carrie est un livre qui a marqué le genre mais parfois un peu daté dans son traitement.', '2023-05-31', 50, 11),
+(5, 'Une histoire poignante et terrifiante, une exploration des pouvoirs psychiques et de l''isolement.', '2023-06-01', 50, 12);
+
+-- Avis pour le livre "Shining" (ID = 51) --
+(5, 'Un classique de l''horreur, une plongée angoissante dans les méandres de l''esprit humain !', '2023-06-02', 51, 13),
+(4, 'Shining est un roman glaçant qui hante durablement l''esprit du lecteur.', '2023-06-03', 51, 15),
+(5, 'Une tension permanente, une atmosphère oppressante, un incontournable du genre !', '2023-06-04', 51, 15);
