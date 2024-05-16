@@ -17,10 +17,29 @@ require_once("./lib/database.php");
  *
  */
 
-function selectAllLivre($conn)
+function selectLivreByIdLivre($conn, $id_livre)
 {
-    $sql = "SELECT id_livre, nom_livre,date_de_publication,genre FROM Livre ORDER BY date_de_publication ASC";
-    return  mysqli_query($conn, $sql);
+    $res = mysqli_prepare($conn, "SELECT id_livre, nom_livre, date_de_publication, genre, id_editeur FROM livre WHERE id_livre = ?");
+    mysqli_stmt_bind_param($res, "i", $id_livre);
+    mysqli_stmt_execute($res);
+
+    // Lier le résultat à des variables PHP
+    mysqli_stmt_bind_result($res, $id_livre, $nom_livre, $date_de_publication, $genre, $id_editeur);
+
+    // Récupérer le résultat
+    mysqli_stmt_fetch($res);
+
+    // Créer un tableau associatif avec les détails du livre
+    $livre = [
+        "id_livre" => $id_livre,
+        "nom_livre" => $nom_livre,
+        "date_de_publication" => $date_de_publication,
+        "genre" => $genre,
+        "id_editeur" => $id_editeur
+    ];
+
+    // Retourner les détails du livre
+    return $livre;
 }
 
 function selectAvisByIdLivre($conn, $id_livre)
@@ -39,25 +58,6 @@ function selectAvisByIdLivre($conn, $id_livre)
     return $moyenne_note;
 }
 
-function selectAllLivreOrder($conn, $order)
-{
-    if ($order == 0) {
-        $sql = "SELECT id_livre, nom_livre,date_de_publication,genre FROM Livre ORDER BY nom_livre ASC";
-    } else if ($order == 1) {
-        $sql = "SELECT id_livre, nom_livre,date_de_publication,genre FROM Livre ORDER BY nom_livre DESC";
-    } else if ($order == 2) {
-        $sql = "SELECT id_livre, nom_livre,date_de_publication,genre FROM Livre ORDER BY genre ASC";
-    } else if ($order == 3) {
-        $sql = "SELECT id_livre, nom_livre,date_de_publication,genre FROM Livre ORDER BY genre DESC";
-    } else if ($order == 4) {
-        $sql = "SELECT id_livre, nom_livre,date_de_publication,genre FROM Livre ORDER BY date_de_publication ASC";
-    } else if ($order == 5) {
-        $sql = "SELECT id_livre, nom_livre,date_de_publication,genre FROM Livre ORDER BY date_de_publication DESC";
-    } else {
-        $sql = "SELECT id_livre, nom_livre,date_de_publication,genre FROM Livre ORDER BY date_de_publication ASC";
-    }
-    return  mysqli_query($conn, $sql);
-}
 
 function selectAuteursByIdLivre($conn, $id_livre)
 {

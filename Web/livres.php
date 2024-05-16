@@ -11,6 +11,8 @@ if (!isset($_GET["pages"])) {
         require_once('./src/pages/login.php');
     } else if ($_GET["pages"] == "books") {
         require_once('./src/pages/books.php');
+    } else if ($_GET["pages"] == "books_details") {
+        require_once('./src/pages/books_details.php');
     } else {
         require_once('./src/pages/welcome.php');
     }

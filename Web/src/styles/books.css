@@ -60,3 +60,21 @@
     color: #666;
 }
 
+
+.books_button {
+    display: flex;
+    border-radius: 5px; /* Coins arrondis */
+    gap: 10px;
+    text-decoration: none;
+    color: #666;
+    background-color: greenyellow; /* Couleur de fond au survol */
+    font-weight: bold;
+    transition: all 0.3s;
+    width : 30px;
+    padding: 10px;
+}
+
+.books_button:hover {
+    color : white;
+    background-color: #45a049; /* Couleur de fond au survol */
+}
