@@ -60,8 +60,7 @@ public class Interface_Appli extends JFrame {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Traitement pour le bouton 1
-                JOptionPane.showMessageDialog(null, "Vous avez cliqué sur le Bouton 1");
+                page_ajouter();
             }
         });
 
@@ -81,6 +80,12 @@ public class Interface_Appli extends JFrame {
             }
         });
         add(liste_livres);
+        add(panelbouton);
+
+    }
+
+    public void page_ajouter() {
+        setVisible(false);
     }
 
     public static void main(String[] args) throws Exception {

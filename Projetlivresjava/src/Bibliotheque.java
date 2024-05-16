@@ -7,10 +7,10 @@ public class Bibliotheque {
 
     public Bibliotheque() throws Exception {
         livres = new ArrayList<Livre>();
-        this.ajouter_livre();
+        this.maj_bliblitotheque();
     }
 
-    public void ajouter_livre() throws Exception {
+    public void maj_bliblitotheque() throws Exception {
         Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password);
 
         Class.forName("com.mysql.cj.log.Slf4JLogger");
@@ -27,7 +27,9 @@ public class Bibliotheque {
 
             Livre new_livre = new Livre(idLivre, nom_livre, genre, date_de_publication);
 
-            livres.add(new_livre);
+            if (!livres.contains(new_livre)) {
+                livres.add(new_livre);
+            }
         }
     }
 
