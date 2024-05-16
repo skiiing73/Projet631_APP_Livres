@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS Utilisateur;
 DROP TABLE IF EXISTS Auteur;
 
 CREATE TABLE Auteur (
-    id_auteur INT PRIMARY KEY,
+    id_auteur INT AUTO_INCREMENT PRIMARY KEY,
     nom_auteur VARCHAR(255) NOT NULL,
     prenom_auteur VARCHAR(255) NOT NULL,
     date_de_naissance DATE,
@@ -15,7 +15,7 @@ CREATE TABLE Auteur (
 );
 
 CREATE TABLE Editeur (
-    id_editeur INT PRIMARY KEY,
+    id_editeur INT AUTO_INCREMENT PRIMARY KEY,
     nom_editeur VARCHAR(255) NOT NULL,
     prenom_editeur VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE Editeur (
 );
 
 CREATE TABLE Livre (
-    id_livre INT PRIMARY KEY,
+    id_livre INT AUTO_INCREMENT PRIMARY KEY,
     nom_livre VARCHAR(255) NOT NULL,
     annee DATE NOT NULL,
     genre VARCHAR(255),
@@ -33,7 +33,7 @@ CREATE TABLE Livre (
 );
 
 CREATE TABLE Utilisateur (
-    id_utilisateur INT PRIMARY KEY,
+    id_utilisateur INT AUTO_INCREMENT PRIMARY KEY,
     nom_utilisateur VARCHAR(255) NOT NULL,
     prenom_utilisateur VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE Utilisateur (
 );
 
 CREATE TABLE Avis (
-    id_avis INT PRIMARY KEY,
+    id_avis INT AUTO_INCREMENT PRIMARY KEY,
     note INT NOT NULL,
     commentaire TEXT,
     date_avis DATE NOT NULL,
