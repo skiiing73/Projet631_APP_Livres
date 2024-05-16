@@ -29,7 +29,7 @@ public class Bibliotheque {
             String genre = res.getString(4);
             int id_editeur = res.getInt(5);
 
-            Livre new_livre = new Livre(idLivre, nom_livre, genre, date_de_publication, id_editeur);
+            Livre new_livre = new Livre(nom_livre, genre, date_de_publication, id_editeur);
 
             if (!livres.contains(new_livre)) {
                 livres.add(new_livre);
