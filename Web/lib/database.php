@@ -1,11 +1,11 @@
 <?php
-require_once('./../../bd_app.php');
+require_once('./../../config_bd.php');
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // // Fonction session_start() crée une session ou restaure celle trouvée sur le serveur, via l'identifiant						//
 // // de session passé dans une requête GET, POST ou par un cookie.																//
 // // Fonction ob_start() permet d'utiliser les fonctions header.																	//
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-session_save_path('/home/' . $mysqlUsername . '/public_html//');
+session_save_path('/home/' . $mysqlUsername2 . '/public_html//');
 
 session_start();
 

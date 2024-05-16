@@ -1,62 +1,89 @@
 /* navbar */
-.nav {
+  .nav {
     height: 80px;
-    width: 100%+9px;
+    width: calc(100% + 9px); /* Utilisation de calc() pour les opérations mathématiques */
     background-color: rgba(0, 0, 0);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     color: white;
-    margin-left : -9px;
-    margin-top : -9px;
+    margin-left: -9px;
+    margin-top: -9px;
   }
 
   /* étoiles du logo */
-.nav .stars {
+  .nav .stars {
     color: #f2cd5c;
     filter: drop-shadow(0 0 2.5px rgb(242, 205, 92));
-    margin-right : 9px;
-    margin-left : 9px;
+    margin-right: 9px;
+    margin-left: 9px;
   }
 
-/* texte du logo */
-.nav .logo {
+  /* texte du logo */
+  .nav .logo {
     display: flex;
     position: relative;
-    flex-direction:row;
+    flex-direction: row;
     font-weight: 900;
     font-size: 1.8rem;
     text-align: center;
   }
 
-/* link */
-
-.links {
+  /* link */
+  .links {
     height: 80px;
-    width: 100%;
+    width: calc(100% + 9px); /* Utilisation de calc() pour les opérations mathématiques */
     background-color: rgba(0, 0, 0);
     display: flex;
     flex-direction: row;
     padding: 0px 30px;
     align-items: center;
     color: white;
-}
+  }
 
-
-  /* redirection  */
-.nav-link{
-  display: flex;
-  gap: 10px;
-  margin-left : 30px;
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  transition: all 0.3s;
-}
+  /* redirection */
+  .nav-link {
+    display: flex;
+    gap: 10px;
+    margin-left: 30px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
 
   /* redirection (survol) */
-.nav .nav-link:hover {
+  .nav .nav-link:hover {
     color: #f2cd5c;
   }
 
+
+/* Adaptations pour une largeur <= 800px */
+@media screen and (max-width: 800px) {
+  .nav {
+    height: 300px;
+    width: calc(100% + 9px); /* Utilisation de calc() pour les opérations mathématiques */
+    background-color: rgba(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    margin-left: -9px;
+    margin-top: -9px;
+
+  }
+
+  /* link */
+  .links {
+    height: 200px;
+    width: calc(100% + 9px); /* Utilisation de calc() pour les opérations mathématiques */
+    background-color: rgba(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px;
+    align-items: center;
+    color: white;
+  }
+}

@@ -6,8 +6,9 @@
     </div>
 
     <div class="links">
-        <a href="" class="nav-link ">Accueil</a>
+        <a href="/route.php" class="nav-link ">Accueil</a>
         <a href="" class="nav-link ">Nos livres</a>
-        <a href="" class="nav-link ">Accès - Contact</a>
+        <a href="" class="nav-link ">Contact</a>
+        <a href="" class="nav-link ">Connexion</a>
     </div>
 </div>
