@@ -1,13 +1,10 @@
 import java.sql.*;
 
+
+
 public class Connexion_BDD {
     public static void main(String[] args) {
-        // Informations de connexion
-        String url = "jdbc:mysql://projet-idu.hqbr.win/projet?useSSL=false";
-        String user = "dev";
-        String password = "8a*#Hk$2Fq@p&9z!";
-
-        try (Connection con = DriverManager.getConnection(url, user, password)) {
+        try (Connection con = DriverManager.getConnection(Config.url_test, Config.user_test, Config.password_test)) {
             System.out.println("Connexion à la base de données réussie");
             // Étape 3: créer l'objet Statement
             try (Statement stmt = con.createStatement()) {
