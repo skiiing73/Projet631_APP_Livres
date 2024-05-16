@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.sql.*;
 
 // Classe Livre
 public class Livre {
@@ -8,14 +9,14 @@ public class Livre {
     private String titre;
     private String auteur;
     private String genre;
-    private String anneePublication;
+    private String date_de_publication;
     private List<Avis> avis;
 
-    public Livre(int idLivre, String titre, String genre, String anneePublication) {
+    public Livre(int idLivre, String titre, String genre, String date_de_publication) {
         this.idLivre = idLivre;
         this.titre = titre;
         this.genre = genre;
-        this.anneePublication = anneePublication;
+        this.date_de_publication = date_de_publication;
         avis = new ArrayList<>();
     }
 
@@ -51,20 +52,29 @@ public class Livre {
         this.genre = genre;
     }
 
-    public String getAnneePublication() {
-        return anneePublication;
+    public String getdate_de_publication() {
+        return date_de_publication;
     }
 
-    public void setAnneePublication(String anneePublication) {
-        this.anneePublication = anneePublication;
+    public void setdate_de_publication(String date_de_publication) {
+        this.date_de_publication = date_de_publication;
     }
 
     public void ajouter_livre_BDD() {
         // méthode qd la bdd marchera
     }
 
-    public void supprimer_livre_BDD() {
-        // methode quand la BDD marchera
+    public void supprimer_livre_BDD() throws Exception {
+        Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password);
+
+        Class.forName("com.mysql.cj.log.Slf4JLogger");
+
+        // étape 3: créer l'objet statement
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery(
+                "DELETE FROM livre\r\n" + "WHERE titre =" + this.titre + "AND date_de_publication="
+                        + this.date_de_publication + ";");
+
     }
 
     public List<Avis> getAvis() {
