@@ -21,5 +21,6 @@ public class Interface_Appli extends JFrame {
         // Message de bienvenue en haut
         JLabel Label = new JLabel("Bienvenue sur la page du gestion des Livres", SwingConstants.CENTER);
         add(Label);
+
     }
 }
