@@ -17,3 +17,5 @@ if (!isset($_GET["pages"])) {
         require_once('./src/pages/welcome.php');
     }
 }
+
+?>
