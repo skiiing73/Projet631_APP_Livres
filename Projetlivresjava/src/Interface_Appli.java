@@ -39,9 +39,9 @@ public class Interface_Appli extends JFrame {
         panelbouton.setLayout(new GridLayout(3, 2)); // 3 lignes et 2 colonnes
 
         // Initialisation des boutons
-        JButton button1 = new JButton("Bouton 1");
-        JButton button2 = new JButton("Bouton 2");
-        JButton button3 = new JButton("Bouton 3");
+        JButton button1 = new JButton("Ajouter un livre");
+        JButton button2 = new JButton("Supprimer un livre");
+        JButton button3 = new JButton("Gerer les avis");
 
         // Initialisation des labels
         JLabel label1 = new JLabel("Définition du Bouton 1 :");
