@@ -25,7 +25,7 @@ require_once("./src/requests/table_login.php");
     echo "<h5> Coucou </h5>";
     var_dump($conn); // Connection SQL $conn à utiliser pour des fonctions
 
-    
+
 
     require_once("./src/components/footer/footer.php");
     ?>
