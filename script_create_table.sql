@@ -22,7 +22,7 @@ CREATE TABLE Editeur (
 CREATE TABLE Livre (
     id_livre INT AUTO_INCREMENT PRIMARY KEY,
     nom_livre VARCHAR(255) NOT NULL,
-    annee DATE NOT NULL,
+    date_de_publication DATE NOT NULL,
     genre VARCHAR(255),
     id_editeur INT,
     FOREIGN KEY (id_editeur) REFERENCES Editeur(id_editeur)
