@@ -8,10 +8,14 @@ public class Livre {
     private String titre;
     private String auteur;
     private String genre;
-    private int anneePublication;
+    private String anneePublication;
     private List<Avis> avis;
 
-    public Livre() {
+    public Livre(int idLivre, String titre, String genre, String anneePublication) {
+        this.idLivre = idLivre;
+        this.titre = titre;
+        this.genre = genre;
+        this.anneePublication = anneePublication;
         avis = new ArrayList<>();
     }
 
@@ -47,11 +51,11 @@ public class Livre {
         this.genre = genre;
     }
 
-    public int getAnneePublication() {
+    public String getAnneePublication() {
         return anneePublication;
     }
 
-    public void setAnneePublication(int anneePublication) {
+    public void setAnneePublication(String anneePublication) {
         this.anneePublication = anneePublication;
     }
 
