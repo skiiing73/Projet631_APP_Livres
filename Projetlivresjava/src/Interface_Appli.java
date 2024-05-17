@@ -246,11 +246,12 @@ public class Interface_Appli extends JFrame {
                 pagejouterlivre.setVisible(false);
                 try {
                     bibliotheque.maj_bliblitotheque();
+                    setVisible(true);
                 } catch (Exception e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-                setVisible(true);
+
             }
 
         });
