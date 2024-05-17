@@ -107,12 +107,11 @@ public class Interface_Appli extends JFrame {
         gbc.gridy = 3;
         panel_bouton.add(remplissage_bas, gbc);
 
-
         // Ajouter un écouteur de sélection à la liste de livres
         livreList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
-                     // Obtenir l'indice de l'élément sélectionné
+                    // Obtenir l'indice de l'élément sélectionné
                     int selectedIndex = livreList.getSelectedIndex();
                     if (selectedIndex != -1) { // Vérifier si un élément est sélectionné
                         // Obtenir le Livre sélectionné
@@ -170,7 +169,7 @@ public class Interface_Appli extends JFrame {
         setVisible(false);
         JFrame pagejouterlivre = new JFrame();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pagejouterlivre.setLayout(new GridLayout(3, 0)); // Utilisation d'un BorderLayout pour mieux organiser les
+        pagejouterlivre.setLayout(new GridLayout(4, 0)); // Utilisation d'un BorderLayout pour mieux organiser les
                                                          // composants
         pagejouterlivre.getContentPane().setBackground(Color.LIGHT_GRAY);
         pagejouterlivre.setSize(800, 700);
@@ -210,7 +209,7 @@ public class Interface_Appli extends JFrame {
         JTextField creationediteurTextField = new JTextField(20);
         panelCreation.add(creationediteurTextField);
 
-        JPanel panelcreationButton = new JPanel(new BorderLayout());
+        JPanel panelButton = new JPanel(new GridLayout(0, 2));
         JButton creationButton = new JButton("Création du livre");
         creationButton.addActionListener(new ActionListener() {
             @Override
@@ -225,9 +224,9 @@ public class Interface_Appli extends JFrame {
                         JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
 
                     } else {// si l'auteur na pas été affecté il faut le créer dans la BDD
+                        JOptionPane.showMessageDialog(null, "Erreur l'auteur n'existe pas veuillez le créér");
 
                         nom_auteur = creer_auteur(nom_auteur, livre);
-                        JOptionPane.showMessageDialog(null, "Livre pas ajouté dans la BDD");
 
                     }
 
@@ -239,8 +238,25 @@ public class Interface_Appli extends JFrame {
             }
 
         });
-        panelcreationButton.add(creationButton, BorderLayout.CENTER);
-        panelCreation.add(panelcreationButton);
+
+        JButton homeButton = new JButton("Revenir a l'accueil");
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pagejouterlivre.setVisible(false);
+                try {
+                    bibliotheque.maj_bliblitotheque();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                setVisible(true);
+            }
+
+        });
+        panelCreation.add(creationButton);
+        panelCreation.add(homeButton);
+
         pagejouterlivre.add(panelCreation);
 
         JPanel liste_editeur = new JPanel();
@@ -297,7 +313,7 @@ public class Interface_Appli extends JFrame {
         JTextField creationdatemortTextField = new JTextField(20);
         panelCreation.add(creationdatemortTextField);
 
-        JPanel panelcreationButton = new JPanel(new BorderLayout());
+        JPanel panelButton = new JPanel(new BorderLayout());
         JButton creationButton = new JButton("Création de l'auteur");
 
         creationButton.addActionListener(new ActionListener() {
@@ -326,14 +342,13 @@ public class Interface_Appli extends JFrame {
                 }
             }
         });
-        panelcreationButton.add(creationButton, BorderLayout.CENTER);
-        panelCreation.add(panelcreationButton);
+        panelButton.add(creationButton, BorderLayout.CENTER);
+        panelCreation.add(panelButton);
         pagejouterauteur.add(panelCreation);
 
         return nom_auteur;
 
     }
-
 
     public static void main(String[] args) throws Exception {
         Bibliotheque bibliotheque = new Bibliotheque();
