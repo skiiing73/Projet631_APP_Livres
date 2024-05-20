@@ -85,30 +85,33 @@
 <body>
     <div class="register-container">
         <h2>Inscription</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form id="register-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
-                <label>Nom d'utilisateur</label>
-                <input type="text" name="username" value="<?php echo isset($username) ? $username : ''; ?>">
-                <span class="help-block"><?php echo $username_err; ?></span>
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" value="<?php echo isset($username) ? $username : ''; ?>">
+                <span class="error-message"><?php echo $username_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Mot de passe</label>
-                <input type="password" name="password">
-                <span class="help-block"><?php echo $password_err; ?></span>
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password">
+                <span class="error-message"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Confirmation du mot de passe</label>
-                <input type="password" name="password_confirmation">
-                <span class="help-block"><?php echo $password_confirmation_err; ?></span>
+                <label for="password_confirmation">Confirmation du mot de passe</label>
+                <input type="password" id="password_confirmation" name="password_confirmation">
+                <span class="error-message"><?php echo $password_confirmation_err; ?></span>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn" value="S'inscrire">
             </div>
-            <p>Déjà inscrit? <a href="./livres.php?pages=login">Connectez-vous ici</a>.</p>
-            <span class="help-block"><?php echo $register_err; ?></span>
+            <div class="login-link">
+                <p>Déjà inscrit? <a href="./livres.php?pages=login">Connectez-vous ici</a>.</p>
+            </div>
+            <span class="error-message"><?php echo $register_err; ?></span>
         </form>
     </div>
 </body>
+
 
 <?php
     require_once("./src/components/footer/footer.php");

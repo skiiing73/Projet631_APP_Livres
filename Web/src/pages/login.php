@@ -70,25 +70,29 @@
 <body>
     <div class="login-container">
         <h2>Connexion</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
-                <label>Nom d'utilisateur</label>
-                <input type="text" name="email" value="<?php echo isset($email) ? $email : ''; ?>">
-                <span class="help-block"><?php echo $email_err; ?></span>
+                <label for="email">Nom d'utilisateur</label>
+                <input type="text" id="email" name="email" value="<?php echo isset($email) ? $email : ''; ?>">
+                <span class="error-message"><?php echo $email_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Mot de passe</label>
-                <input type="password" name="password">
-                <span class="help-block"><?php echo $password_err; ?></span>
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password">
+                <span class="error-message"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn" value="Se connecter">
             </div>
-            <p>Vous n'avez pas de compte? <a href="./livres.php?pages=register">Inscrivez-vous ici</a>.</p>
-            <span class="help-block"><?php echo $login_err; ?></span>
+            <div class="register-link">
+                <p>Vous n'avez pas de compte?</p>
+                <a href="./livres.php?pages=register">Inscrivez-vous ici</a>.
+            </div>
+            <span class="error-message"><?php echo $login_err; ?></span>
         </form>
     </div>
 </body>
+
 
 <?php
     require_once("./src/components/footer/footer.php");
