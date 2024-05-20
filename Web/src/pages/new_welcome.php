@@ -27,7 +27,7 @@ require_once($chemin);
         // Vérifier si l'utilisateur est déjà connecté, si oui le rediriger vers la page d'accueil
         if(isset($_SESSION['user_id'])) {
             // Récupérer le prénom de l'utilisateur depuis la session
-            $first_name = $_SESSION['first_name'];
+            $first_name = getUserFirstName($conn, $user_id);
             // Afficher le message de bienvenue
             echo "<p>Bonjour $first_name, bienvenue sur SuperLivres !</p>";
         }
@@ -35,9 +35,10 @@ require_once($chemin);
     ?>
     </div>
 
-
-    <?php
-    require_once("./src/components/footer/footer.php");
-    ?>
-
 </body>
+
+<?php
+    require_once("./src/components/footer/footer.php");
+?>
+
+</html>

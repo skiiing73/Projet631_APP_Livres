@@ -108,8 +108,9 @@
             <span class="help-block"><?php echo $register_err; ?></span>
         </form>
     </div>
-    <?php
-    require_once("./src/components/footer/footer.php");
-    ?>
 </body>
+
+<?php
+    require_once("./src/components/footer/footer.php");
+?>
 </html>

@@ -41,8 +41,6 @@
                 sleep(4);
 
                 // Authentification réussie, enregistrer le prénom de l'utilisateur dans la session
-                $first_name = getUserFirstName($conn, $user_id);
-                $_SESSION['first_name'] = $first_name;
                 header("Location: welcome.php"); // Rediriger vers la page d'accueil après connexion réussie
                 exit();
             } else {
@@ -90,11 +88,11 @@
             <span class="help-block"><?php echo $login_err; ?></span>
         </form>
     </div>
-
-    <?php
-    require_once("./src/components/footer/footer.php");
-    ?>
 </body>
+
+<?php
+    require_once("./src/components/footer/footer.php");
+?>
 </html>
 
 
