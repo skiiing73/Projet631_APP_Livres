@@ -104,9 +104,12 @@
             <div class="form-group">
                 <input type="submit" class="btn" value="S'inscrire">
             </div>
-            <p>Déjà inscrit? <a href="login.php">Connectez-vous ici</a>.</p>
+            <p>Déjà inscrit? <a href="./livres.php?pages=login">Connectez-vous ici</a>.</p>
             <span class="help-block"><?php echo $register_err; ?></span>
         </form>
     </div>
+    <?php
+    require_once("./src/components/footer/footer.php");
+    ?>
 </body>
 </html>
