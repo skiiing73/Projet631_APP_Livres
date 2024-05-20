@@ -15,7 +15,7 @@ require_once($chemin);
     <?php  //css a ajouter apres 
     ?>
     <link rel="stylesheet" type="text/css" href="./src/styles/global.css">
-    <link rel="stylesheet" type="text/css" href="./src/styles/welcome.css">
+    <link rel="stylesheet" type="text/css" href="./src/styles/new_welcome.css">
     <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
     <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
     <title>SuperLivres - Accueil </title>

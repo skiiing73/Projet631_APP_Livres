@@ -3,18 +3,20 @@ require_once("./lib/database.php");
 
 
 if (!isset($_GET["pages"])) {
-    require_once('./src/pages/welcome.php');
+    require_once('./src/pages/new_welcome.php');
 } else {
-    if ($_GET["pages"] == "welcome") {
-        require_once('./src/pages/welcome.php');
+    if ($_GET["pages"] == "new_welcome") {
+        require_once('./src/pages/new_welcome.php');
     } else if ($_GET["pages"] == "login") {
         require_once('./src/pages/login.php');
+    } else if ($_GET["pages"] == "register") {
+        require_once('./src/pages/register.php');
     } else if ($_GET["pages"] == "books") {
         require_once('./src/pages/books.php');
     } else if ($_GET["pages"] == "books_details") {
         require_once('./src/pages/books_details.php');
     } else {
-        require_once('./src/pages/welcome.php');
+        require_once('./src/pages/new_welcome.php');
     }
 }
 

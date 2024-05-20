@@ -12,6 +12,7 @@
     </div>
 
     <div id="login_signin">
-        <a href="./livres.php?pages=login" class=" nav-link">Log in / Sign in</a>
+        <a href="./livres.php?pages=login" class="nav-link" id="login">Connexion</a>
+        <a href="./livres.php?pages=register" class="nav-link" id="signin">Creé mon compte</a>
     </div>
 </div>
