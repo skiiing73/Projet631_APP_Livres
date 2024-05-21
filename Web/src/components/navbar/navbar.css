@@ -5,9 +5,17 @@
   background-color: rgba(0, 0, 0);
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   color: white;
+}
+
+#nav_container {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* étoiles du logo */
@@ -80,9 +88,17 @@
   background-color: #555;
 }
 
+#profil {
+  height: 60px;
+  border-radius: 50%;
+}
+
 /* Adaptations pour une largeur <= 800px */
 @media screen and (max-width: 800px) {
   .nav {
+    height: auto;
+  }
+  #nav_container {
       height: auto;
       flex-direction: column;
       justify-content: center;
