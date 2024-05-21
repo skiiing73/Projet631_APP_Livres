@@ -1,24 +1,7 @@
 <?php
 require_once("./lib/database.php");
 
-
-// Exemple
-/**
- *
- *
- *
- * function addActionneur($conn, $nom, $type, $description)
- * {
- * //Execution sql
- * $res = mysqli_prepare($conn, "insert into actionneur (`nom`, `type_actionneur`,`description`,`etat`) VALUES (?,?,?,'OFF')");
- * mysqli_stmt_bind_param($res, "sss", $nom, $type, $description);
- * return mysqli_stmt_execute($res);
- * }
- *
- */
-
-function selectLivreByIdLivre($conn, $id_livre)
-{
+function selectLivreByIdLivre($conn, $id_livre) {
     $res = mysqli_prepare($conn, "SELECT id_livre, nom_livre, date_de_publication, genre, id_editeur FROM livre WHERE id_livre = ?");
     mysqli_stmt_bind_param($res, "i", $id_livre);
     mysqli_stmt_execute($res);
