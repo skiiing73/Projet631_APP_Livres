@@ -306,3 +306,8 @@ pyrightconfig.json
 .ionide
 **/._.DS_Store
 **/.DS_Store
+
+
+### Ignore des sessions ###
+Web/session/*
+Web/session/sess_15696d976d18c18ebcbd050585a7b1cb

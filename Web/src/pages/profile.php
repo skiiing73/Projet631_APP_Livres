@@ -18,7 +18,7 @@ if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
     if ($user_info) {
         $prenom_utilisateur = htmlspecialchars($user_info['prenom_utilisateur']);
         $nom_utilisateur = htmlspecialchars($user_info['nom_utilisateur']);
-        $photo_de_profil = htmlspecialchars($user_info['photo_de_profile']);
+        $photo_de_profil = htmlspecialchars($user_info['photo_de_profil']);
     } else {
         // Redirect to an error page if the user is not found
         header("Location: error.php");
@@ -45,6 +45,7 @@ if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
     <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
     <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
     <?php echo "<title>Profile utilisateur de " . $prenom_utilisateur . " " . $nom_utilisateur . "</title>"; ?>
+    <link rel="icon" type="image/x-icon" href="../../pictures/favicon.ico">
 </head>
 
 <body>

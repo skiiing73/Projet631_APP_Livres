@@ -1,20 +1,6 @@
 <?php
-
-// Function to get user profile_picture
-function getUserInfo($conn, $user_id) {
-    $sql = "SELECT photo_de_profil FROM utilisateur WHERE id_utilisateur = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 1) {
-        return $result->fetch_assoc();
-    } else {
-        return false;
-    }
-}
-
+    // Les fonctions importés : 
+    require_once("./src/requests/table_profile.php");
 ?>
 
 <!-- HTML Part -->

@@ -25,6 +25,7 @@ $offset = ($page - 1) * $limit;
     <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
     <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
     <title>SuperLivres - <?php echo htmlspecialchars($livre_actuel["nom_livre"]); ?></title>
+    <link rel="icon" type="image/x-icon" href="../../pictures/favicon.ico">
 </head>
 
 <body>
