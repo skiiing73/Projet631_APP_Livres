@@ -1,55 +1,67 @@
 <?php
-// Déconnexion de toute session existante
-session_start();
-session_unset();
-session_destroy();
 
-require_once("./lib/database.php");
+// Include the database configuration file
+require_once('./src/requests/table_login_register.php');
 
-$email = $password = "";
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if (isset($_SESSION['user_id'])) {
+    header("Location: ./livres.php?pages=welcome");
+    exit();
+}
+
+// Initialize error variables
 $email_err = $password_err = $login_err = "";
 
+// Process the form when it is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérifier si l'email est vide
+    // Validate email
     if (empty(trim($_POST["email"]))) {
-        $email_err = "Veuillez entrer votre email.";
+        $email_err = "Please enter your email.";
     } else {
         $email = trim($_POST["email"]);
     }
 
-    // Vérifier si le mot de passe est vide
+    // Validate password
     if (empty(trim($_POST["password"]))) {
-        $password_err = "Veuillez entrer votre mot de passe.";
+        $password_err = "Please enter your password.";
     } else {
         $password = trim($_POST["password"]);
     }
 
-    // Valider les identifiants
+    // Validate credentials
     if (empty($email_err) && empty($password_err)) {
-        // Appeler la fonction de connexion
+        // Check the credentials in the database
         $user_id = login($conn, $email, $password);
-
         if ($user_id) {
-            // Démarrer une nouvelle session
-            session_start();
-            // Stocker l'ID de l'utilisateur dans la session
-            $_SESSION["user_id"] = $user_id;
-            // Rediriger vers la page avec l'ID de l'utilisateur
-            header("Location: ./livres.php?user=$user_id");
-            exit;
+
+            // Store user data in session variables
+            $_SESSION['user_id'] = $user_id;
+
+            // JavaScript for showing success message and redirecting after 4 seconds
+            echo '<script>
+                    alert("Login successful. Redirecting to the main page...");
+                    setTimeout(function() {
+                        window.location.href = "welcome.php";
+                    }, 4000);
+                  </script>';
         } else {
-            $login_err = "L'email ou le mot de passe est incorrect.";
+            $login_err = "Incorrect email or password.";
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <?php require_once("./src/components/navbar/navbar.php"); ?>
+
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="./src/styles/global.css">
     <link rel="stylesheet" type="text/css" href="./src/styles/login.css">
+    <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
+    <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
     <title>Login Page</title>
 </head>
 <body>
@@ -69,34 +81,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <input type="submit" class="btn" value="Login">
             </div>
+            <div class="register-link">
+                <p>Don't have an account?</p>
+                <a href="./livres.php?pages=register">Register here</a>.
+            </div>
             <span class="error-message"><?php echo $login_err; ?></span>
         </form>
     </div>
+
+    <?php require_once("./src/components/footer/footer.php"); ?>
 </body>
 </html>
-
-<?php
-// Fonction pour vérifier les informations de connexion
-function login($conn, $email, $password) {
-    // Préparer une requête SQL sécurisée pour éviter les injections SQL
-    $stmt = $conn->prepare("SELECT id_utilisateur FROM Utilisateur WHERE email = '$email' AND mot_de_passe = '$password'");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Vérifier s'il y a un enregistrement correspondant à l'email fourni
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-        $hashed_password = $row['mot_de_passe'];
-
-        // Vérifier si le mot de passe fourni correspond au mot de passe haché en base de données
-        if (password_verify($password, $hashed_password)) {
-            // Authentification réussie, retourner l'ID de l'utilisateur
-            return $row['id_utilisateur'];
-        }
-    }
-
-    // Si aucune correspondance n'est trouvée ou si le mot de passe est incorrect, retourner false
-    return false;
-}
-?>
