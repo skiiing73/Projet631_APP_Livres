@@ -9,7 +9,7 @@ require_once("./src/requests/table_books_details.php");
 
 $livre_actuel = selectLivreByIdLivre($conn, $_GET["id_livre"]);
 $auteurs = selectAuteursByIdLivre($conn, $livre_actuel["id_livre"]);
-$moyenne_note = selectAvisByIdLivre($conn, $livre_actuel["id_livre"]);
+$moyenne_note = selectAverageRateReview($conn, $livre_actuel["id_livre"]);
 ?>
 
 <head>
@@ -45,8 +45,8 @@ $moyenne_note = selectAvisByIdLivre($conn, $livre_actuel["id_livre"]);
             echo "<p> Genre : " . $livre_actuel['genre'] . " </p> <p>Date de publication : " . $livre_actuel["date_de_publication"] . " </p>";
             echo "<p> Note : ";
 
-            if (selectAvisByIdLivre($conn, $livre_actuel["id_livre"])) {
-                $moyenneNote = floatval(selectAvisByIdLivre($conn, $livre_actuel["id_livre"]));
+            if (selectAverageRateReview($conn, $livre_actuel["id_livre"])) {
+                $moyenneNote = floatval(selectAverageRateReview($conn, $livre_actuel["id_livre"]));
                 echo $moyenneNote . " | ";
                 while ($moyenneNote >= 0.5) {
                     if ($moyenneNote >= 1) {

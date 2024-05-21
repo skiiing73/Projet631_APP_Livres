@@ -8,23 +8,11 @@
 if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
     $user_id = intval($_GET['user_id']);
 
-    // Function to get user information
-    function getUserInfo($conn, $user_id) {
-        $sql = "SELECT prenom_utilisateur, nom_utilisateur FROM utilisateur WHERE id_utilisateur = 1;";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows == 1) {
-            return $result->fetch_assoc();
-        } else {
-            return false;
-        }
-    }
-
     // Call the function to get user information
     $user_info = getUserInfo($conn, $user_id);
+
+    // Fetch user reviews
+    $reviews = getUserReviews($conn, $user_id);
 
     // If user information is successfully retrieved
     if ($user_info) {
@@ -68,14 +56,25 @@ if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
             <h2><?php echo $prenom_utilisateur . " " . $nom_utilisateur; ?></h2>
         </div>
     </div>
-    <div class="review-container">
-        <div class="profile-picture">
-            <img src="<?php echo $profile_picture; ?>" alt="Profile Picture">
-        </div>
-        <div class="user-info">
-            <h2><?php echo $prenom_utilisateur . " " . $nom_utilisateur; ?></h2>
-        </div>
+
+    <div class="reviews-container">
+        <h2>Mes Avis</h2>
+        <?php if ($reviews && count($reviews) > 0): ?>
+            <ul>
+                <?php foreach ($reviews as $review): ?>
+                    <li>
+                        <p><strong>Note:</strong> <?php echo htmlspecialchars($review['note']); ?></p>
+                        <p><strong>Commentaire:</strong> <?php echo htmlspecialchars($review['commentaire']); ?></p>
+                        <p><strong>Date:</strong> <?php echo htmlspecialchars($review['date_avis']); ?></p>
+                        <p><strong>ID Livre:</strong> <?php echo htmlspecialchars($review['id_livre']); ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Vous n'avez écrit aucun avis.</p>
+        <?php endif; ?>
     </div>
+
 </body>
 
 <?php

@@ -70,8 +70,8 @@ require_once("./src/requests/table_books.php");
                         echo "<p> Genre : " . $row['genre'] . "      |   Date de publication : " . $row["date_de_publication"] . " </p>";
                         echo "<p> Note : ";
 
-                        if (selectAvisByIdLivre($conn, $row["id_livre"])) {
-                            $moyenneNote = floatval(selectAvisByIdLivre($conn, $row["id_livre"]));
+                        if (selectAverageRateReview($conn, $row["id_livre"])) {
+                            $moyenneNote = floatval(selectAverageRateReview($conn, $row["id_livre"]));
                             echo $moyenneNote . " | ";
                             while ($moyenneNote >= 0.5) {
                                 if ($moyenneNote >= 1) {
@@ -104,8 +104,8 @@ require_once("./src/requests/table_books.php");
                         echo "<p> Genre : " . $row['genre'] . "      |   Date de publication : " . $row["date_de_publication"] . " </p>";
                         echo "<p> Note : ";
 
-                        if (selectAvisByIdLivre($conn, $row["id_livre"])) {
-                            $moyenneNote = floatval(selectAvisByIdLivre($conn, $row["id_livre"]));
+                        if (selectAverageRateReview($conn, $row["id_livre"])) {
+                            $moyenneNote = floatval(selectAverageRateReview($conn, $row["id_livre"]));
                             echo $moyenneNote . " | ";
                             while ($moyenneNote >= 0.5) {
                                 if ($moyenneNote >= 1) {
