@@ -1,65 +1,47 @@
 <?php
 session_start();
+require_once("./lib/database.php");
 
-// Include the database configuration file
-require_once('./src/requests/table_login_register.php');
-
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if (isset($_SESSION['user_id'])) {
-    header("Location: ./livres.php?pages=welcome");
-    exit();
-}
-
-// Initialize error variables
+$email = $password = "";
 $email_err = $password_err = $login_err = "";
 
-// Process the form when it is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate email
+    // Vérifier si l'email est vide
     if (empty(trim($_POST["email"]))) {
-        $email_err = "Please enter your email.";
+        $email_err = "Veuillez entrer votre email.";
     } else {
         $email = trim($_POST["email"]);
     }
 
-    // Validate password
+    // Vérifier si le mot de passe est vide
     if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter your password.";
+        $password_err = "Veuillez entrer votre mot de passe.";
     } else {
         $password = trim($_POST["password"]);
     }
 
-    // Validate credentials
+    // Valider les identifiants
     if (empty($email_err) && empty($password_err)) {
-        // Check the credentials in the database
+        // Appeler la fonction de connexion
         $user_id = login($conn, $email, $password);
-        if ($user_id) {
-            // Store user data in session variables
-            $_SESSION['user_id'] = $user_id;
 
-            // JavaScript for showing success message and redirecting after 4 seconds
-            echo '<script>
-                    alert("Login successful. Redirecting to the main page...");
-                    setTimeout(function() {
-                        window.location.href = "livres.php?pages=welcome";
-                    }, 4000);
-                  </script>';
+        if ($user_id) {
+            // Rediriger vers la page avec l'ID de l'utilisateur
+            header("Location: ./livres.php?user=$user_id");
+            exit;
         } else {
-            $login_err = "Incorrect email or password.";
+            $login_err = "L'email ou le mot de passe est incorrect.";
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <?php require_once("./src/components/navbar/navbar.php"); ?>
-
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="./src/styles/global.css">
     <link rel="stylesheet" type="text/css" href="./src/styles/login.css">
-    <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
-    <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
     <title>Login Page</title>
 </head>
 <body>
@@ -68,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
+                <input type="text" id="email" name="email" value="<?php echo isset($email) ? $email : ''; ?>">
                 <span class="error-message"><?php echo $email_err; ?></span>
             </div>
             <div class="form-group">
@@ -79,14 +61,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <input type="submit" class="btn" value="Login">
             </div>
-            <div class="register-link">
-                <p>Don't have an account?</p>
-                <a href="./livres.php?pages=register">Register here</a>.
-            </div>
             <span class="error-message"><?php echo $login_err; ?></span>
         </form>
     </div>
-
-    <?php require_once("./src/components/footer/footer.php"); ?>
 </body>
 </html>
+
+<?php
+// Fonction pour vérifier les informations de connexion
+function login($conn, $email, $password) {
+    // Préparer une requête SQL sécurisée pour éviter les injections SQL
+    $stmt = $conn->prepare("SELECT id_utilisateur, mot_de_passe FROM Utilisateur WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Vérifier s'il y a un enregistrement correspondant à l'email fourni
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $hashed_password = $row['mot_de_passe'];
+
+        // Vérifier si le mot de passe fourni correspond au mot de passe haché en base de données
+        if (password_verify($password, $hashed_password)) {
+            // Authentification réussie, retourner l'ID de l'utilisateur
+            return $row['id_utilisateur'];
+        }
+    }
+
+    // Si aucune correspondance n'est trouvée ou si le mot de passe est incorrect, retourner false
+    return false;
+}
+?>
