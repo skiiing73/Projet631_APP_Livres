@@ -2,7 +2,7 @@
     require_once("./lib/database.php");
     session_start();
 
-    if (!isset($_SESSION['id_utilisateur']) && !isset($_GET['pages'])) {
+    if (!isset($_SESSION['user_id']) && !isset($_GET['pages'])) {
         header("Location: ./livres.php?pages=login");
         exit();
     } else {
