@@ -1,5 +1,9 @@
 <?php
+// Déconnexion de toute session existante
 session_start();
+session_unset();
+session_destroy();
+
 require_once("./lib/database.php");
 
 $email = $password = "";
@@ -26,6 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = login($conn, $email, $password);
 
         if ($user_id) {
+            // Démarrer une nouvelle session
+            session_start();
+            // Stocker l'ID de l'utilisateur dans la session
+            $_SESSION["user_id"] = $user_id;
             // Rediriger vers la page avec l'ID de l'utilisateur
             header("Location: ./livres.php?user=$user_id");
             exit;
@@ -71,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Fonction pour vérifier les informations de connexion
 function login($conn, $email, $password) {
     // Préparer une requête SQL sécurisée pour éviter les injections SQL
-    $stmt = $conn->prepare("SELECT id_utilisateur, mot_de_passe FROM Utilisateur WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id_utilisateur FROM Utilisateur WHERE email = '$email' AND mot_de_passe = '$password'");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
