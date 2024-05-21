@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-
 public class Interface_Appli extends JFrame {
     private Bibliotheque bibliotheque;
     private Livre selectedBook;
@@ -29,6 +28,8 @@ public class Interface_Appli extends JFrame {
         setSize(800, 700);
         GridBagConstraints gbc = new GridBagConstraints();
         setVisible(true);
+        setLocationRelativeTo(null);
+
         // Message de bienvenue en haut
         JPanel welcomePanel = new JPanel();
         JLabel welcomeLabel = new JLabel("Bienvenue sur la page de gestion des Livres", SwingConstants.CENTER);
@@ -61,9 +62,7 @@ public class Interface_Appli extends JFrame {
         }
         JList<String> livreList = new JList<>(listModel);
 
-        livreList.setBackground(gris_clair_bg);
         livreList.setFont(new Font("Arial", Font.BOLD, 12));
-        livreList.setForeground(Color.WHITE);
         JScrollPane scrollPane = new JScrollPane(livreList);
         scrollPane.setBorder(new EmptyBorder(10, 5, 10, 5));
         scrollPane.setBackground(gris_bg);
@@ -179,6 +178,7 @@ public class Interface_Appli extends JFrame {
         pagejouterlivre.getContentPane().setBackground(gris_fonce_bg);
         pagejouterlivre.setSize(800, 700);
         pagejouterlivre.setVisible(true);
+        pagejouterlivre.setLocationRelativeTo(null);
 
         // Message de bienvenue en haut
         JLabel welcomeLabel = new JLabel("Bienvenue sur la page d'ajout de livres", SwingConstants.CENTER);
@@ -279,8 +279,8 @@ public class Interface_Appli extends JFrame {
             }
 
         });
-        panelCreation.add(creationButton);
         panelCreation.add(homeButton);
+        panelCreation.add(creationButton);
         pagejouterlivre.add(panelCreation);
 
         // panel avec la liste des éditeurs
@@ -296,7 +296,7 @@ public class Interface_Appli extends JFrame {
         // Création de la liste de editeur
         DefaultListModel<String> listModelediteur = new DefaultListModel<>();
         for (Editeur editeur : bibliotheque.getediteurs()) {
-            listModelediteur.addElement(editeur.getNom_editeur() + "(ID= " + editeur.getId_editeur() + ")");
+            listModelediteur.addElement(editeur.getNom_editeur() + " (ID= " + editeur.getId_editeur() + ")");
         }
         JList<String> editeurList = new JList<>(listModelediteur);
         JScrollPane scrollPane_editeur = new JScrollPane(editeurList);
@@ -333,6 +333,7 @@ public class Interface_Appli extends JFrame {
         pagejouterauteur.setLayout(new GridLayout(3, 0)); // Utilisation d'un BorderLayout pour mieux organiser les
                                                           // composants
         pagejouterauteur.getContentPane().setBackground(gris_fonce_bg);
+        pagejouterauteur.setLocationRelativeTo(null);
         pagejouterauteur.setSize(500, 500);
         pagejouterauteur.setVisible(true);
 
@@ -411,54 +412,84 @@ public class Interface_Appli extends JFrame {
         panelCreation.add(panelButton);
         pagejouterauteur.add(panelCreation);
 
-        ImageIcon imageIcon = new ImageIcon("Projetlivresjava\\src\\image_auteur.png");
+        ImageIcon imageIcon = new ImageIcon("image_auteur.png");
         JLabel imageLabel = new JLabel(imageIcon);
         pagejouterauteur.add(imageLabel);
         return nom_auteur;
     }
 
     public void page_avis() {
+        this.setVisible(false);
         JFrame pageAvis = new JFrame();
         pageAvis.setTitle("Page des Avis");
         pageAvis.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pageAvis.setSize(800, 700);
         pageAvis.setLocationRelativeTo(null);
-        pageAvis.getContentPane().setBackground(Color.LIGHT_GRAY);
+        pageAvis.getContentPane().setBackground(gris_fonce_bg);
         pageAvis.setLayout(new BorderLayout());
 
-        // Panel du haut pour la sélection des livres
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(Color.LIGHT_GRAY);
-        topPanel.setLayout(new BorderLayout());
+        // Message de bienvenue en haut
+        JLabel welcomeLabel = new JLabel("Bienvenue sur la page de gestion des avis", SwingConstants.CENTER);
+        welcomeLabel.setBorder(new EmptyBorder(20, 15, 20, 15));
+        welcomeLabel.setForeground(gris_texte);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        pageAvis.add(welcomeLabel, BorderLayout.NORTH);
+
+        // Panel avec les livres et les Avis
+        JPanel panelLivreAvis = new JPanel(new GridLayout(1, 0));
+        panelLivreAvis.setBackground(gris_bg);
+        panelLivreAvis.setBorder(new EmptyBorder(15, 15, 15, 15));
+        // Panel pour la sélection des livres
+        JPanel panelLivre = new JPanel();
+        panelLivre.setBackground(gris_bg);
+        panelLivre.setLayout(new BorderLayout());
 
         JLabel livreLabel = new JLabel("Sélectionnez un livre:");
-        topPanel.add(livreLabel, BorderLayout.NORTH);
+        livreLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        livreLabel.setForeground(gris_texte);
+        panelLivre.add(livreLabel, BorderLayout.NORTH);
 
         DefaultListModel<String> livreListModel = new DefaultListModel<>();
         for (Livre livre : bibliotheque.getlivres()) {
-            livreListModel.addElement(livre.getTitre() + "   " );
+            livreListModel.addElement(livre.getTitre() + "   ");
         }
         JList<String> livreList = new JList<>(livreListModel);
         livreList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane livreScrollPane = new JScrollPane(livreList);
-        topPanel.add(livreScrollPane, BorderLayout.CENTER);
+        panelLivre.add(livreScrollPane, BorderLayout.CENTER);
 
-        pageAvis.add(topPanel, BorderLayout.WEST);
+        // Panel pour afficher les avis
+        JPanel panelAvis = new JPanel();
+        panelAvis.setLayout(new BorderLayout());
+        panelAvis.setBackground(gris_bg);
 
-        // Panel central pour afficher les avis
+        JLabel AvisLabel = new JLabel("Sélectionnez un avis du livre: ");
+        AvisLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        AvisLabel.setForeground(gris_texte);
+        panelAvis.add(AvisLabel, BorderLayout.NORTH);
+
         DefaultListModel<String> avisListModel = new DefaultListModel<>();
         JList<String> avisList = new JList<>(avisListModel);
         avisList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane avisScrollPane = new JScrollPane(avisList);
-        avisScrollPane.setBorder(BorderFactory.createTitledBorder("Avis"));
-        pageAvis.add(avisScrollPane, BorderLayout.CENTER);
+        panelAvis.add(avisScrollPane, BorderLayout.CENTER);
+
+        // ajout des deux panel au panel qui contient livre et avis
+        panelLivreAvis.add(panelLivre);
+        panelLivreAvis.add(panelAvis);
+
+        // ajout du panel avec les list a la page
+        pageAvis.add(panelLivreAvis, BorderLayout.CENTER);
 
         // Panel du bas pour le bouton de suppression
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(Color.LIGHT_GRAY);
+        JPanel Panelbouton = new JPanel();
+        Panelbouton.setBorder(new EmptyBorder(10, 15, 15, 15));
+        Panelbouton.setBackground(gris_bg);
+
         JButton supprimerButton = new JButton("Supprimer Avis");
-        bottomPanel.add(supprimerButton);
-        pageAvis.add(bottomPanel, BorderLayout.SOUTH);
+        supprimerButton.setBackground(rose_bouton);
+        supprimerButton.setForeground(Color.WHITE);
+        supprimerButton.setFont(new Font("Arial", Font.BOLD, 16));
 
         // Listener pour la sélection d'un livre
         livreList.addListSelectionListener(new ListSelectionListener() {
@@ -488,7 +519,6 @@ public class Interface_Appli extends JFrame {
                 }
             }
         });
-
         // Listener pour le bouton de suppression
         supprimerButton.addActionListener(new ActionListener() {
             @Override
@@ -513,21 +543,49 @@ public class Interface_Appli extends JFrame {
                                         .findFirst()
                                         .orElse(null);
                                 if (avisASupprimer != null) {
-                                avisASupprimer.supprimer();
-                                avisListModel.remove(selectedAvisIndex);
-                            }
+                                    avisASupprimer.supprimer();
+                                    JOptionPane.showMessageDialog(null, "L'avis a bien été supprimer.");
+                                    avisListModel.remove(selectedAvisIndex);
+                                }
                             } catch (Exception e1) {
                                 e1.printStackTrace();
                             }
                         }
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Veuillez sélectionner un avis à supprimer.",
+                            "Erreur",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+        JButton homeButton = new JButton("Revenir a l'accueil");
+        homeButton.setBorder(new EmptyBorder(5, 5, 5, 5));
+        homeButton.setBackground(rose_bouton);
+        homeButton.setForeground(Color.WHITE);
+        homeButton.setFont(new Font("Arial", Font.BOLD, 16));
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                try {
+                    bibliotheque.maj_bliblitotheque();
+                    setVisible(true);
+                    pageAvis.dispose();
+                } catch (Exception e1) {
+
+                    e1.printStackTrace();
+                }
+
+            }
+
+        });
+
+        Panelbouton.add(homeButton);
+        Panelbouton.add(supprimerButton);
+        pageAvis.add(Panelbouton, BorderLayout.SOUTH);
         pageAvis.setVisible(true);
     }
-
 
     public static void main(String[] args) throws Exception {
         Bibliotheque bibliotheque = new Bibliotheque();
