@@ -14,7 +14,7 @@
             $stmt->fetch();
             if (password_verify($password, $hashed_password)) {
                 header("Location: ./livres.php?pages=welcome");
-                $_SESSION['id_utilisateur'] = $id_utilisateur;
+                $_SESSION['user_id'] = $id_utilisateur;
             }
         } else {
             $error_message = "Aucun utilisateur avec cette adresse email." . $stmt->error;

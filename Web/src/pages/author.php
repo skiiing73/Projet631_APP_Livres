@@ -2,19 +2,30 @@
 <html lang="fr">
 
 <?php
-$_SESSION['page'] = "books_details";
+$_SESSION['page'] = "author";
 
+// Include the necessary functions
 require_once("./src/requests/table_books_details.php");
 
+// Fetching the current book details, authors, average rating, and publisher
 $livre_actuel = selectLivreByIdLivre($conn, $_GET["id_livre"]);
 $auteurs = selectAuthorByBookID($conn, $livre_actuel["id_livre"]);
 $moyenne_note = selectAvisByIdLivre($conn, $livre_actuel["id_livre"]);
 $nom_editeur = selectEditeurByIdEditeur($conn, $livre_actuel["id_editeur"]);
 
+// Get the total number of reviews
 $total_records = selectCountAvis($conn, $livre_actuel["id_livre"]);
+
+// Set the number of records per page
 $limit = 10;
+
+// Calculate the total number of pages
 $total_pages = ceil($total_records / $limit);
+
+// Get the current page number from the URL, default to 1
 $page = isset($_GET['listnotices']) ? intval($_GET['listnotices']) : 1;
+
+// Calculate the offset for the SQL query
 $offset = ($page - 1) * $limit;
 ?>
 
@@ -40,18 +51,12 @@ $offset = ($page - 1) * $limit;
         <div class="details_informations">
             <h2>Informations détaillées :</h2>
             <?php
-            echo "<p><span class='label'>Auteur(s) :</span> ";
-            foreach ($auteurs as $index => $auteur) {
-                echo "<a href='author_page.php?id=" . htmlspecialchars($auteur['id_auteur']) . "'>" . htmlspecialchars($auteur['prenom_auteur']) . " " . htmlspecialchars($auteur['nom_auteur']) . "</a>";
-                if ($index < count($auteurs) - 1) {
-                    echo ", ";
-                }
-            }
-            echo "</p>";
+            echo "<p><span class='label'>Auteur(s) :</span> " . implode(", ", $auteurs) . "</p>";
             echo "<p><span class='label'>Genre :</span> " . htmlspecialchars($livre_actuel['genre']) . "</p>";
             echo "<p><span class='label'>Date de publication :</span> " . htmlspecialchars($livre_actuel["date_de_publication"]) . "</p>";
             echo "<p><span class='label'>Editeur :</span> " . htmlspecialchars($nom_editeur) . "</p>";
 
+            // Display the average rating
             $averageRate = selectAverageRateReview($conn, $livre_actuel["id_livre"]);
             if ($averageRate) {
                 $moyenneNote = floatval($averageRate);
@@ -71,36 +76,37 @@ $offset = ($page - 1) * $limit;
 
             <a href='livres.php?pages=books' class='pagination_button'>Retour</a>
         </div>
+        
 
         <div id="add_review">
             <h2>Ecrivez votre avis :</h2>
-            <?php
-            if (isset($_GET['user_id'])) {
-                echo "<form action='/submit_review' method='post'>";
-                echo "<div class='form-group'>";
-                echo "<label for='rating'>Note:</label><br>";
-                // Créer des labels pour les étoiles
-                for ($i = 5; $i >= 1; $i--) {
-                    echo "<input type='radio' id='rating$i' name='rating' value='$i' style='display: none;' required>";
-                    echo "<label for='rating$i' class='star-label'><i class='fa-solid fa-star' data-rating='$i'></i></label>";
-                }
-                echo "</div>";
-                echo "<div class='form-group'>";
-                echo "<label for='review'>Commentaire :</label><br>";
-                echo "<textarea id='review' name='review' rows='4' required></textarea>";
-                echo "</div>";
-                echo "<button type='submit'>Submit Review</button>";
-                echo "</form>";
-            } else {
-                echo "Vous devez être connecté pour laisser un avis.";
-            }
-            ?>
+            <form action="/submit_review" method="post">
+                <div class="form-group">
+                    <label for="rating">Note:</label><br>
+                    <input type="radio" id="rating5" name="rating" value="5" required>
+                    <label for="rating5">5</label>
+                    <input type="radio" id="rating4" name="rating" value="4">
+                    <label for="rating4">4</label>
+                    <input type="radio" id="rating3" name="rating" value="3">
+                    <label for="rating3">3</label>
+                    <input type="radio" id="rating2" name="rating" value="2">
+                    <label for="rating2">2</label>
+                    <input type="radio" id="rating1" name="rating" value="1">
+                    <label for="rating1">1</label>
+                </div>
+                <div class="form-group">
+                    <label for="review">Commentaire :</label><br>
+                    <textarea id="review" name="review" rows="4" required></textarea>
+                </div>
+                <button type="submit">Submit Review</button>
+            </form>
         </div>
 
 
         <div class="list_comments">
             <h1>Avis :</h1>
             <?php
+            // Fetch and display the reviews
             $result = selectAllAvisByIdLivre($conn, $livre_actuel["id_livre"], $offset, $limit);
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<div class='info'>";
@@ -108,6 +114,7 @@ $offset = ($page - 1) * $limit;
                 echo "<h2>" . htmlspecialchars($user) . " :</h2>";
                 echo "<p>Date de publication : " . DateTime::createFromFormat('Y-m-d', $row["date_avis"])->format('d/m/Y') . "</p>";
 
+                // Display the rating for each review
                 $note = floatval($row["note"]);
                 echo "<p>Note : $note | ";
                 while ($note >= 0.5) {
@@ -128,6 +135,7 @@ $offset = ($page - 1) * $limit;
 
         <div class="pagination">
             <?php
+            // Pagination buttons
             if ($page > 1) {
                 echo "<a href='livres.php?pages=books_details&listnotices=" . ($page - 1) . "' class='pagination_button'>Précédent</a>";
             } else {

@@ -35,10 +35,12 @@ function getUserPfP($conn, $user_id) {
     <?php
     // Check if a `user_id` is passed in the URL
     if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
-        $user_id = intval($_GET['user_id']);
+        $user_id = intval($_SESSION['user_id']);
 
         // Call the function to get user information
-        $user_info = getUserInfo($conn, $user_id);
+        $profile_picture = getUserPfP($conn, $user_id);
+
+        echo $profile_picture;
 
         // If user information is successfully retrieved and has a profile picture
         if ($user_info && !empty($user_info['photo_de_profile'])) {

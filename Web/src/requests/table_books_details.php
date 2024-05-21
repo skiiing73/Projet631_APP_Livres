@@ -74,36 +74,31 @@ function selectEditeurByIdEditeur($conn, $id_editeur)
     return $nom_editeur;
 }
 
-function selectAuteursByIdLivre($conn, $id_livre)
-{
-    $res = mysqli_prepare($conn, "SELECT nom_auteur, prenom_auteur, date_de_naissance, date_de_mort FROM auteur JOIN ecrit AS e ON e.id_auteur = auteur.id_auteur WHERE id_livre = ?");
+function selectAuthorByBookID($conn, $id_livre) {
+    // Préparer la requête SQL pour obtenir les détails des auteurs par ID de livre
+    $res = mysqli_prepare($conn, "SELECT id_auteur, nom_auteur, prenom_auteur FROM auteur NATURAL JOIN ecrit WHERE id_livre = ?");
     mysqli_stmt_bind_param($res, "i", $id_livre);
     mysqli_stmt_execute($res);
 
-    // Créer un tableau pour stocker les noms des auteurs
+    // Créer un tableau pour stocker les informations des auteurs
     $auteurs = [];
 
     // Lier le résultat à des variables PHP
-    mysqli_stmt_bind_result($res, $nom_auteur, $prenom_auteur, $date_de_naissance, $date_de_mort);
+    mysqli_stmt_bind_result($res, $id_auteur, $nom_auteur, $prenom_auteur);
 
     // Récupérer le résultat
     while (mysqli_stmt_fetch($res)) {
-        // Convertir les dates au format dd/mm/yyyy
-        $date_naissance_formatee = DateTime::createFromFormat('Y-m-d', $date_de_naissance)->format('d/m/Y');
-        $nom_complet = $prenom_auteur . " " . $nom_auteur . " (" . $date_naissance_formatee;
-
-        if (!empty($date_de_mort)) {
-            $date_mort_formatee = DateTime::createFromFormat('Y-m-d', $date_de_mort)->format('d/m/Y');
-            $nom_complet .= " - " . $date_mort_formatee;
-        }
-
-        $nom_complet .= ")";
-        $auteurs[] = $nom_complet;
+        $auteurs[] = [
+            'id_auteur' => $id_auteur,
+            'nom_auteur' => $nom_auteur,
+            'prenom_auteur' => $prenom_auteur
+        ];
     }
 
-    // Retourner les noms des auteurs
+    // Retourner le tableau associatif contenant les informations des auteurs
     return $auteurs;
 }
+
 
 
 function selectAllAvisByIdLivre($conn, $id_livre, $offset, $limit)
@@ -187,3 +182,33 @@ function selectUtilisateurByIdUtilisateur($conn, $id_utilisateur)
     // Concatenate the first name and last name and return the result
     return $prenom . " " . $nom;
 }
+
+function submitReview($conn, $user_id, $book_id, $rating, $review) {
+    // Vérifier si l'utilisateur est connecté
+    if (!$user_id) {
+        return "Vous devez être connecté pour laisser un avis.";
+    }
+
+    // Vérifier la longueur de la revue
+    if (strlen($review) < 50) {
+        return "Votre avis doit contenir au moins 50 caractères.";
+    }
+
+    // Vérifier si une note est fournie
+    if (!$rating) {
+        return "Veuillez sélectionner une note.";
+    }
+
+    // Insérer l'avis dans la base de données
+    $sql = "INSERT INTO avis (id_utilisateur, id_livre, note, commentaire) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iiis", $user_id, $book_id, $rating, $review);
+    if ($stmt->execute()) {
+        return true; // Succès
+    } else {
+        return "Une erreur s'est produite lors de l'ajout de votre avis. Veuillez réessayer.";
+    }
+}
+
+
+?>
