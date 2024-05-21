@@ -1,5 +1,4 @@
 <?php
-
 // Include the database configuration file
 require_once('./src/requests/table_login_register.php');
 

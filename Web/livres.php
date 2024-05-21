@@ -1,4 +1,14 @@
 <?php
+
+echo "jdsjdfjsdfn";
+
+if (!isset($_SESSION)){
+    session_start([
+        'cookie_lifetime' => 86400,
+    ]);
+    $_SESSION['test'] = 1;
+}
+
 require_once("./lib/database.php");
 
 
