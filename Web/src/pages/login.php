@@ -5,15 +5,16 @@
         $email = trim($_POST["email"]);
         $password = trim($_POST["password"]);
 
-        $stmt = $conn->prepare("SELECT mot_de_passe FROM utilisateur WHERE email = ?");
+        $stmt = $conn->prepare("SELECT id_utilisateur, mot_de_passe FROM utilisateur WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($hashed_password);
+            $stmt->bind_result($id_utilisateur, $hashed_password);
             $stmt->fetch();
             if (password_verify($password, $hashed_password)) {
                 header("Location: ./livres.php?pages=welcome");
+                $_SESSION['id_utilisateur'] = $id_utilisateur;
             }
         } else {
             $error_message = "Aucun utilisateur avec cette adresse email." . $stmt->error;

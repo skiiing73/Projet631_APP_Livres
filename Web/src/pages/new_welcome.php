@@ -21,10 +21,6 @@ require_once($chemin);
 <body>
     
     <?php
-        echo $_SESSION['test']
-    ?>
-
-    <?php
     require_once("./src/components/navbar/navbar.php");
     ?>
 
