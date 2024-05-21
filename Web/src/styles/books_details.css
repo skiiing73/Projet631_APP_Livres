@@ -31,3 +31,61 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.list_comments{
+  width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.info {
+  margin: 10px 10px 10px 10px;
+  padding:5px;
+  background-color: gainsboro;
+}
+
+.info h2 {
+  margin-top: 0;
+  color: #333;
+
+}
+
+.info p {
+  margin-bottom: 0;
+  color: #666;
+}
+
+.pagination{
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  font-weight: 250;
+  font-size: 1rem;
+  text-align: center;
+  align-items: center;
+}
+
+.pagination_button {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 15px;
+  background-color: #f0f0f0;
+  text-decoration: none;
+  color: #333;
+}
+
+.pagination_button:hover {
+  background-color: #ccc;
+}
+
+.pagination_button.current_page {
+  font-weight: bold;
+  background-color: #bbb;
+}
+
+.pagination_button.disabled {
+  pointer-events: none;
+  color: #999;
+}

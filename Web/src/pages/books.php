@@ -8,6 +8,23 @@ $_SESSION['page'] = "books";
 require_once("./src/requests/table_books.php");
 // ICONS
 // https://fontawesome.com/icons
+// Total number of records
+$total_records = selectCountLivre($conn);
+
+// Number of records per page
+$limit = 10;
+
+// Calculating the number of pages
+$total_pages = ceil($total_records / $limit);
+
+// Current page number from URL, default is 1
+$page = isset($_GET['listbooks']) ? intval($_GET['listbooks']) : 1;
+
+// Offset calculation
+$offset = ($page - 1) * $limit;
+
+// Sorting options
+$options = isset($_GET['options']) ? intval($_GET['options']) : 0;
 ?>
 
 <head>
@@ -54,10 +71,10 @@ require_once("./src/requests/table_books.php");
         </div>
         <div class="list_books">
             <?php
-            if (selectAllLivre($conn)) {
+            if (selectAllLivre($conn, $offset, $limit)) {
 
                 if (!isset($_GET["options"])) {
-                    $result = selectAllLivre($conn);
+                    $result = selectAllLivre($conn, $offset, $limit);
                     while ($row = mysqli_fetch_array($result)) {
                         echo "<div class='info'>";
                         echo "<h2> " . $row["nom_livre"] . " : </h2>";
@@ -67,7 +84,7 @@ require_once("./src/requests/table_books.php");
                             echo $auteur . ", ";
                         }
                         echo "</p>";
-                        echo "<p> Genre : " . $row['genre'] . "      |   Date de publication : " . $row["date_de_publication"] . " </p>";
+                        echo "<p> Genre : " . $row['genre'] . "      |   Date de publication : " . DateTime::createFromFormat('Y-m-d', $row["date_de_publication"])->format('d/m/Y') . " </p>";
                         echo "<p> Note : ";
 
                         if (selectAvisByIdLivre($conn, $row["id_livre"])) {
@@ -91,7 +108,7 @@ require_once("./src/requests/table_books.php");
                         echo "</div>";
                     }
                 } else {
-                    $result = selectAllLivreOrder($conn, $_GET["options"]);
+                    $result = selectAllLivreOrder($conn, $_GET["options"], $offset, $limit);
                     while ($row = mysqli_fetch_array($result)) {
                         echo "<div class='info'>";
                         echo "<h2> " . $row["nom_livre"] . " : </h2>";
@@ -101,7 +118,7 @@ require_once("./src/requests/table_books.php");
                             echo $auteur . ", ";
                         }
                         echo "</p>";
-                        echo "<p> Genre : " . $row['genre'] . "      |   Date de publication : " . $row["date_de_publication"] . " </p>";
+                        echo "<p> Genre : " . $row['genre'] . "      |   Date de publication : " . DateTime::createFromFormat('Y-m-d', $row["date_de_publication"])->format('d/m/Y') . " </p>";
                         echo "<p> Note : ";
 
                         if (selectAvisByIdLivre($conn, $row["id_livre"])) {
@@ -127,6 +144,43 @@ require_once("./src/requests/table_books.php");
                 }
             }
             ?>
+        </div>
+        <div class="pagination">
+            <?php
+            // Previous button
+            if ($page > 1) {
+                echo "<a href='livres.php?pages=books&options=$options &listbooks=" . ($page - 1) . " ' class='pagination_button'>Précédent</a>";
+            } else {
+                echo "<span class='pagination_button disabled'>Précédent</span>";
+            }
+
+            // First page button
+            if ($page > 1) {
+                echo "<a href='livres.php?pages=books&options=$options&listbooks=1' class='pagination_button'>1</a>";
+                if ($page > 2) {
+                    echo "<span class='pagination_button disabled'>...</span>";
+                }
+            }
+
+            // Current page button
+            echo "<span class='pagination_button current_page'>$page</span>";
+
+            // Last page button
+            if ($page < $total_pages) {
+                if ($page < $total_pages - 1) {
+                    echo "<span class='pagination_button disabled'>...</span>";
+                }
+                echo "<a href='livres.php?pages=books&options=$options&listbooks=$total_pages' class='pagination_button'>$total_pages</a>";
+            }
+
+            // Next button
+            if ($page < $total_pages) {
+                echo "<a href='livres.php?pages=books&options=$options&listbooks=" . ($page + 1) . "' class='pagination_button'>Suivant</a>";
+            } else {
+                echo "<span class='pagination_button disabled'>Suivant</span>";
+            }
+            ?>
+
         </div>
     </div>
     <?php

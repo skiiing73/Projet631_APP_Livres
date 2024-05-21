@@ -21,5 +21,3 @@ if (!isset($_GET["pages"])) {
         require_once('./src/pages/new_welcome.php');
     }
 }
-
-?>
