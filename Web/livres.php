@@ -2,7 +2,7 @@
 
 echo "jdsjdfjsdfn";
 
-if (!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start([
         'cookie_lifetime' => 86400,
     ]);

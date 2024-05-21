@@ -1,18 +1,31 @@
 footer {
-    background-color: #24190d;
-    color: #ffffff;
-    height: 60px;
-    width: 100%+9px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #24190d;
+  color: #ffffff;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#footer {
+    width: 90%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    margin-left : -9px;
-  }
+    justify-content: space-between;
+}
   
   /* Adaptations pour une largeur <= 800px */
 @media screen and  (max-width: 800px) {
     footer {
-      height: 200px;
+      height: auto;
+      position: relative;
+    }
+
+    #footer {
       flex-direction: column;
     }
 }

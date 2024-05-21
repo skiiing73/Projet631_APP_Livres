@@ -1,7 +1,24 @@
 <?php
 require_once("./lib/database.php");
 
-function selectLivreByIdLivre($conn, $id_livre) {
+function selectAverageRateReview($conn, $id_livre)
+{
+    $res = mysqli_prepare($conn, "SELECT SUM(note) / COUNT(note) AS moyenne_note FROM avis WHERE id_livre = ?");
+    mysqli_stmt_bind_param($res, "i", $id_livre);
+    mysqli_stmt_execute($res);
+
+    // Lier le résultat à des variables PHP
+    mysqli_stmt_bind_result($res, $moyenne_note);
+
+    // Récupérer le résultat
+    mysqli_stmt_fetch($res);
+
+    // Retourner la moyenne des notes
+    return $moyenne_note;
+}
+
+function selectLivreByIdLivre($conn, $id_livre)
+{
     $res = mysqli_prepare($conn, "SELECT id_livre, nom_livre, date_de_publication, genre, id_editeur FROM livre WHERE id_livre = ?");
     mysqli_stmt_bind_param($res, "i", $id_livre);
     mysqli_stmt_execute($res);
