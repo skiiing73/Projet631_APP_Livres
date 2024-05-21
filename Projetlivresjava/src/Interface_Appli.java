@@ -235,7 +235,7 @@ public class Interface_Appli extends JFrame {
                     try {// obligatoire car sinon bug a cause de la bdd
                         String nom_auteur = creationauteurTextField.getText();
 
-                        if (livre.getAuteur() != null) {// on assigne l'auteur au livre
+                        if (livre.setAuteur(nom_auteur)) {// on assigne l'auteur au livre
                             livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
                             JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
 
@@ -245,16 +245,19 @@ public class Interface_Appli extends JFrame {
                             nom_auteur = creer_auteur(nom_auteur, livre);
 
                         }
-
-                    } catch (Exception e1) {
+                    }
+                    catch (Exception e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
                 }
 
+                 else {
+                    JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+                }
             }
+
+            
 
         });
 
