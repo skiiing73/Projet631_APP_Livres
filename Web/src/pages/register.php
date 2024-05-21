@@ -1,6 +1,11 @@
 <?php
     require_once("./lib/database.php");
 
+    if (isset($_SESSION['user_id'])) {
+        header("Location: ./livres.php?pages=welcome");
+        exit();
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nom = htmlspecialchars(trim($_POST['nom']));
         $prenom = htmlspecialchars(trim($_POST['prenom']));
