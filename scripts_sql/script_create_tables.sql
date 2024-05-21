@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS Livre;
 DROP TABLE IF EXISTS Editeur;
 DROP TABLE IF EXISTS Utilisateur;
 DROP TABLE IF EXISTS Auteur;
+DROP TABLE IF EXISTS Images;
 
 CREATE TABLE Auteur (
     id_auteur INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,4 +90,12 @@ CREATE TABLE ami (
     PRIMARY KEY (id_utilisateur1, id_utilisateur2),
     FOREIGN KEY (id_utilisateur1) REFERENCES Utilisateur(id_utilisateur),
     FOREIGN KEY (id_utilisateur2) REFERENCES Utilisateur(id_utilisateur)
+);
+
+
+CREATE TABLE images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    image_data LONGBLOB,
+    image_name VARCHAR(255),
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
