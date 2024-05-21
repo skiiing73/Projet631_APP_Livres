@@ -37,28 +37,23 @@ function getUserReviews($conn, $user_id) {
 }
 
 // Function to get a book infos from its id
-function getBookByID($conn, $id_livre) {
-    $res = mysqli_prepare($conn, "SELECT nom_livre, date_de_publication, genre, id_editeur FROM livre WHERE id_livre = ?");
-    mysqli_stmt_bind_param($res, "i", $id_livre);
-    mysqli_stmt_execute($res);
+function getBookByID($conn, $book_id) {
+    $sql = mysqli_prepare($conn, "SELECT nom_livre, date_de_publication, genre, nom_auteur, prenom_auteur, nom_editeur FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur NATURAL JOIN editeur WHERE id_livre = ?");
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("i", $book_id);
 
-    // Lier le résultat à des variables PHP
-    mysqli_stmt_bind_result($res, $id_livre, $nom_livre, $date_de_publication, $genre, $id_editeur);
-
-    // Récupérer le résultat
-    mysqli_stmt_fetch($res);
-
-    // Créer un tableau associatif avec les détails du livre
-    $livre = [
-        "id_livre" => $id_livre,
-        "nom_livre" => $nom_livre,
-        "date_de_publication" => DateTime::createFromFormat('Y-m-d', $date_de_publication)->format('d/m/Y'),
-        "genre" => $genre,
-        "id_editeur" => $id_editeur
-    ];
-
-    // Retourner les détails du livre
-    return $livre;
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            $reviews = $result->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $reviews;
+        } else {
+            error_log("Execute failed: " . $stmt->error);
+        }
+    } else {
+        error_log("Failed to prepare statement: " . $conn->error);
+    }
+    return false;
 }
 
 ?>

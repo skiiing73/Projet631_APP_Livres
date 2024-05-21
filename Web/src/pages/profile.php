@@ -63,10 +63,11 @@ if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
             <ul>
                 <?php foreach ($reviews as $review): ?>
                     <li>
+                        
                         <p><strong>Note:</strong> <?php echo htmlspecialchars($review['note']); ?></p>
                         <p><strong>Commentaire:</strong> <?php echo htmlspecialchars($review['commentaire']); ?></p>
                         <p><strong>Date:</strong> <?php echo htmlspecialchars($review['date_avis']); ?></p>
-                        <p><strong>ID Livre:</strong> <?php echo htmlspecialchars($review['id_livre']); ?></p>
+                        
                     </li>
                 <?php endforeach; ?>
             </ul>
