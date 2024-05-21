@@ -91,6 +91,9 @@
 /* Adaptations pour une largeur <= 800px */
 @media screen and (max-width: 800px) {
   .nav {
+    height: auto;
+  }
+  #nav_container {
       height: auto;
       flex-direction: column;
       justify-content: center;
@@ -108,3 +111,4 @@
       margin-bottom: 10px;
   }
 }
+
