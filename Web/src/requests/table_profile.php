@@ -3,7 +3,7 @@ require_once("./lib/database.php");
 
 // Function to get user information
 function getUserInfo($conn, $user_id) {
-    $sql = "SELECT prenom_utilisateur, nom_utilisateur FROM utilisateur WHERE id_utilisateur = 1;";
+    $sql = "SELECT prenom_utilisateur, nom_utilisateur FROM utilisateur WHERE id_utilisateur = ?;";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -15,6 +15,7 @@ function getUserInfo($conn, $user_id) {
         return false;
     }
 }
+
 
 // Function to get all reviews written by a user
 function getUserReviews($conn, $user_id) {
