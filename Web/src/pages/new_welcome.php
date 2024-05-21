@@ -19,7 +19,6 @@ require_once($chemin);
 </head>
 
 <body>
-    
     <?php
     require_once("./src/components/navbar/navbar.php");
     ?>

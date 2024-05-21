@@ -89,3 +89,7 @@
   pointer-events: none;
   color: #999;
 }
+
+footer {
+  position: relative !important;
+}
