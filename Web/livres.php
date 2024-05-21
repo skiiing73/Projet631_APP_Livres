@@ -1,12 +1,8 @@
 <?php
 
-echo "jdsjdfjsdfn";
-
-if (!isset($_SESSION)) {
-    session_start([
-        'cookie_lifetime' => 86400,
-    ]);
-    $_SESSION['test'] = 1;
+if (!isset($_GET['id_utilisateur']) && !isset($_GET['pages'])) {
+    header("Location: ./livres.php?pages=login");
+    exit();
 }
 
 require_once("./lib/database.php");
