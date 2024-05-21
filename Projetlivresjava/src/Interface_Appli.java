@@ -333,7 +333,6 @@ public class Interface_Appli extends JFrame {
         pagejouterauteur.setLayout(new GridLayout(3, 0)); // Utilisation d'un BorderLayout pour mieux organiser les
                                                           // composants
         pagejouterauteur.getContentPane().setBackground(gris_fonce_bg);
-        pagejouterauteur.setLocationRelativeTo(null);
         pagejouterauteur.setSize(500, 500);
         pagejouterauteur.setVisible(true);
 
@@ -412,7 +411,7 @@ public class Interface_Appli extends JFrame {
         panelCreation.add(panelButton);
         pagejouterauteur.add(panelCreation);
 
-        ImageIcon imageIcon = new ImageIcon("image_auteur.png");
+        ImageIcon imageIcon = new ImageIcon("Projetlivresjava\\src\\image_auteur.png");
         JLabel imageLabel = new JLabel(imageIcon);
         pagejouterauteur.add(imageLabel);
         return nom_auteur;
