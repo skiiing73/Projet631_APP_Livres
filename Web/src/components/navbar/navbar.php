@@ -34,8 +34,13 @@ function getUserPfP($conn, $user_id) {
 
     <?php
     // Check if a `user_id` is passed in the URL
-    if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
-        $user_id = intval($_GET['user_id']);
+    if (isset($_SESSION['user_id'])) {
+
+        echo '<div id="profile">';
+        echo '<a href="./livres.php?pages=profile" class="nav-link">Mon compte</a>';
+        echo '</div>';
+
+        $user_id = intval($_SESSION['user_id']);
 
         // Call the function to get user information
         $user_info = getUserInfo($conn, $user_id);
@@ -57,8 +62,4 @@ function getUserPfP($conn, $user_id) {
         echo '</div>';
     }
     ?>
-
-    <div id="profile">
-        <a href="./livres.php?pages=profile" class="nav-link">Mon compte</a>
-    </div>
 </div>
