@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.sql.*;
 
 // Classe Avis
 public class Avis {
@@ -7,15 +7,13 @@ public class Avis {
     private int idLivre;
     private int note;
     private String commentaire;
-    private Date dateAvis;
 
-    public Avis(int idAvis, int idUtilisateur, int idLivre, int note, String commentaire, Date dateAvis) {
+    public Avis(int idAvis, int idUtilisateur, int idLivre, int note, String commentaire) {
         this.idAvis = idAvis;
         this.idUtilisateur = idUtilisateur;
         this.idLivre = idLivre;
         this.note = note;
         this.commentaire = commentaire;
-        this.dateAvis = dateAvis;
     }
 
     public int getIdAvis() {
@@ -58,12 +56,13 @@ public class Avis {
         this.commentaire = commentaire;
     }
 
-    public Date getDateAvis() {
-        return dateAvis;
-    }
+    public void supprimer() throws Exception {
+        Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password);
 
-    public void setDateAvis(Date dateAvis) {
-        this.dateAvis = dateAvis;
-    }
+        Class.forName("com.mysql.cj.log.Slf4JLogger");
 
+        // étape 3: créer l'objet statement
+        Statement stmt = con.createStatement();
+        int res = stmt.executeUpdate("DELETE FROM avis WHERE id_avis =" + this.idAvis);
+    }
 }

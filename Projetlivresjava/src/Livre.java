@@ -130,21 +130,27 @@ public class Livre {
 
         int res = stmt.executeUpdate("DELETE FROM avis WHERE id_livre =" + id_livre);
         res = stmt.executeUpdate("DELETE FROM ecrit WHERE id_livre =" + id_livre);
-        res = stmt.executeUpdate(" DELETE FROM livre WHERE nom_livre ='" + this.titre + "'AND date_de_publication='"+ this.date_de_publication+"'");
+        res = stmt.executeUpdate(" DELETE FROM livre WHERE nom_livre ='" + this.titre + "'AND date_de_publication='"
+                + this.date_de_publication + "'");
 
     }
 
-    public List<Avis> getAvis() {
+    public List<Avis> getAvis() throws Exception {
+        avis = new ArrayList<>();
+        Class.forName("com.mysql.cj.log.Slf4JLogger");
+        Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password);
+
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery("SELECT * FROM avis WHERE id_livre =" + this.idLivre);
+        while (res.next()) {
+            int idAvis = res.getInt(1);
+            int note = res.getInt(2);
+            String commentaire = res.getString(3);
+            int idUser = res.getInt(6);
+
+            Avis new_avis = new Avis(idAvis, idUser, idLivre, note, commentaire);
+            avis.add(new_avis);
+        }
         return avis;
     }
-
-    public void setAvis(List<Avis> avis) {
-        this.avis = avis;
-        // ajouter la BDD
-    }
-
-    public List<Avis> listerAvis() {
-        return avis;
-    }
-
 }

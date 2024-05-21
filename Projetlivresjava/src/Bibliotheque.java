@@ -31,7 +31,7 @@ public class Bibliotheque {
             int id_editeur = res.getInt(5);
 
             Livre new_livre = new Livre(nom_livre, genre, date_de_publication, id_editeur);
-
+            new_livre.setIdLivre(idLivre);
             if (!livres.contains(new_livre)) {
                 livres.add(new_livre);
             }

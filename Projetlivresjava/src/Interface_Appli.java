@@ -1,5 +1,5 @@
 import javax.swing.*;
-import javax.swing.border.Border;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -8,8 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Interface_Appli extends JFrame {
     private Bibliotheque bibliotheque;
@@ -33,7 +32,6 @@ public class Interface_Appli extends JFrame {
         try {
             creer_auteur("test", selectedBook);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         // Message de bienvenue en haut
@@ -158,8 +156,7 @@ public class Interface_Appli extends JFrame {
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Traitement pour le bouton 3
-                JOptionPane.showMessageDialog(null, "Vous avez cliqué sur le Bouton 3");
+                page_avis();
             }
         });
         gbc.gridx = 0;
@@ -401,6 +398,118 @@ public class Interface_Appli extends JFrame {
         return nom_auteur;
 
     }
+
+    public void page_avis() {
+        JFrame pageAvis = new JFrame();
+        pageAvis.setTitle("Page des Avis");
+        pageAvis.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pageAvis.setSize(800, 700);
+        pageAvis.setLocationRelativeTo(null);
+        pageAvis.getContentPane().setBackground(Color.LIGHT_GRAY);
+        pageAvis.setLayout(new BorderLayout());
+
+        // Panel du haut pour la sélection des livres
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(Color.LIGHT_GRAY);
+        topPanel.setLayout(new BorderLayout());
+
+        JLabel livreLabel = new JLabel("Sélectionnez un livre:");
+        topPanel.add(livreLabel, BorderLayout.NORTH);
+
+        DefaultListModel<String> livreListModel = new DefaultListModel<>();
+        for (Livre livre : bibliotheque.getlivres()) {
+            livreListModel.addElement(livre.getTitre() + "   " );
+        }
+        JList<String> livreList = new JList<>(livreListModel);
+        livreList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane livreScrollPane = new JScrollPane(livreList);
+        topPanel.add(livreScrollPane, BorderLayout.CENTER);
+
+        pageAvis.add(topPanel, BorderLayout.WEST);
+
+        // Panel central pour afficher les avis
+        DefaultListModel<String> avisListModel = new DefaultListModel<>();
+        JList<String> avisList = new JList<>(avisListModel);
+        avisList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane avisScrollPane = new JScrollPane(avisList);
+        avisScrollPane.setBorder(BorderFactory.createTitledBorder("Avis"));
+        pageAvis.add(avisScrollPane, BorderLayout.CENTER);
+
+        // Panel du bas pour le bouton de suppression
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(Color.LIGHT_GRAY);
+        JButton supprimerButton = new JButton("Supprimer Avis");
+        bottomPanel.add(supprimerButton);
+        pageAvis.add(bottomPanel, BorderLayout.SOUTH);
+
+        // Listener pour la sélection d'un livre
+        livreList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedIndex = livreList.getSelectedIndex();
+                    if (selectedIndex != -1) {
+                        String selectedLivreInfo = livreListModel.get(selectedIndex);
+                        String selectedLivreTitre = selectedLivreInfo.split("   ")[0];
+                        Livre selectedLivre = bibliotheque.getlivres().stream()
+                                .filter(livre -> livre.getTitre().equals(selectedLivreTitre))
+                                .findFirst()
+                                .orElse(null);
+
+                        if (selectedLivre != null) {
+                            avisListModel.clear();
+                            try {
+                                for (Avis avis : selectedLivre.getAvis()) {
+                                    avisListModel.addElement(avis.getCommentaire());
+                                }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Listener pour le bouton de suppression
+        supprimerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Avis avisASupprimer;
+                int selectedAvisIndex = avisList.getSelectedIndex();
+                if (selectedAvisIndex != -1) {
+                    String selectedAvisContent = avisListModel.get(selectedAvisIndex);
+                    int selectedLivreIndex = livreList.getSelectedIndex();
+                    if (selectedLivreIndex != -1) {
+                        String selectedLivreInfo = livreListModel.get(selectedLivreIndex);
+                        String selectedLivreTitre = selectedLivreInfo.split("   ")[0];
+                        Livre selectedLivre = bibliotheque.getlivres().stream()
+                                .filter(livre -> livre.getTitre().equals(selectedLivreTitre))
+                                .findFirst()
+                                .orElse(null);
+
+                        if (selectedLivre != null) {
+                            try {
+                                avisASupprimer = selectedLivre.getAvis().stream()
+                                        .filter(avis -> avis.getCommentaire().equals(selectedAvisContent))
+                                        .findFirst()
+                                        .orElse(null);
+                                if (avisASupprimer != null) {
+                                avisASupprimer.supprimer();
+                                avisListModel.remove(selectedAvisIndex);
+                            }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        pageAvis.setVisible(true);
+    }
+
 
     public static void main(String[] args) throws Exception {
         Bibliotheque bibliotheque = new Bibliotheque();
