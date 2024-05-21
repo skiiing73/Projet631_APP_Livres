@@ -22,8 +22,8 @@ public class Livre {
         avis = new ArrayList<>();
     }
 
-    public void setId_auteur(int id_auteur) {
-        this.id_auteur = id_auteur;
+    public int getId_auteur() {
+        return id_auteur;
     }
 
     public int getIdLivre() {

@@ -29,11 +29,6 @@ public class Interface_Appli extends JFrame {
         setSize(800, 700);
         GridBagConstraints gbc = new GridBagConstraints();
         setVisible(true);
-        try {
-            creer_auteur("test", selectedBook);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         // Message de bienvenue en haut
         JPanel welcomePanel = new JPanel();
         JLabel welcomeLabel = new JLabel("Bienvenue sur la page de gestion des Livres", SwingConstants.CENTER);
@@ -57,7 +52,7 @@ public class Interface_Appli extends JFrame {
         JLabel nomliste = new JLabel("Voici la liste de tous les livres");
         nomliste.setFont(new Font("Arial", Font.BOLD, 16));
         nomliste.setForeground(gris_texte);
-        nomliste.setBorder(new EmptyBorder(10, 10, 10, 0));
+        nomliste.setBorder(new EmptyBorder(10, 10, 0, 10));
         liste_livres.add(nomliste, BorderLayout.NORTH);
         // Création de la liste de livres
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -65,11 +60,12 @@ public class Interface_Appli extends JFrame {
             listModel.addElement(livre.getTitre() + "   " + livre.getGenre() + "    " + livre.getdate_de_publication());
         }
         JList<String> livreList = new JList<>(listModel);
-        livreList.setBorder(new EmptyBorder(0, 5, 0, 0));
+
         livreList.setBackground(gris_clair_bg);
         livreList.setFont(new Font("Arial", Font.BOLD, 12));
         livreList.setForeground(Color.WHITE);
         JScrollPane scrollPane = new JScrollPane(livreList);
+        scrollPane.setBorder(new EmptyBorder(10, 5, 10, 5));
         scrollPane.setBackground(gris_bg);
         liste_livres.add(scrollPane);
         liste_livres.setBackground(gris_bg);
@@ -193,7 +189,7 @@ public class Interface_Appli extends JFrame {
         // Panel de création d'un livre
         JPanel panelCreation = new JPanel();
         panelCreation.setBackground(gris_clair_bg);
-        panelCreation.setBorder(new EmptyBorder(20, 0, 20, 0));
+        panelCreation.setBorder(new EmptyBorder(20, 5, 20, 5));
         panelCreation.setLayout(new GridLayout(6, 1)); // Utilisation d'un GridLayout pour organiser les composants
 
         JLabel creationtitreLabel = new JLabel("Titre du livre :");
@@ -206,26 +202,23 @@ public class Interface_Appli extends JFrame {
         JTextField creationgenreTextField = new JTextField(20);
         panelCreation.add(creationgenreTextField);
 
-        JLabel creationdateLabel = new JLabel("Date de parution:");
+        JLabel creationdateLabel = new JLabel("Date de parution (en YYYY-MM-DD):");
         panelCreation.add(creationdateLabel);
         JTextField creationdateTextField = new JTextField(20);
         panelCreation.add(creationdateTextField);
 
-        JLabel creationauteurLabel = new JLabel("Auteur:");
+        JLabel creationauteurLabel = new JLabel("Auteur: (si vous voulez créer un auteur rentrez son nom seulement)");
         panelCreation.add(creationauteurLabel);
         JTextField creationauteurTextField = new JTextField(20);
         panelCreation.add(creationauteurTextField);
 
-        JLabel creationediteurLabel = new JLabel("ID Editeur (parmi la liste):");
+        JLabel creationediteurLabel = new JLabel("ID Editeur (parmi la liste uniquement):");
         panelCreation.add(creationediteurLabel);
         JTextField creationediteurTextField = new JTextField(20);
         panelCreation.add(creationediteurTextField);
 
-        JPanel panelButton = new JPanel(new GridLayout(0, 2));
-        panelButton.setBorder(new EmptyBorder(20, 0, 20, 0));
-
         JButton creationButton = new JButton("Création du livre");
-        creationButton.setBorder(new EmptyBorder(5, 5, 5, 0));
+        creationButton.setBorder(new EmptyBorder(5, 5, 5, 5));
         creationButton.setBackground(rose_bouton);
         creationButton.setForeground(Color.WHITE);
         creationButton.setFont(new Font("Arial", Font.BOLD, 16));
@@ -242,7 +235,7 @@ public class Interface_Appli extends JFrame {
                     try {// obligatoire car sinon bug a cause de la bdd
                         String nom_auteur = creationauteurTextField.getText();
 
-                        if (livre.setAuteur(nom_auteur)) {// on assigne l'auteur au livre
+                        if (livre.getAuteur() != null) {// on assigne l'auteur au livre
                             livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
                             JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
 
@@ -266,7 +259,7 @@ public class Interface_Appli extends JFrame {
         });
 
         JButton homeButton = new JButton("Revenir a l'accueil");
-        homeButton.setBorder(new EmptyBorder(5, 5, 5, 0));
+        homeButton.setBorder(new EmptyBorder(5, 5, 5, 5));
         homeButton.setBackground(rose_bouton);
         homeButton.setForeground(Color.WHITE);
         homeButton.setFont(new Font("Arial", Font.BOLD, 16));
@@ -288,26 +281,50 @@ public class Interface_Appli extends JFrame {
         });
         panelCreation.add(creationButton);
         panelCreation.add(homeButton);
-
         pagejouterlivre.add(panelCreation);
 
+        // panel avec la liste des éditeurs
+        JPanel panel_auteur_editeur = new JPanel(new GridLayout(1, 0));
         JPanel liste_editeur = new JPanel();
         liste_editeur.setLayout(new BorderLayout());
         liste_editeur.setBackground(gris_bg);
         JLabel nomliste = new JLabel("Voici la liste de tous les editeurs");
+        nomliste.setBorder(new EmptyBorder(5, 10, 10, 10));
         nomliste.setFont(new Font("Arial", Font.BOLD, 16));
         nomliste.setForeground(gris_texte);
         liste_editeur.add(nomliste, BorderLayout.NORTH);
         // Création de la liste de editeur
-        DefaultListModel<String> listModel = new DefaultListModel<>();
+        DefaultListModel<String> listModelediteur = new DefaultListModel<>();
         for (Editeur editeur : bibliotheque.getediteurs()) {
-            listModel.addElement(editeur.getId_editeur() + " " + editeur.getNom_editeur());
+            listModelediteur.addElement(editeur.getNom_editeur() + "(ID= " + editeur.getId_editeur() + ")");
         }
-        JList<String> livreList = new JList<>(listModel);
-        JScrollPane scrollPane = new JScrollPane(livreList);
-        liste_editeur.add(scrollPane, BorderLayout.CENTER);
-        pagejouterlivre.add(liste_editeur);
+        JList<String> editeurList = new JList<>(listModelediteur);
+        JScrollPane scrollPane_editeur = new JScrollPane(editeurList);
+        scrollPane_editeur.setBorder(new EmptyBorder(5, 10, 10, 10));
+        liste_editeur.add(scrollPane_editeur, BorderLayout.CENTER);
+        panel_auteur_editeur.add(liste_editeur);
 
+        // panel avec la liste des auteurs
+        JPanel liste_auteur = new JPanel();
+        liste_auteur.setLayout(new BorderLayout());
+        liste_auteur.setBackground(gris_bg);
+        JLabel nomlisteauteur = new JLabel("Voici la liste de tous les auteurs");
+        nomlisteauteur.setBorder(new EmptyBorder(5, 10, 10, 10));
+        nomlisteauteur.setFont(new Font("Arial", Font.BOLD, 16));
+        nomlisteauteur.setForeground(gris_texte);
+        liste_auteur.add(nomlisteauteur, BorderLayout.NORTH);
+        // Création de la liste de auteur
+        DefaultListModel<String> listModelauteur = new DefaultListModel<>();
+        for (Auteur auteur : bibliotheque.getauteurs()) {
+            listModelauteur.addElement(auteur.getNom_auteur());
+        }
+        JList<String> auteurList = new JList<>(listModelauteur);
+        JScrollPane scrollPaneauteur = new JScrollPane(auteurList);
+        scrollPaneauteur.setBorder(new EmptyBorder(5, 10, 10, 10));
+        liste_auteur.add(scrollPaneauteur, BorderLayout.CENTER);
+        panel_auteur_editeur.add(liste_auteur);
+
+        pagejouterlivre.add(panel_auteur_editeur);
     }
 
     public String creer_auteur(String nom_auteur, Livre livre) throws Exception {
@@ -315,27 +332,26 @@ public class Interface_Appli extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pagejouterauteur.setLayout(new GridLayout(3, 0)); // Utilisation d'un BorderLayout pour mieux organiser les
                                                           // composants
-        pagejouterauteur.getContentPane().setBackground(Color.LIGHT_GRAY);
-        pagejouterauteur.setSize(400, 400);
+        pagejouterauteur.getContentPane().setBackground(gris_fonce_bg);
+        pagejouterauteur.setSize(500, 500);
         pagejouterauteur.setVisible(true);
 
         // Message de bienvenue en haut
-        JPanel welcomePanel = new JPanel();
-        welcomePanel.setBackground(gris_fonce_bg);
         JLabel welcomeLabel = new JLabel("Bienvenue sur la page de création d'auteur", SwingConstants.CENTER);
         welcomeLabel.setForeground(gris_texte);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        welcomePanel.add(welcomeLabel);
-        pagejouterauteur.add(welcomePanel);
+        pagejouterauteur.add(welcomeLabel);
+        welcomeLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
 
         // Panel de création d'un livre
         JPanel panelCreation = new JPanel();
-        panelCreation.setBackground(Color.GRAY);
+        panelCreation.setBorder(new EmptyBorder(20, 20, 5, 20));
+        panelCreation.setBackground(gris_clair_bg);
         panelCreation.setLayout(new GridLayout(5, 1)); // Utilisation d'un GridLayout pour organiser les composants
 
         JLabel creationnomauteurLabel = new JLabel("Nom de l'auteur :");
         panelCreation.add(creationnomauteurLabel);
-        JTextField creationnomauteurTextField = new JTextField(20);
+        JTextField creationnomauteurTextField = new JTextField(nom_auteur, 20);
         panelCreation.add(creationnomauteurTextField);
 
         JLabel creationprenomauteurLabel = new JLabel("Prenom de l'auteur :");
@@ -343,23 +359,23 @@ public class Interface_Appli extends JFrame {
         JTextField creationprenomauteurTextField = new JTextField(20);
         panelCreation.add(creationprenomauteurTextField);
 
-        JLabel creationdatenaissanceLabel = new JLabel("Date de naissance:");
+        JLabel creationdatenaissanceLabel = new JLabel("Date de naissance (en YYYY-MM-DD):");
         panelCreation.add(creationdatenaissanceLabel);
         JTextField creationdatenaissanceTextField = new JTextField(20);
         panelCreation.add(creationdatenaissanceTextField);
 
-        JLabel creationdatemortLabel = new JLabel("Date de mort:");
+        JLabel creationdatemortLabel = new JLabel("Date de mort (en YYYY-MM-DD):");
         panelCreation.add(creationdatemortLabel);
         JTextField creationdatemortTextField = new JTextField(20);
         panelCreation.add(creationdatemortTextField);
 
-        JPanel panelButton = new JPanel(new BorderLayout());
+        JPanel panelButton = new JPanel(new GridLayout());
         JButton creationButton = new JButton("Création de l'auteur");
         creationButton.setBackground(rose_bouton);
         creationButton.setForeground(Color.WHITE);
         creationButton.setFont(new Font("Arial", Font.BOLD, 16));
-        panelButton.setBorder(new EmptyBorder(5, 5, 5, 0));
-
+        panelButton.setBorder(new EmptyBorder(5, 0, 0, 0));
+        panelButton.setBackground(gris_clair_bg);
         creationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -391,12 +407,14 @@ public class Interface_Appli extends JFrame {
                 }
             }
         });
-        panelButton.add(creationButton, BorderLayout.CENTER);
+        panelButton.add(creationButton);
         panelCreation.add(panelButton);
         pagejouterauteur.add(panelCreation);
 
+        ImageIcon imageIcon = new ImageIcon("Projetlivresjava\\src\\image_auteur.png");
+        JLabel imageLabel = new JLabel(imageIcon);
+        pagejouterauteur.add(imageLabel);
         return nom_auteur;
-
     }
 
     public void page_avis() {
