@@ -1,0 +1,55 @@
+-----------------------------------------
+|                Utilisateur             |
+-----------------------------------------
+| id_utilisateur : int                  |
+| nom_utilisateur : string              |
+| email : string                        |
+| mot_de_passe : string                 |
+| date_inscription : date               |
+-----------------------------------------
+| supprimerLivre()                      |
+| modifierLivre()                       |
+| listerLivres()                        |
+| listerAvis()                          |
+| listerCerclesAmis()                   |
+| listerStatistiques()                  |
+-----------------------------------------
+
+-----------------------------------------
+|                 Livre                 |
+-----------------------------------------
+| id_livre : int                        |
+| titre : string                        |
+| auteur : string                       |
+| genre : string                        |
+| annee_publication : int               |
+-----------------------------------------
+| ajouterAvis()                         |
+| listerAvis()                          |
+| listerStatistiques()                  |
+-----------------------------------------
+
+-----------------------------------------
+|                  Avis                 |
+-----------------------------------------
+| id_avis : int                         |
+| id_utilisateur : int                  |
+| id_livre : int                        |
+| note : int                            |
+| commentaire : string                  |
+| date_avis : date                      |
+-----------------------------------------
+
+-----------------------------------------
+|            Amis                       |
+-----------------------------------------
+| id_cercle : int                       |
+| nom_cercle : string                   |
+-----------------------------------------
+| ajouterMembre()                       |
+| supprimerMembre()                     |
+| listerMembres()                       |
+| listerLectures()                      |
+| listerAvis()                          |
+-----------------------------------------
+
