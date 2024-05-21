@@ -27,10 +27,6 @@ $page = isset($_GET['listnotices']) ? intval($_GET['listnotices']) : 1;
 // Offset calculation
 $offset = ($page - 1) * $limit;
 
-
-
-
-
 ?>
 
 <head>
@@ -66,8 +62,8 @@ $offset = ($page - 1) * $limit;
             echo "<p> Genre : " . $livre_actuel['genre'] . " </p> <p>Date de publication : " . $livre_actuel["date_de_publication"] . " </p> <p>Editeur : " . $nom_editeur . " </p>";
             echo "<p> Note : ";
 
-            if (selectAvisByIdLivre($conn, $livre_actuel["id_livre"])) {
-                $moyenneNote = floatval(selectAvisByIdLivre($conn, $livre_actuel["id_livre"]));
+            if (selectAverageRateReview($conn, $livre_actuel["id_livre"])) {
+                $moyenneNote = floatval(selectAverageRateReview($conn, $livre_actuel["id_livre"]));
                 echo $moyenneNote . " | ";
                 while ($moyenneNote >= 0.5) {
                     if ($moyenneNote >= 1) {

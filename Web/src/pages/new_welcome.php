@@ -19,9 +19,15 @@ require_once($chemin);
 </head>
 
 <body>
+    
+    <?php
+        echo $_SESSION['test']
+    ?>
+
     <?php
     require_once("./src/components/navbar/navbar.php");
     ?>
+
     <div class="welcome_page">
     <?php
         // Vérifier si l'utilisateur est déjà connecté, si oui le rediriger vers la page d'accueil

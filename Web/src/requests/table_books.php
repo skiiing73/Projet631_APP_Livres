@@ -67,7 +67,7 @@ function selectCountLivre($conn)
     }
 }
 
-function selectAvisByIdLivre($conn, $id_livre)
+function selectAverageRateReview($conn, $id_livre)
 {
     $res = mysqli_prepare($conn, "SELECT SUM(note) / COUNT(note) AS moyenne_note FROM avis WHERE id_livre = ?");
     mysqli_stmt_bind_param($res, "i", $id_livre);
@@ -82,6 +82,7 @@ function selectAvisByIdLivre($conn, $id_livre)
     // Retourner la moyenne des notes
     return $moyenne_note;
 }
+
 
 function selectAllLivreOrder($conn, $order, $offset, $limit)
 {

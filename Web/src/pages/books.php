@@ -87,8 +87,8 @@ $options = isset($_GET['options']) ? intval($_GET['options']) : 0;
                         echo "<p> Genre : " . $row['genre'] . "      |   Date de publication : " . DateTime::createFromFormat('Y-m-d', $row["date_de_publication"])->format('d/m/Y') . " </p>";
                         echo "<p> Note : ";
 
-                        if (selectAvisByIdLivre($conn, $row["id_livre"])) {
-                            $moyenneNote = floatval(selectAvisByIdLivre($conn, $row["id_livre"]));
+                        if (selectAverageRateReview($conn, $row["id_livre"])) {
+                            $moyenneNote = floatval(selectAverageRateReview($conn, $row["id_livre"]));
                             echo $moyenneNote . " | ";
                             while ($moyenneNote >= 0.5) {
                                 if ($moyenneNote >= 1) {
@@ -121,8 +121,8 @@ $options = isset($_GET['options']) ? intval($_GET['options']) : 0;
                         echo "<p> Genre : " . $row['genre'] . "      |   Date de publication : " . DateTime::createFromFormat('Y-m-d', $row["date_de_publication"])->format('d/m/Y') . " </p>";
                         echo "<p> Note : ";
 
-                        if (selectAvisByIdLivre($conn, $row["id_livre"])) {
-                            $moyenneNote = floatval(selectAvisByIdLivre($conn, $row["id_livre"]));
+                        if (selectAverageRateReview($conn, $row["id_livre"])) {
+                            $moyenneNote = floatval(selectAverageRateReview($conn, $row["id_livre"]));
                             echo $moyenneNote . " | ";
                             while ($moyenneNote >= 0.5) {
                                 if ($moyenneNote >= 1) {
