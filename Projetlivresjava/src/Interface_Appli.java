@@ -14,6 +14,12 @@ import java.util.List;
 public class Interface_Appli extends JFrame {
     private Bibliotheque bibliotheque;
     private Livre selectedBook;
+    // Zone définition couleur
+    private Color gris_texte = new Color(200, 200, 200);
+    private Color gris_bg = new Color(51, 51, 51);
+    private Color gris_fonce_bg = new Color(32, 32, 32);
+    private Color gris_clair_bg = new Color(150, 150, 150);
+    private Color rose_bouton = new Color(255, 51, 102);
 
     public Interface_Appli(Bibliotheque bibliotheque) {
         super("Gestion Livres");
@@ -24,12 +30,12 @@ public class Interface_Appli extends JFrame {
         setSize(800, 700);
         GridBagConstraints gbc = new GridBagConstraints();
         setVisible(true);
-        // Zone définition couleur
-        Color gris_texte = new Color(200, 200, 200);
-        Color gris_bg = new Color(51, 51, 51);
-        Color gris_fonce_bg = new Color(32, 32, 32);
-        Color gris_clair_bg = new Color(150, 150, 150);
-        Color rose_bouton = new Color(255, 51, 102);
+        try {
+            creer_auteur("test", selectedBook);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         // Message de bienvenue en haut
         JPanel welcomePanel = new JPanel();
         JLabel welcomeLabel = new JLabel("Bienvenue sur la page de gestion des Livres", SwingConstants.CENTER);
@@ -136,6 +142,12 @@ public class Interface_Appli extends JFrame {
                     selectedBook.supprimer_livre_BDD();
                     JOptionPane.showMessageDialog(null, "Livre supprimé avec succès");
                     bibliotheque.maj_bliblitotheque();
+                    listModel.clear(); // Efface les éléments actuels du modèle
+                    for (Livre livre : bibliotheque.getlivres()) {
+                        listModel.addElement(
+                                livre.getTitre() + "   " + livre.getGenre() + "    " + livre.getdate_de_publication());
+                    }
+
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(null, "Veuillez selectioner un livre");
                     e1.printStackTrace();
@@ -169,19 +181,22 @@ public class Interface_Appli extends JFrame {
         setVisible(false);
         JFrame pagejouterlivre = new JFrame();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pagejouterlivre.setLayout(new GridLayout(4, 0)); // Utilisation d'un BorderLayout pour mieux organiser les
+        pagejouterlivre.setLayout(new GridLayout(3, 0)); // Utilisation d'un BorderLayout pour mieux organiser les
                                                          // composants
-        pagejouterlivre.getContentPane().setBackground(Color.LIGHT_GRAY);
+        pagejouterlivre.getContentPane().setBackground(gris_fonce_bg);
         pagejouterlivre.setSize(800, 700);
         pagejouterlivre.setVisible(true);
 
         // Message de bienvenue en haut
         JLabel welcomeLabel = new JLabel("Bienvenue sur la page d'ajout de livres", SwingConstants.CENTER);
+        welcomeLabel.setForeground(gris_texte);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         pagejouterlivre.add(welcomeLabel);
 
         // Panel de création d'un livre
         JPanel panelCreation = new JPanel();
-        panelCreation.setBackground(Color.PINK);
+        panelCreation.setBackground(gris_clair_bg);
+        panelCreation.setBorder(new EmptyBorder(20, 0, 20, 0));
         panelCreation.setLayout(new GridLayout(6, 1)); // Utilisation d'un GridLayout pour organiser les composants
 
         JLabel creationtitreLabel = new JLabel("Titre du livre :");
@@ -210,29 +225,43 @@ public class Interface_Appli extends JFrame {
         panelCreation.add(creationediteurTextField);
 
         JPanel panelButton = new JPanel(new GridLayout(0, 2));
+        panelButton.setBorder(new EmptyBorder(20, 0, 20, 0));
+
         JButton creationButton = new JButton("Création du livre");
+        creationButton.setBorder(new EmptyBorder(5, 5, 5, 0));
+        creationButton.setBackground(rose_bouton);
+        creationButton.setForeground(Color.WHITE);
+        creationButton.setFont(new Font("Arial", Font.BOLD, 16));
         creationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Livre livre = new Livre(creationtitreTextField.getText(), creationgenreTextField.getText(),
-                        creationdateTextField.getText(), Integer.parseInt(creationediteurTextField.getText()));
-                try {// obligatoire car sinon bug a cause de la bdd
-                    String nom_auteur = creationauteurTextField.getText();
+                String titre = creationtitreTextField.getText();
+                String genre = creationgenreTextField.getText();
+                String date = creationdateTextField.getText();
+                String idediteur = creationediteurTextField.getText();
+                if (!titre.isEmpty() & !genre.isEmpty() & !date.isEmpty() & !idediteur.isEmpty()) {
 
-                    if (livre.setAuteur(nom_auteur)) {// on assigne l'auteur au livre
-                        livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
-                        JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
+                    Livre livre = new Livre(titre, genre, date, Integer.parseInt(idediteur));
+                    try {// obligatoire car sinon bug a cause de la bdd
+                        String nom_auteur = creationauteurTextField.getText();
 
-                    } else {// si l'auteur na pas été affecté il faut le créer dans la BDD
-                        JOptionPane.showMessageDialog(null, "Erreur l'auteur n'existe pas veuillez le créér");
+                        if (livre.setAuteur(nom_auteur)) {// on assigne l'auteur au livre
+                            livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
+                            JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
 
-                        nom_auteur = creer_auteur(nom_auteur, livre);
+                        } else {// si l'auteur na pas été affecté il faut le créer dans la BDD
+                            JOptionPane.showMessageDialog(null, "Erreur l'auteur n'existe pas veuillez le créér");
 
+                            nom_auteur = creer_auteur(nom_auteur, livre);
+
+                        }
+
+                    } catch (Exception e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
                     }
-
-                } catch (Exception e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
                 }
 
             }
@@ -240,15 +269,20 @@ public class Interface_Appli extends JFrame {
         });
 
         JButton homeButton = new JButton("Revenir a l'accueil");
+        homeButton.setBorder(new EmptyBorder(5, 5, 5, 0));
+        homeButton.setBackground(rose_bouton);
+        homeButton.setForeground(Color.WHITE);
+        homeButton.setFont(new Font("Arial", Font.BOLD, 16));
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pagejouterlivre.setVisible(false);
+
                 try {
                     bibliotheque.maj_bliblitotheque();
                     setVisible(true);
+                    pagejouterlivre.dispose();
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
+
                     e1.printStackTrace();
                 }
 
@@ -262,7 +296,10 @@ public class Interface_Appli extends JFrame {
 
         JPanel liste_editeur = new JPanel();
         liste_editeur.setLayout(new BorderLayout());
-        JLabel nomliste = new JLabel("Voici la liste de tous les editeur");
+        liste_editeur.setBackground(gris_bg);
+        JLabel nomliste = new JLabel("Voici la liste de tous les editeurs");
+        nomliste.setFont(new Font("Arial", Font.BOLD, 16));
+        nomliste.setForeground(gris_texte);
         liste_editeur.add(nomliste, BorderLayout.NORTH);
         // Création de la liste de editeur
         DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -272,7 +309,7 @@ public class Interface_Appli extends JFrame {
         JList<String> livreList = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(livreList);
         liste_editeur.add(scrollPane, BorderLayout.CENTER);
-        pagejouterlivre.add(scrollPane);
+        pagejouterlivre.add(liste_editeur);
 
     }
 
@@ -286,8 +323,13 @@ public class Interface_Appli extends JFrame {
         pagejouterauteur.setVisible(true);
 
         // Message de bienvenue en haut
+        JPanel welcomePanel = new JPanel();
+        welcomePanel.setBackground(gris_fonce_bg);
         JLabel welcomeLabel = new JLabel("Bienvenue sur la page de création d'auteur", SwingConstants.CENTER);
-        pagejouterauteur.add(welcomeLabel);
+        welcomeLabel.setForeground(gris_texte);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        welcomePanel.add(welcomeLabel);
+        pagejouterauteur.add(welcomePanel);
 
         // Panel de création d'un livre
         JPanel panelCreation = new JPanel();
@@ -316,30 +358,39 @@ public class Interface_Appli extends JFrame {
 
         JPanel panelButton = new JPanel(new BorderLayout());
         JButton creationButton = new JButton("Création de l'auteur");
+        creationButton.setBackground(rose_bouton);
+        creationButton.setForeground(Color.WHITE);
+        creationButton.setFont(new Font("Arial", Font.BOLD, 16));
+        panelButton.setBorder(new EmptyBorder(5, 5, 5, 0));
 
         creationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try (Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password)) {
-                    Class.forName("com.mysql.cj.log.Slf4JLogger");
-                    String nom_auteur = creationnomauteurTextField.getText();
-                    String prenom_auteur = creationprenomauteurTextField.getText();
-                    String datenaissance = creationdatenaissanceTextField.getText();
-                    String datemort = creationdatemortTextField.getText();
+                String nom_auteur = creationnomauteurTextField.getText();
+                String prenom_auteur = creationprenomauteurTextField.getText();
+                String datenaissance = creationdatenaissanceTextField.getText();
+                String datemort = creationdatemortTextField.getText();
+                if (!nom_auteur.isEmpty() & !prenom_auteur.isEmpty() & !datenaissance.isEmpty() & !datemort.isEmpty()) {
+                    try (Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password)) {
+                        Class.forName("com.mysql.cj.log.Slf4JLogger");
 
-                    Statement stmt = con.createStatement();
-                    int res = stmt.executeUpdate(
-                            "Insert into auteur (nom_auteur,prenom_auteur,date_de_naissance,date_de_mort) VALUES('"
-                                    + nom_auteur + "','" + prenom_auteur + "','" + datenaissance + "','" + datemort
-                                    + "');");
-                    pagejouterauteur.setVisible(false);
-                    livre.setAuteur(nom_auteur);
-                    livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
-                    JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
-                } catch (Exception e2) {
-                    // TODO Auto-generated catch block
-                    e2.printStackTrace();
+                        Statement stmt = con.createStatement();
+                        int res = stmt.executeUpdate(
+                                "Insert into auteur (nom_auteur,prenom_auteur,date_de_naissance,date_de_mort) VALUES('"
+                                        + nom_auteur + "','" + prenom_auteur + "','" + datenaissance + "','" + datemort
+                                        + "');");
+                        pagejouterauteur.dispose();
+                        JOptionPane.showMessageDialog(null, "Auteur ajouté dans la BDD");
+                        livre.setAuteur(nom_auteur);
+                        livre.ajouter_livre_BDD();// on ajoute le livre dans la BDD
+                        JOptionPane.showMessageDialog(null, "Livre ajouté dans la BDD");
+                    } catch (Exception e2) {
+                        // TODO Auto-generated catch block
+                        e2.printStackTrace();
 
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
                 }
             }
         });

@@ -14,6 +14,7 @@ public class Bibliotheque {
     }
 
     public void maj_bliblitotheque() throws Exception {
+        livres = new ArrayList<Livre>();
         Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password);
 
         Class.forName("com.mysql.cj.log.Slf4JLogger");
