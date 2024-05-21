@@ -5,12 +5,15 @@ import java.sql.*;
 public class Bibliotheque {
     private List<Livre> livres;
     private List<Editeur> editeurs;
+    private List<Auteur> auteurs;
 
     public Bibliotheque() throws Exception {
         livres = new ArrayList<Livre>();
         editeurs = new ArrayList<Editeur>();
+        auteurs = new ArrayList<Auteur>();
         this.maj_bliblitotheque();
         this.maj_editeurs();
+        this.maj_auteurs();
     }
 
     public void maj_bliblitotheque() throws Exception {
@@ -59,8 +62,32 @@ public class Bibliotheque {
 
     }
 
+    public void maj_auteurs() throws Exception {
+        Connection con = DriverManager.getConnection(Config.url, Config.user, Config.password);
+
+        Class.forName("com.mysql.cj.log.Slf4JLogger");
+
+        // étape 3: créer l'objet statement
+        Statement stmt = con.createStatement();
+        ResultSet res = stmt.executeQuery("SELECT * FROM auteur");
+        // étape 4: exécuter la requête
+        while (res.next()) {
+            int id_auteur = res.getInt(1);
+            String nom_auteur = res.getString(2);
+            Auteur auteur = new Auteur(id_auteur, nom_auteur);
+            auteurs.add(auteur);
+
+        }
+        con.close();
+
+    }
+
     public List<Editeur> getediteurs() {
         return editeurs;
+    }
+
+    public List<Auteur> getauteurs() {
+        return auteurs;
     }
 
     public List<Livre> getlivres() {

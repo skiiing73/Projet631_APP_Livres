@@ -22,8 +22,8 @@ public class Livre {
         avis = new ArrayList<>();
     }
 
-    public void setId_auteur(int id_auteur) {
-        this.id_auteur = id_auteur;
+    public int getId_auteur() {
+        return id_auteur;
     }
 
     public int getIdLivre() {
@@ -130,7 +130,8 @@ public class Livre {
 
         int res = stmt.executeUpdate("DELETE FROM avis WHERE id_livre =" + id_livre);
         res = stmt.executeUpdate("DELETE FROM ecrit WHERE id_livre =" + id_livre);
-        res = stmt.executeUpdate(" DELETE FROM livre WHERE nom_livre ='" + this.titre + "'AND date_de_publication='"+ this.date_de_publication+"'");
+        res = stmt.executeUpdate(" DELETE FROM livre WHERE nom_livre ='" + this.titre + "'AND date_de_publication='"
+                + this.date_de_publication + "'");
 
     }
 
