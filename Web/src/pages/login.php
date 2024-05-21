@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Include the database configuration file
 require_once('./src/requests/table_login_register.php');
@@ -33,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check the credentials in the database
         $user_id = login($conn, $email, $password);
         if ($user_id) {
-
             // Store user data in session variables
             $_SESSION['user_id'] = $user_id;
 
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<script>
                     alert("Login successful. Redirecting to the main page...");
                     setTimeout(function() {
-                        window.location.href = "welcome.php";
+                        window.location.href = "livres.php?pages=welcome";
                     }, 4000);
                   </script>';
         } else {
@@ -49,9 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -70,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" value="<?php echo isset($email) ? $email : ''; ?>">
+                <input type="text" id="email" name="email" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
                 <span class="error-message"><?php echo $email_err; ?></span>
             </div>
             <div class="form-group">
