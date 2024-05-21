@@ -50,7 +50,7 @@ input[type="submit"] {
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
-    margin-top: 10px; /* Espacement supplémentaire après le bouton */
+    margin-top: 10px;
 }
 
 input[type="submit"]:hover {
@@ -59,13 +59,13 @@ input[type="submit"]:hover {
 
 /* Style du lien pour l'inscription */
 .register-link {
-    margin-top: 15px; /* Espacement au-dessus du paragraphe */
+    margin-top: 15px;
     text-align: center;
     font-size: 14px;
 }
 
 .register-link p {
-    margin-bottom: 5px; /* Espacement supplémentaire sous le paragraphe */
+    margin-bottom: 5px;
 }
 
 .register-link a {
