@@ -2,8 +2,6 @@
 <html lang="fr">
 
 <?php
-// Session 
-$_SESSION['page'] = "books";
 // Les fonctions importés : 
 require_once("./src/requests/table_books.php");
 // ICONS

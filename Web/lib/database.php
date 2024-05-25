@@ -6,6 +6,7 @@ require_once('./../../config_bd.php');
 // // Fonction ob_start() permet d'utiliser les fonctions header.																	//
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 session_save_path('/home/' . $mysqlUsername2 . '/public_html/Projet631_APP_Livres/Web/session');
+session_start();
 
 /*Connexion à la base de données sur le serveur tp-epua*/
 $conn = @mysqli_connect($mysqlHost, $mysqlUsername, $mysqlPassword);

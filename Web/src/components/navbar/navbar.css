@@ -1,21 +1,15 @@
 /* navbar */
 .nav {
   height: 100px;
-  width: 100%;
+  width: calc(100% + 9px); /* Utilisation de calc() pour les opérations mathématiques */
   background-color: rgba(0, 0, 0);
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-
-#nav_container {
-  height: 100%;
-  width: 90%;
-  display: flex;
   justify-content: space-between;
   align-items: center;
+  color: white;
+  margin-left: -9px;
+  margin-top: -9px;
 }
 
 /* étoiles du logo */
@@ -40,7 +34,9 @@
 .links {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
+
 
 /* redirection */
 .nav-link {
@@ -51,10 +47,14 @@
   color: white;
   text-decoration: none;
   padding: 20px;
+  align-items: center;
+  color: white;
   font-size: 18px;
   background-color: #444;
   border-radius: 5px;
+  gap: 10px;
   margin-left: 30px;
+  color: white;
   font-weight: bold;
   transition: all 0.3s;
 }
@@ -70,10 +70,10 @@
   align-items: center;
 }
 
-#login, #signin {
+#login,#signin {
   display: block;
-  width: auto;
-  min-width: 100px;
+  width: auto; /* Change from 100% to auto */
+  min-width: 100px; /* Ensure a minimum width */
   text-align: center;
   color: white;
   text-decoration: none;
@@ -88,31 +88,32 @@
   background-color: #555;
 }
 
-#profil {
-  height: 60px;
-  border-radius: 50%;
-}
 
 /* Adaptations pour une largeur <= 800px */
 @media screen and (max-width: 800px) {
   .nav {
-    height: auto;
-  }
-  #nav_container {
-      height: auto;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    height: 300px;
+    width: calc(100% + 9px); /* Utilisation de calc() pour les opérations mathématiques */
+    background-color: rgba(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    margin-left: -9px;
+    margin-top: -9px;
+
   }
 
+  /* link */
   .links {
-      flex-direction: column;
-      padding: 0;
-      margin-top: 10px;
-  }
-
-  .nav-link {
-      margin-left: 0;
-      margin-bottom: 10px;
+    height: 200px;
+    width: calc(100% + 9px); /* Utilisation de calc() pour les opérations mathématiques */
+    background-color: rgba(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    padding: 0px 30px;
+    align-items: center;
+    color: white;
   }
 }

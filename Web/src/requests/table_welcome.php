@@ -1,6 +1,4 @@
 <?php
-require_once("./lib/database.php");
-
 
 // Exemple
 /**
