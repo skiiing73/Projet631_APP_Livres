@@ -2,8 +2,6 @@
 <html lang="fr">
 
 <?php
-// Session 
-$_SESSION['page'] = "welcome";
 // Les fonctions importés : 
 $chemin = "./src/requests/table_welcome.php";
 require_once($chemin);
@@ -19,32 +17,29 @@ require_once($chemin);
 </head>
 
 <body>
-    
-    <?php
-        echo $_SESSION['test']
-    ?>
-
     <?php
     require_once("./src/components/navbar/navbar.php");
     ?>
 
     <div class="welcome_page">
-    <?php
+        <?php
         // Vérifier si l'utilisateur est déjà connecté, si oui le rediriger vers la page d'accueil
-        if(isset($_SESSION['user_id'])) {
+        if (isset($_SESSION['user_id'])) {
             // Récupérer le prénom de l'utilisateur depuis la session
             $first_name = getUserFirstName($conn, $user_id);
             // Afficher le message de bienvenue
             echo "<p>Bonjour $first_name, bienvenue sur SuperLivres !</p>";
         }
         exit();
-    ?>
+        ?>
     </div>
+
+    <?php
+    require_once("./src/components/footer/footer.php");
+    ?>
 
 </body>
 
-<?php
-    require_once("./src/components/footer/footer.php");
-?>
+
 
 </html>

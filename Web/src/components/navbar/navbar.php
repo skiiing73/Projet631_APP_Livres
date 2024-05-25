@@ -12,7 +12,18 @@
     </div>
 
     <div id="login_signin">
-        <a href="./livres.php?pages=login" class="nav-link" id="login">Connexion</a>
-        <a href="./livres.php?pages=register" class="nav-link" id="signin">Creé mon compte</a>
+        <?php
+        if ($_SESSION["id_user"] == "") {
+        ?>
+            <a href="./livres.php?pages=login" class="nav-link" id="login">Connexion</a>
+            <a href="./livres.php?pages=register" class="nav-link" id="signin">Creé mon compte</a>
+        <?php
+        } else {
+        ?>
+            <a href="./livres.php?pages=profile" class="nav-link" id="login">Profil</a>
+            <a href="./livres.php?pages=disconnect" class="nav-link" id="signin">Deconnexion</a>
+        <?php
+        }
+        ?>
     </div>
 </div>

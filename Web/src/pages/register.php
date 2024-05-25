@@ -1,59 +1,57 @@
 <?php
-    require_once("./lib/database.php");
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nom = htmlspecialchars(trim($_POST['nom']));
-        $prenom = htmlspecialchars(trim($_POST['prenom']));
-        $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-        $mdp = $_POST['mdp'];
-        $mdp_validate = $_POST['mdp_validate'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nom = htmlspecialchars(trim($_POST['nom']));
+    $prenom = htmlspecialchars(trim($_POST['prenom']));
+    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $mdp = $_POST['mdp'];
+    $mdp_validate = $_POST['mdp_validate'];
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error_message = "Email invalide.";
-        } elseif ($mdp !== $mdp_validate) {
-            $error_message = "Les mots de passe ne correspondent pas.";
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_message = "Email invalide.";
+    } elseif ($mdp !== $mdp_validate) {
+        $error_message = "Les mots de passe ne correspondent pas.";
+    } else {
+        $stmt = $conn->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ?");
+        if ($stmt === false) {
+            $error_message = "Prepare failed: " . $conn->error;
         } else {
-            $stmt = $conn->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ?");
-            if ($stmt === false) {
-                $error_message = "Prepare failed: " . $conn->error;
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0) {
+                $error_message = "Un utilisateur avec cet email existe déjà.";
             } else {
-                $stmt->bind_param("s", $email);
-                $stmt->execute();
-                $stmt->store_result();
-                if ($stmt->num_rows > 0) {
-                    $error_message = "Un utilisateur avec cet email existe déjà.";
+                $hashed_password = password_hash($mdp, PASSWORD_BCRYPT);
+
+                $today_date = date('Y-m-d');
+
+                $stmt = $conn->prepare("INSERT INTO utilisateur (nom_utilisateur, prenom_utilisateur, email, mot_de_passe, date_inscription) VALUES (?, ?, ?, ?, ?)");
+                if ($stmt === false) {
+                    $error_message = "Prepare failed: " . $conn->error;
                 } else {
-                    $hashed_password = password_hash($mdp, PASSWORD_BCRYPT);
-
-                    $today_date = date('Y-m-d');
-
-                    $stmt = $conn->prepare("INSERT INTO utilisateur (nom_utilisateur, prenom_utilisateur, email, mot_de_passe, date_inscription) VALUES (?, ?, ?, ?, ?)");
-                    if ($stmt === false) {
-                        $error_message = "Prepare failed: " . $conn->error;
+                    $bind = $stmt->bind_param("sssss", $nom, $prenom, $email, $hashed_password, $today_date);
+                    if ($bind === false) {
+                        $error_message = "Bind failed: " . $stmt->error;
                     } else {
-                        $bind = $stmt->bind_param("sssss", $nom, $prenom, $email, $hashed_password, $today_date);
-                        if ($bind === false) {
-                            $error_message = "Bind failed: " . $stmt->error;
+                        $exec = $stmt->execute();
+                        if ($exec) {
+                            $success_message = "Utilisateur créé avec succès.";
                         } else {
-                            $exec = $stmt->execute();
-                            if ($exec) {
-                                $success_message = "Utilisateur créé avec succès.";
-                            } else {
-                                $error_message = "Erreur: " . $stmt->error;
-                            }
+                            $error_message = "Erreur: " . $stmt->error;
                         }
-                        $stmt->close();
                     }
+                    $stmt->close();
                 }
-                $stmt->close();
             }
         }
-        $conn->close();
     }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php require_once("./src/components/navbar/navbar.php"); ?>
 
@@ -65,14 +63,15 @@
     <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
     <title>Register</title>
 </head>
+
 <body>
     <?php
-        if (isset($error_message)) {
-            echo "<p id='message' style='color:red;'>$error_message</p>";
-        }
-        if (isset($success_message)) {
-            echo "<p id='message' style='color:green;'>$success_message</p>";
-        }
+    if (isset($error_message)) {
+        echo "<p id='message' style='color:red;'>$error_message</p>";
+    }
+    if (isset($success_message)) {
+        echo "<p id='message' style='color:green;'>$success_message</p>";
+    }
     ?>
     <form method="POST">
         <div class="form-group">
@@ -103,4 +102,5 @@
 
     <?php require_once("./src/components/footer/footer.php"); ?>
 </body>
+
 </html>

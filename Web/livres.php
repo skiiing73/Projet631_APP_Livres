@@ -1,21 +1,15 @@
 <?php
-
-echo "jdsjdfjsdfn";
-
-if (!isset($_SESSION)) {
-    session_start([
-        'cookie_lifetime' => 86400,
-    ]);
-    $_SESSION['test'] = 1;
-}
-
 require_once("./lib/database.php");
 
 
 if (!isset($_GET["pages"])) {
+    $_SESSION["id_user"] = "";
     require_once('./src/pages/new_welcome.php');
 } else {
-    if ($_GET["pages"] == "new_welcome") {
+    if ($_SESSION["id_user"] == null) {
+        $_SESSION["id_user"] = "";
+    }
+    if ($_GET["pages"] == "welcome") {
         require_once('./src/pages/new_welcome.php');
     } else if ($_GET["pages"] == "login") {
         require_once('./src/pages/login.php');
@@ -27,7 +21,11 @@ if (!isset($_GET["pages"])) {
         require_once('./src/pages/books_details.php');
     } else if ($_GET["pages"] == "profile") {
         require_once('./src/pages/profile.php');
+    } else if ($_GET["pages"] == "disconnect" && $_SESSION["id_user"] != "") {
+        $_SESSION["id_user"] = "";
+        require_once('./src/pages/new_welcome.php');
     } else {
+        $_SESSION["id_user"] = "";
         require_once('./src/pages/new_welcome.php');
     }
 }

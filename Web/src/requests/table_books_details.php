@@ -1,6 +1,4 @@
 <?php
-require_once("./lib/database.php");
-
 function selectAverageRateReview($conn, $id_livre)
 {
     $res = mysqli_prepare($conn, "SELECT SUM(note) / COUNT(note) AS moyenne_note FROM avis WHERE id_livre = ?");

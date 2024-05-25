@@ -2,9 +2,6 @@
 <html lang="fr">
 
 <?php
-// Session 
-$_SESSION['page'] = "welcome";
-// Les fonctions importés : 
 $chemin = "./src/requests/table_welcome.php";
 echo $chemin;
 require_once($chemin);

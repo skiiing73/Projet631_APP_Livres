@@ -1,9 +1,8 @@
 <?php
-require_once("./lib/database.php");
-
 // Function to get user information
-function getUserInfo($conn, $user_id) {
-    $sql = "SELECT prenom_utilisateur, nom_utilisateur FROM utilisateur WHERE id_utilisateur = 1;";
+function getUserInfo($conn, $user_id)
+{
+    $sql = "SELECT prenom_utilisateur, nom_utilisateur FROM utilisateur WHERE id_utilisateur = ?;";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -17,7 +16,8 @@ function getUserInfo($conn, $user_id) {
 }
 
 // Function to get all reviews written by a user
-function getUserReviews($conn, $user_id) {
+function getUserReviews($conn, $user_id)
+{
     $sql = "SELECT id_avis, note, commentaire, date_avis, id_livre FROM avis WHERE id_utilisateur = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $user_id);
@@ -37,7 +37,8 @@ function getUserReviews($conn, $user_id) {
 }
 
 // Function to get a book infos from its id
-function getBookByID($conn, $book_id) {
+function getBookByID($conn, $book_id)
+{
     $sql = mysqli_prepare($conn, "SELECT nom_livre, date_de_publication, genre, nom_auteur, prenom_auteur, nom_editeur FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur NATURAL JOIN editeur WHERE id_livre = ?");
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $book_id);
@@ -55,5 +56,3 @@ function getBookByID($conn, $book_id) {
     }
     return false;
 }
-
-?>
