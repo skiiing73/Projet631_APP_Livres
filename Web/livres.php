@@ -1,13 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 
-if (!isset($_GET['id_utilisateur']) && !isset($_GET['pages'])) {
-    header("Location: ./livres.php?pages=login");
-    exit();
-}
-
->>>>>>> origin/Web
 require_once("./lib/database.php");
 
 
