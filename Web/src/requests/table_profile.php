@@ -3,7 +3,7 @@ require_once("./lib/database.php");
 
 // Function to get user information
 function getUserInfo($conn, $user_id) {
-    $sql = "SELECT prenom_utilisateur, nom_utilisateur FROM utilisateur WHERE id_utilisateur = ?;";
+    $sql = "SELECT prenom_utilisateur, nom_utilisateur, photo_de_profil FROM utilisateur WHERE id_utilisateur = ?;";
     $stmt = $conn->prepare($sql);
 
     // Bind the user ID parameter

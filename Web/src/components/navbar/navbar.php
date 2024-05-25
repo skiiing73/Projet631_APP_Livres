@@ -23,8 +23,6 @@
             // Check if a `user_id` is passed in the URL
             if (isset($_SESSION['user_id'])) {
 
-
-
                 $user_id = intval($_SESSION['user_id']);
 
                 // Call the function to get user information
@@ -38,7 +36,7 @@
 
                 // Output the profile picture as a clickable link to the user's profile
                 echo '<a href="./livres.php?pages=profile&user_id=' . $user_id . '" class="profile-picture">';
-                echo '<img src="' . $photo_de_profil . '" alt="Profile Picture" id="profil">';
+                echo '<img src="' . $photo_de_profil . '" id="profil">';
                 echo '</a>';
 
             } else {
