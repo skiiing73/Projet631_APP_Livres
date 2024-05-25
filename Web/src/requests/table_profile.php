@@ -37,14 +37,9 @@ function getUserReviews($conn, $user_id)
 }
 
 // Function to get a book infos from its id
-<<<<<<< HEAD
 function getBookByID($conn, $book_id)
 {
     $sql = mysqli_prepare($conn, "SELECT nom_livre, date_de_publication, genre, nom_auteur, prenom_auteur, nom_editeur FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur NATURAL JOIN editeur WHERE id_livre = ?");
-=======
-function getBookByID($conn, $book_id) {
-    $sql = "SELECT nom_livre, date_de_publication, genre, id_auteur, nom_auteur, prenom_auteur, nom_editeur FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur NATURAL JOIN editeur WHERE id_livre = ?";
->>>>>>> origin/Web
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $book_id);
 

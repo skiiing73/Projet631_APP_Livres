@@ -103,4 +103,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php require_once("./src/components/footer/footer.php"); ?>
 </body>
 
+
 </html>

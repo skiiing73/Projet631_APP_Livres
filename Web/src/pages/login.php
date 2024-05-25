@@ -10,9 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $stmt->store_result();
 
+
         if ($stmt->num_rows > 0) {
             $stmt->bind_result($id_utilisateur, $hashed_password);
             $stmt->fetch();
+
 
             if (password_verify($password, $hashed_password)) {
                 $_SESSION["id_user"] = $id_utilisateur;
@@ -20,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             } else {
                 $error_message = "Mot de passe incorrect.";
+                exit();
             }
         } else {
             $error_message = "Aucun utilisateur avec cette adresse email.";
