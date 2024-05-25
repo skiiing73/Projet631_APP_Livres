@@ -1,34 +1,41 @@
 <?php
-    require_once("./lib/database.php");
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Assuming $conn is a valid mysqli connection
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
 
-    if (isset($_SESSION['user_id'])) {
-        header("Location: ./livres.php?pages=welcome");
-        exit();
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = trim($_POST["email"]);
-        $password = trim($_POST["password"]);
-
-        $stmt = $conn->prepare("SELECT id_utilisateur, mot_de_passe FROM utilisateur WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id_utilisateur, mot_de_passe FROM utilisateur WHERE email = ?");
+    if ($stmt) {
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
+
         if ($stmt->num_rows > 0) {
             $stmt->bind_result($id_utilisateur, $hashed_password);
             $stmt->fetch();
+
             if (password_verify($password, $hashed_password)) {
+                $_SESSION["id_user"] = $id_utilisateur;
                 header("Location: ./livres.php?pages=welcome");
-                $_SESSION['user_id'] = $id_utilisateur;
+                exit();
+            } else {
+                $error_message = "Mot de passe incorrect.";
             }
         } else {
-            $error_message = "Aucun utilisateur avec cette adresse email." . $stmt->error;
+            $error_message = "Aucun utilisateur avec cette adresse email.";
         }
+
+        $stmt->close();
+    } else {
+        $error_message = "Erreur de préparation de la requête: " . $conn->error;
     }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <?php require_once("./src/components/navbar/navbar.php"); ?>
 
@@ -39,14 +46,15 @@
     <link rel="stylesheet" type="text/css" href="./src/components/footer/footer.css">
     <title>Login Page</title>
 </head>
+
 <body>
     <?php
-        if (isset($error_message)) {
-            echo "<p id='message' style='color:red;'>$error_message</p>";
-        }
-        if (isset($success_message)) {
-            echo "<p id='message' style='color:green;'>$success_message</p>";
-        }
+    if (isset($error_message)) {
+        echo "<p id='message' style='color:red;'>$error_message</p>";
+    }
+    if (isset($success_message)) {
+        echo "<p id='message' style='color:green;'>$success_message</p>";
+    }
     ?>
     <form method="POST">
         <div class="form-group">
@@ -65,4 +73,5 @@
 
     <?php require_once("./src/components/footer/footer.php"); ?>
 </body>
+
 </html>
