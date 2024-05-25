@@ -245,19 +245,16 @@ public class Interface_Appli extends JFrame {
                             nom_auteur = creer_auteur(nom_auteur, livre);
 
                         }
-                    }
-                    catch (Exception e1) {
+                    } catch (Exception e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
                 }
 
-                 else {
+                else {
                     JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
                 }
             }
-
-            
 
         });
 
