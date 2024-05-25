@@ -62,6 +62,7 @@ if ($_SESSION["id_user"] != "") {
         <h2>Mes Avis</h2>
         <?php if ($reviews && count($reviews) > 0) : ?>
             <ul>
+<<<<<<< HEAD
                 <?php foreach ($reviews as $review) : ?>
                     <li>
 
@@ -69,6 +70,31 @@ if ($_SESSION["id_user"] != "") {
                         <p><strong>Commentaire:</strong> <?php echo htmlspecialchars($review['commentaire']); ?></p>
                         <p><strong>Date:</strong> <?php echo htmlspecialchars($review['date_avis']); ?></p>
 
+=======
+                <?php foreach ($reviews as $review): ?>
+                    <li class="review">
+                        <div class="book-info">
+
+                            <!-- Fetch of all the book info for this review's book id -->
+                            <?php
+                                $book_info = getBookByID($conn, $review['id_livre']);
+                            ?>
+
+                            <!-- Display of the book's informations -->
+                            <h3><?php echo htmlspecialchars($book_info[0]['nom_livre']); ?></h3>
+                            <?php 
+                                echo "<a href=\"./livres.php?pages=welcome&auteur_id=" . $book_info[0]['id_auteur'] . "\">" . htmlspecialchars($book_info[0]['prenom_auteur'] . " " . $book_info[0]['nom_auteur']) . "</a>";
+                            ?>
+                            <p><?php echo  htmlspecialchars($book_info[0]['nom_editeur']); ?></p>
+                            <p><?php echo $book_info[0]['date_de_publication']; ?></p>
+                            
+                        </div>
+                        <div class="review-info"> 
+                            <p><strong>Note:</strong> <?php echo htmlspecialchars($review['note']); ?></p>
+                            <p><strong>Commentaire:</strong> <?php echo htmlspecialchars($review['commentaire']); ?></p>
+                            <p><strong>Date:</strong> <?php echo htmlspecialchars($review['date_avis']); ?></p>
+                        </div>
+>>>>>>> origin/Web
                     </li>
                 <?php endforeach; ?>
             </ul>

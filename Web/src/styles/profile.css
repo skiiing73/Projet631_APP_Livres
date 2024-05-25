@@ -24,6 +24,7 @@
     color: #333;
 }
 
+/* For the reviews */
 .reviews-container {
     width: 80%;
     margin: 0 auto;
@@ -41,30 +42,40 @@
 }
 
 .reviews-container ul {
-    list-style: none;
-    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.reviews-container ul li {
-    background-color: #fff;
-    margin-bottom: 15px;
+.review {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 300px;
+    width: 500px;
+    margin: 20px;
+    background: #d0dde0;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.reviews-container ul li strong {
-    color: #555;
-    font-weight: bold;
+.book-info {
+    flex: 1;
+    min-width: 200px;
+    padding-right: 20px;
 }
 
-.reviews-container ul li p {
+.book-info h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.review-info {
+    flex: 3;
+}
+
+.review-info p {
     margin: 5px 0;
     color: #666;
     line-height: 1.6;
-}
-
-.reviews-container p {
-    text-align: center;
-    color: #777;
 }
