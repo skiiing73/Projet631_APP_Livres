@@ -29,6 +29,10 @@ Le dépôt GitHub est organisé en trois grandes sections : **web**, **sql**, et
 
 Pour plus de détails et pour accéder au code source, consultez notre dépôt GitHub : [Projet631_APP_Livres](https://github.com/skiiing73/Projet631_APP_Livres).
 
+## ⚠️ Important ⚠️
+
+Pour que l'application Java fonctionne correctement, il est nécessaire de copier le fichier `config.java` dans le dossier `ProjetLivresjava/src` afin de pouvoir se connecter à la base de données. De même, le fichier `config.php` doit être placé correctement pour permettre la connexion à la base de données via le site web.
+
 ## Auteurs
 Lin Mathieu, Wilhelm Arno,					
 Renand Baptiste, Soldan Maxens,							 
