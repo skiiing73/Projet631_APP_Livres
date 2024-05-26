@@ -1,66 +1,86 @@
-.user-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
-}
-
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 20px;
-    position: relative;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.profile-picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    transition: opacity 0.3s;
-}
-
+/* Styles pour la section du profile */
 .user-info {
-    text-align: center;
-    margin-top: 10px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.user-info h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Styles pour la section des avis */
 .reviews-container {
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    background-color: #f9f9f9;
     padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .reviews-container h2 {
+    font-size: 24px;
+    color: #333;
     margin-bottom: 20px;
 }
 
 .reviews-container ul {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
 }
 
-.reviews-container ul li {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+.reviews-container li {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
 }
 
-.reviews-container ul li p {
-    margin: 5px 0;
+.reviews-container li:last-child {
+    border-bottom: none;
+}
+
+.reviews-container p {
+    margin: 0;
+    color: #666;
+}
+
+.reviews-container strong {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Styles pour les éléments du formulaire */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
 }

@@ -17,9 +17,8 @@ function getUserInfo($conn, $user_id)
 // Function to get all reviews written by a user
 function getUserReviews($conn, $user_id)
 {
-    $sql = "SELECT id_avis, note, commentaire, date_avis, id_livre FROM avis WHERE id_utilisateur = ?";
+    $sql = "SELECT id_avis, note, commentaire, date_avis, nom_livre, id_livre FROM avis NATURAL JOIN livre WHERE id_utilisateur = $user_id";
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("i", $user_id);
 
         if ($stmt->execute()) {
             $result = $stmt->get_result();
