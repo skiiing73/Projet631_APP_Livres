@@ -25,15 +25,16 @@ Le dépôt GitHub est organisé en trois grandes sections : **web**, **sql**, et
 ## Fonctionnalités Développées
 
 - **Déjà Implémentées** : Inscription et connexion des utilisateurs, consultation des avis et des livres, possibilité de poster des avis.
-- **À Venir** : Consultation des avis par membre, gestion des amis, ajout de commentaires.
+- **À Venir** : Consultation des avis par membre, gestion des amis.
 
 Pour plus de détails et pour accéder au code source, consultez notre dépôt GitHub : [Projet631_APP_Livres](https://github.com/skiiing73/Projet631_APP_Livres).
 
 ## ⚠️ Important ⚠️
 
-Pour que l'application Java fonctionne correctement, il est nécessaire de copier le fichier `config.java` dans le dossier `ProjetLivresjava/src` afin de pouvoir se connecter à la base de données. De même, le fichier `config.php` doit être placé correctement pour permettre la connexion à la base de données via le site web.
+Pour que l'application Java fonctionne correctement, il est nécessaire de copier le fichier `config.java` dans le dossier `ProjetLivresjava/src` afin de pouvoir se connecter à la base de données. De même, le fichier `config_bd.php` doit être placé correctement dans le dossier `public_html` dont ce dossier est avant le dossier `ProjetLivresjava` pour permettre la connexion à la base de données via le site web.
 
 ## Auteurs
-Lin Mathieu, Wilhelm Arno,					
-Renand Baptiste, Soldan Maxens,							 
+
+Lin Mathieu, Wilhelm Arno,
+Renand Baptiste, Soldan Maxens,
 Bercier Thomas, Degouey Corentin

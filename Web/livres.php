@@ -4,6 +4,7 @@
 require_once("./lib/database.php");
 
 if (!isset($_GET['id_utilisateur']) && !isset($_GET['pages'])) {
+    $_SESSION["id_user"] = "";
     header("Location: ./livres.php?pages=login");
     exit();
 }
@@ -13,9 +14,6 @@ if (!isset($_GET["pages"])) {
     $_SESSION["id_user"] = "";
     require_once('./src/pages/new_welcome.php');
 } else {
-    if ($_SESSION["id_user"] == null) {
-        $_SESSION["id_user"] = "";
-    }
     if ($_GET["pages"] == "welcome") {
         require_once('./src/pages/new_welcome.php');
     } else if ($_GET["pages"] == "login") {
