@@ -31,7 +31,7 @@ Pour plus de détails et pour accéder au code source, consultez notre dépôt G
 
 ## ⚠️ Important ⚠️
 
-Pour que l'application Java fonctionne correctement, il est nécessaire de copier le fichier `config.java` dans le dossier `ProjetLivresjava/src` afin de pouvoir se connecter à la base de données. De même, le fichier `config_bd.php` doit être placé correctement dans le dossier `public_html` dont ce dossier est avant le dossier `ProjetLivresjava` pour permettre la connexion à la base de données via le site web.
+Pour que l'application Java fonctionne correctement, il est nécessaire de copier le fichier `config.java` dans le dossier `ProjetLivresjava/src` afin de pouvoir se connecter à la base de données. De même, le fichier `config_bd.php` doit être placé correctement dans le dossier `public_html` dont ce dossier est avant le dossier `Projet631_APP_Livres` pour permettre la connexion à la base de données via le site web.
 
 ## Auteurs
 
