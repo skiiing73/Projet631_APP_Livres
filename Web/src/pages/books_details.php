@@ -2,39 +2,37 @@
 <html lang="fr">
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_SESSION["id_user"])) {
-    // Assuming $conn is a valid mysqli connection
-    if (isset($_POST["note"]) && isset($_POST["comment"]) && isset($_GET["id_livre"])) {
-        $note = trim($_POST["note"]);
-        $comment = trim($_POST["comment"]);
-        $id_livre = intval($_GET["id_livre"]);
-        $id_utilisateur = intval($_SESSION["id_user"]);
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_SESSION["user_id"])) {
+        // Assuming $conn is a valid mysqli connection
+        if (isset($_POST["note"]) && isset($_POST["comment"]) && isset($_GET["id_livre"])) {
+            $note = trim($_POST["note"]);
+            $comment = trim($_POST["comment"]);
+            $id_livre = intval($_GET["id_livre"]);
+            $id_utilisateur = intval($_SESSION["id_user"]);
 
-        // Validate inputs
-        if (!is_numeric($note) || $note < 0 || $note > 5) { // Example validation for a rating scale of 0-5
-            $error_message = "La note doit être un nombre entre 0 et 5.";
-        } elseif (empty($comment)) {
-            $error_message = "Le commentaire ne peut pas être vide.";
-        } else {
-            $stmt = $conn->prepare("INSERT INTO Avis (note, commentaire, date_avis, id_livre, id_utilisateur) VALUES (?, ?, NOW(), ?, ?)");
-            if ($stmt) {
-                $stmt->bind_param("isii", $note, $comment, $id_livre, $id_utilisateur);
-                if ($stmt->execute()) {
-                    $success_message = "Votre avis a été soumis avec succès.";
-                } else {
-                    $error_message = "Erreur lors de l'insertion de l'avis: " . $stmt->error;
-                }
-                $stmt->close();
+            // Validate inputs
+            if (!is_numeric($note) || $note < 0 || $note > 5) { // Example validation for a rating scale of 0-5
+                $error_message = "La note doit être un nombre entre 0 et 5.";
+            } elseif (empty($comment)) {
+                $error_message = "Le commentaire ne peut pas être vide.";
             } else {
-                $error_message = "Erreur de préparation de la requête: " . $conn->error;
+                $stmt = $conn->prepare("INSERT INTO Avis (note, commentaire, date_avis, id_livre, id_utilisateur) VALUES (?, ?, NOW(), ?, ?)");
+                if ($stmt) {
+                    $stmt->bind_param("isii", $note, $comment, $id_livre, $id_utilisateur);
+                    if ($stmt->execute()) {
+                        $success_message = "Votre avis a été soumis avec succès.";
+                    } else {
+                        $error_message = "Erreur lors de l'insertion de l'avis: " . $stmt->error;
+                    }
+                    $stmt->close();
+                } else {
+                    $error_message = "Erreur de préparation de la requête: " . $conn->error;
+                }
             }
+        } else {
+            $error_message = "Le champs avis est requis.";
         }
-    } else {
-        $error_message = "Le champs avis est requis.";
     }
-} else {
-    $error_message = "Vous devez être connecté pour laisser un avis.";
-}
 ?>
 <?php
 // Les fonctions importés : 
@@ -64,8 +62,6 @@ $offset = ($page - 1) * $limit;
 
 <head>
     <meta charset="UTF-8">
-    <?php  //css a ajouter apres 
-    ?>
     <link rel="stylesheet" type="text/css" href="./src/styles/global.css">
     <link rel="stylesheet" type="text/css" href="./src/styles/books_details.css">
     <link rel="stylesheet" type="text/css" href="./src/components/navbar/navbar.css">
@@ -119,24 +115,32 @@ $offset = ($page - 1) * $limit;
             <div class="details_informations">
                 <h2>Donnez votre avis : </h2>
                 <?php
-                if (isset($error_message)) {
-                    echo "<p id='message' style='color:red;'>$error_message</p>";
-                }
-                if (isset($success_message)) {
-                    echo "<p id='message' style='color:green;'>$success_message</p>";
-                }
+                    if (isset($error_message)) {
+                        echo "<p id='message' style='color:red;'>$error_message</p>";
+                    }
+                    if (isset($success_message)) {
+                        echo "<p id='message' style='color:green;'>$success_message</p>";
+                    }
+
+                    if (empty($_SESSION["id_user"])) {
+                        echo "<p id='message' style='color:red;'>Vous devez être connecté pour laisser un avis.</p>";
+                    } else {
                 ?>
-                <form method="POST">
-                    <div class="form-group">
-                        <label for="note">Note </label>
-                        <input type="number" id="note" name="note" min="0" max="5" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="comment">Commentaire</label>
-                        <input type="text" id="comment" name="comment" required>
-                    </div>
-                    <button type="submit">Envoyer</button>
-                </form>
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="note">Note </label>
+                            <input type="number" id="note" name="note" min="0" max="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Commentaire</label>
+                            <input type="text" id="comment" name="comment" required>
+                        </div>
+                        <button type="submit">Envoyer</button>
+                    </form>
+                <?php
+                    }
+                ?>
+
 
             </div>
             <div class="list_comments">

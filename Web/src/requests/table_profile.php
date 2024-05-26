@@ -2,9 +2,8 @@
 // Function to get user information
 function getUserInfo($conn, $user_id)
 {
-    $sql = "SELECT prenom_utilisateur, nom_utilisateur FROM utilisateur WHERE id_utilisateur = ?;";
+    $sql = "SELECT prenom_utilisateur, nom_utilisateur FROM utilisateur WHERE id_utilisateur = $user_id;";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
